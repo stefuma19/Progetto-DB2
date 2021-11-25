@@ -3,5 +3,16 @@
 	<persistence-unit name="Progetto-DB2-EJB">
 		<jta-data-source>MySQLDataBaseProgetto</jta-data-source>
 		<class>it.polimi.db2.progetto.entities.Consumer</class>
+		<class>it.polimi.db2.progetto.entities.FixedPhone</class>
+		<class>it.polimi.db2.progetto.entities.FixedInternet</class>
+		<class>it.polimi.db2.progetto.entities.MobileInternet</class>
+		<class>it.polimi.db2.progetto.entities.MobilePhone</class>
+		<class>it.polimi.db2.progetto.entities.OptionalProduct</class>
+		<class>it.polimi.db2.progetto.entities.ServicePackage</class>
+		<class>it.polimi.db2.progetto.entities.Employee</class>
+		<class>it.polimi.db2.progetto.entities.Alert</class>
+		<class>it.polimi.db2.progetto.entities.ValidityPeriod</class>
+		<class>it.polimi.db2.progetto.entities.ServiceActivationSchedule</class>
+		<class>it.polimi.db2.progetto.entities.Order</class>
 	</persistence-unit>
 </persistence>

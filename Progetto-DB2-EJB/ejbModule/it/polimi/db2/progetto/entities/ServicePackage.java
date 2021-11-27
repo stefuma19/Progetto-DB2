@@ -26,6 +26,25 @@ public class ServicePackage implements Serializable{
 		}
 			)
 	private List<OptionalProduct> optionalProducts;
+	
+	@OneToMany(fetch =FetchType.LAZY, mappedBy = "servicePackage")
+	private List<Order> orders;
+	
+	@ManyToOne(fetch =FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+	@JoinColumn(name = "IdFP")
+	private FixedPhone fixedPhone;
+	
+	@ManyToOne(fetch =FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+	@JoinColumn(name = "IdFI")
+	private FixedInternet fixedInternet;
+	
+	@ManyToOne(fetch =FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+	@JoinColumn(name = "IdMP")
+	private MobilePhone mobilePhone;
+	
+	@ManyToOne(fetch =FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+	@JoinColumn(name = "IdMI")
+	private MobileInternet mobileInternet;
 
 	public int getIdServicePackage() {
 		return idServicePackage;
@@ -50,6 +69,48 @@ public class ServicePackage implements Serializable{
 	public void setOptionalProducts(List<OptionalProduct> optionalProducts) {
 		this.optionalProducts = optionalProducts;
 	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
+	public FixedPhone getFixedPhone() {
+		return fixedPhone;
+	}
+
+	public void setFixedPhone(FixedPhone fixedPhone) {
+		this.fixedPhone = fixedPhone;
+	}
+
+	public FixedInternet getFixedInternet() {
+		return fixedInternet;
+	}
+
+	public void setFixedInternet(FixedInternet fixedInternet) {
+		this.fixedInternet = fixedInternet;
+	}
+
+	public MobilePhone getMobilePhone() {
+		return mobilePhone;
+	}
+
+	public void setMobilePhone(MobilePhone mobilePhone) {
+		this.mobilePhone = mobilePhone;
+	}
+
+	public MobileInternet getMobileInternet() {
+		return mobileInternet;
+	}
+
+	public void setMobileInternet(MobileInternet mobileInternet) {
+		this.mobileInternet = mobileInternet;
+	}
+	
+	
 	
 	//TODO: potremmo aggiungere un addOptionalProduct
 	

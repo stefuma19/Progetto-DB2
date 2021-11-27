@@ -16,7 +16,7 @@ public class Alert implements Serializable{
 	private float amount;
 	private Date lastRejection;
 	
-	@OneToOne
+	@OneToOne(fetch =FetchType.LAZY)
 	@JoinColumn(name = "UserConsumer")
 	private Consumer userConsumer;
 	

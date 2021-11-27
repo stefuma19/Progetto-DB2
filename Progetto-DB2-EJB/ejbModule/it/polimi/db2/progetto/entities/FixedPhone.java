@@ -1,6 +1,8 @@
 package it.polimi.db2.progetto.entities;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +13,9 @@ public class FixedPhone implements Serializable{
 
 	@Id
 	private int idService;
+	
+	@OneToMany(fetch =FetchType.LAZY, mappedBy = "fixedPhone")
+	private List<ServicePackage> servicePackages;
 
 	public int getIdService() {
 		return idService;
@@ -19,5 +24,14 @@ public class FixedPhone implements Serializable{
 	public void setIdService(int idService) {
 		this.idService = idService;
 	}
+
+	public List<ServicePackage> getServicePackages() {
+		return servicePackages;
+	}
+
+	public void setServicePackages(List<ServicePackage> servicePackages) {
+		this.servicePackages = servicePackages;
+	}
+	
 	
 }

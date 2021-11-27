@@ -17,6 +17,10 @@ public class ServiceActivationSchedule implements Serializable{
 	private Date actDate;
 	private Date deactDate;
 	
+	@OneToOne(fetch =FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+	@JoinColumn(name = "IdOrder")
+	private Order order;
+	
 	public int getIdSAS() {
 		return idSAS;
 	}
@@ -39,6 +43,14 @@ public class ServiceActivationSchedule implements Serializable{
 	
 	public void setDeactDate(Date deactDate) {
 		this.deactDate = deactDate;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 	
 	

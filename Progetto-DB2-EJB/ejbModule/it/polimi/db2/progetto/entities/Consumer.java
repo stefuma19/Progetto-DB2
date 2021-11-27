@@ -1,6 +1,8 @@
 package it.polimi.db2.progetto.entities;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,8 +19,11 @@ public class Consumer implements Serializable {
 	private boolean isInsolvent;
 	private int numFailedPayments;
 	
-	@OneToOne(mappedBy = "userConsumer")
+	@OneToOne(fetch =FetchType.LAZY, mappedBy = "userConsumer")
 	private Alert alert;
+	
+	@OneToMany(fetch =FetchType.EAGER, mappedBy = "userConsumer")
+	private List<Order> orders;
 
 	public Consumer() {
 	}
@@ -61,6 +66,22 @@ public class Consumer implements Serializable {
 
 	public void setNumFailedPayments(int numFailedPayments) {
 		this.numFailedPayments = numFailedPayments;
+	}
+
+	public Alert getAlert() {
+		return alert;
+	}
+
+	public void setAlert(Alert alert) {
+		this.alert = alert;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 	
 	

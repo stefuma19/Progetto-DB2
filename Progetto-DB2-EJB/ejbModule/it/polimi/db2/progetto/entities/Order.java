@@ -30,7 +30,22 @@ public class Order implements Serializable{
 		}
 			)
 	private List<OptionalProduct> optionalProductsOrdered;
+	
+	@OneToOne(fetch =FetchType.LAZY, mappedBy = "order")
+	private ServiceActivationSchedule serviceActivationSchedule;
 
+	@ManyToOne(fetch =FetchType.LAZY)
+	@JoinColumn(name = "UserConsumer")
+	private Consumer userConsumer;
+	
+	@ManyToOne(fetch =FetchType.EAGER)
+	@JoinColumn(name = "IdSP")
+	private ServicePackage servicePackage;
+	
+	@ManyToOne(fetch =FetchType.EAGER)
+	@JoinColumn(name = "IdValidity")
+	private ValidityPeriod validityPeriod;
+	
 	public int getIdOrder() {
 		return idOrder;
 	}
@@ -78,5 +93,38 @@ public class Order implements Serializable{
 	public void setOptionalProductsOrdered(List<OptionalProduct> optionalProducts) {
 		this.optionalProductsOrdered = optionalProducts;
 	}
+
+	public ServiceActivationSchedule getServiceActivationSchedule() {
+		return serviceActivationSchedule;
+	}
+
+	public void setServiceActivationSchedule(ServiceActivationSchedule serviceActivationSchedule) {
+		this.serviceActivationSchedule = serviceActivationSchedule;
+	}
+
+	public Consumer getUserConsumer() {
+		return userConsumer;
+	}
+
+	public void setUserConsumer(Consumer userConsumer) {
+		this.userConsumer = userConsumer;
+	}
+
+	public ServicePackage getServicePackage() {
+		return servicePackage;
+	}
+
+	public void setServicePackage(ServicePackage servicePackage) {
+		this.servicePackage = servicePackage;
+	}
+
+	public ValidityPeriod getValidityPeriod() {
+		return validityPeriod;
+	}
+
+	public void setValidityPeriod(ValidityPeriod validityPeriod) {
+		this.validityPeriod = validityPeriod;
+	}
+	
 	
 }

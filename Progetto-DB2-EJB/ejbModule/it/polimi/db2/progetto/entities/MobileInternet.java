@@ -1,6 +1,8 @@
 package it.polimi.db2.progetto.entities;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +14,9 @@ public class MobileInternet implements Serializable{
 
 	@Id
 	private int idService;
+	
+	@OneToMany(fetch =FetchType.LAZY, mappedBy = "mobileInternet")
+	private List<ServicePackage> servicePackages;
 
 	private int numGigaMI;
 	
@@ -41,4 +46,13 @@ public class MobileInternet implements Serializable{
 		this.extraGigaFeeMI = extraGigaFeeMI;
 	}
 
+	public List<ServicePackage> getServicePackages() {
+		return servicePackages;
+	}
+
+	public void setServicePackages(List<ServicePackage> servicePackages) {
+		this.servicePackages = servicePackages;
+	}
+
+	
 }

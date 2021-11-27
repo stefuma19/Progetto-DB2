@@ -17,10 +17,10 @@ public class OptionalProduct implements Serializable{
 	private String nameOP;
 	private float monthlyFeeOP;
 	
-	@ManyToMany(mappedBy = "optionalProducts")
+	@ManyToMany(fetch =FetchType.LAZY, mappedBy = "optionalProducts")
 	private List<ServicePackage> servicePackages;
 	
-	@ManyToMany(mappedBy = "optionalProductsOrdered")
+	@ManyToMany(fetch =FetchType.LAZY, mappedBy = "optionalProductsOrdered")
 	private List<Order> orders;
 	
 	public int getIdOP() {

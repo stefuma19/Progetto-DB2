@@ -7,6 +7,8 @@ import java.util.List;
 @Entity
 @Table(name="service_package", schema ="db2progetto")
 
+@NamedQuery(name="ServicePackage.findAll", query="SELECT sp FROM ServicePackage sp")
+
 public class ServicePackage implements Serializable{
 	private static final long serialVersionUID = 1L;
 

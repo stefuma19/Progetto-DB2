@@ -12,13 +12,13 @@
 	<div>
 		<a href="GoToBuyPage">Buy a service package</a>
 	</div>
-	
+	<br>
 	<table>
 		<tr  th:each="sp : ${servicePackages}">
 			<td>
 				<span th:text="${sp.name}">Service Package name</span>
 				<ul>
-					<li th::text="${sp.fixedPhone.idService}"></li>
+					<li th::text="${sp.fixedPhone} != null ? 'Fixed Phone'"></li>
 					<li th::text="${sp.fixedInternet} != null ? 'Fixed Internet'"></li>
 					<li th::text="${sp.mobilePhone} != null ? 'Mobile Phone'"></li>
 					<li th::text="${sp.mobileInternet} != null ? 'Mobile Internet'"></li>
@@ -26,7 +26,7 @@
 			</td>
 		</tr>
 	</table>	
-	
+	<br>
 	<div>
 		Rejected orders:
 		da implementare

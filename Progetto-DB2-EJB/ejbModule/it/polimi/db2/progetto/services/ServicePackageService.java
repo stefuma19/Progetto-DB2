@@ -19,4 +19,8 @@ public class ServicePackageService {
 	public List<ServicePackage> getServicePackages(){
 		return null;
 	}
+	
+	public List<ServicePackage> findAllServicePackages() {
+		return em.createNamedQuery("ServicePackage.findAll", ServicePackage.class).getResultList();
+	}
 }

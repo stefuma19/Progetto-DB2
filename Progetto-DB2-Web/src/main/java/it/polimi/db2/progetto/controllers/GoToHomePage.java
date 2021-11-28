@@ -29,8 +29,8 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 public class GoToHomePage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
-	@EJB(name = "it.polimi.db2.progetto.services/ConsumerService")
-	private ConsumerService consumerService;
+	@EJB(name = "it.polimi.db2.progetto.services/ServicePackageService")
+	private ServicePackageService spService;
 
 	public GoToHomePage() {
 		super();
@@ -48,27 +48,12 @@ public class GoToHomePage extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Consumer c = null;
 		
-		//TODO copiato da codice veccchio, da togliere
-		/*int userId = (int) request.getSession().getAttribute("userId");
-		t = tService.findById(userId);
-		if (chosen != null)
-			course = consumerService.findById(chosen);
-		if (chosen == null | course == null)
-			course = consumerService.findDefault();*/
+		List<ServicePackage> servicePackages = spService.findAllServicePackages();
 
 		String path = "/WEB-INF/home.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-		
-		//TODO copiato da codice veccchio, da togliere
-		/*if (t != null)
-			ctx.setVariable("responsible", t);
-		if (course != null)
-			ctx.setVariable("chosencourse", course);*/
-		
-		List<ServicePackage> servicePackages = new ArrayList<>();
 		
 		//AGGIUNTO PER TESTARE home.html
 		/*FixedPhone fp = new FixedPhone();

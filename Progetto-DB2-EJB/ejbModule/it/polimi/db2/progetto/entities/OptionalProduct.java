@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class OptionalProduct implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@Id @GeneratedValue
 	private int idOP;
 	
 	private String nameOP;

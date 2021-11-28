@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Alert implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@Id @GeneratedValue
 	private int idAlert;
 	private float amount;
 	private Date lastRejection;

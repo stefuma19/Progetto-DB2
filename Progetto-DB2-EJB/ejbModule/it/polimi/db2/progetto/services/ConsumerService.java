@@ -17,10 +17,10 @@ public class ConsumerService {
 	public ConsumerService() {
 	}
 
-	public String checkCredentials(String usrn, String pwd) throws CredentialsException, NonUniqueResultException {
+	public String checkLogin(String username, String password) throws CredentialsException, NonUniqueResultException {
 		List<Consumer> cList = null;
 		try {
-			cList = em.createNamedQuery("Consumer.checkCredentials", Consumer.class).setParameter(1, usrn).setParameter(2, pwd)
+			cList = em.createNamedQuery("Consumer.checkCredentials", Consumer.class).setParameter(1, username).setParameter(2, password)
 					.getResultList();
 		} catch (PersistenceException e) {
 			throw new CredentialsException("Could not verify credentals");
@@ -30,7 +30,11 @@ public class ConsumerService {
 		else if (cList.size() == 1)
 			return cList.get(0).getUsername();
 		throw new NonUniqueResultException("More than one user registered with same credentials");
-
 	}
 
+	
+	public String registrate(String email, String username, String password) {
+		//TODO: da fare
+		return null;
+	}
 }

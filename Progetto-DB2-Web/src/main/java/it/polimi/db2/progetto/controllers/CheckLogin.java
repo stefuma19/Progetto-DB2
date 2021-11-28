@@ -60,7 +60,7 @@ public class CheckLogin extends HttpServlet {
 		String consUsername = null;
 		try {
 			// query db to authenticate for user
-			consUsername = consumerService.checkCredentials(usrn, pwd);
+			consUsername = consumerService.checkLogin(usrn, pwd);
 		} catch (CredentialsException | NonUniqueResultException e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not check credentials");
@@ -82,7 +82,6 @@ public class CheckLogin extends HttpServlet {
 			path = getServletContext().getContextPath() + "/GoToHomePage";
 			response.sendRedirect(path);
 		}
-
 	}
 
 	public void destroy() {

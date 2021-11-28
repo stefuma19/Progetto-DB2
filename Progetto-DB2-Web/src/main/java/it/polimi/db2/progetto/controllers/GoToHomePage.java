@@ -48,21 +48,25 @@ public class GoToHomePage extends HttpServlet {
 			throws ServletException, IOException {
 		Consumer c = null;
 		
+		//TODO copiato da codice veccchio, da togliere
 		/*int userId = (int) request.getSession().getAttribute("userId");
 		t = tService.findById(userId);
 		if (chosen != null)
 			course = consumerService.findById(chosen);
 		if (chosen == null | course == null)
-			course = consumerService.findDefault();
+			course = consumerService.findDefault();*/
 
-		String path = "/WEB-INF/Home.html";
+		String path = "/WEB-INF/home.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-		if (t != null)
+		
+		//TODO copiato da codice veccchio, da togliere
+		/*if (t != null)
 			ctx.setVariable("responsible", t);
 		if (course != null)
-			ctx.setVariable("chosencourse", course);
-		templateEngine.process(path, ctx, response.getWriter());*/
+			ctx.setVariable("chosencourse", course);*/
+		
+		templateEngine.process(path, ctx, response.getWriter());
 
 	}
 

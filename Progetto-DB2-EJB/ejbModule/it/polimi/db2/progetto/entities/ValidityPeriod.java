@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class ValidityPeriod implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@Id @GeneratedValue
 	private int idValidityPeriod;
 	private int numMonth;
 	private float monthlyFee;

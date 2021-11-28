@@ -12,7 +12,7 @@ public class MobileInternet implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@Id @GeneratedValue
 	private int idService;
 	
 	@OneToMany(fetch =FetchType.LAZY, mappedBy = "mobileInternet")

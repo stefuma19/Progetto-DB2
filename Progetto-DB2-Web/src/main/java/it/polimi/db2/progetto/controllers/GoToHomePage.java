@@ -53,29 +53,7 @@ public class GoToHomePage extends HttpServlet {
 
 		String path = "/WEB-INF/home.html";
 		ServletContext servletContext = getServletContext();
-		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-		
-		//AGGIUNTO PER TESTARE home.html
-		/*FixedPhone fp = new FixedPhone();
-		fp.setIdService(0);
-		
-		ServicePackage servicePackage = new ServicePackage();
-		servicePackage.setIdServicePackage(0);
-		servicePackage.setName("Nome del service pkg 1");
-		servicePackage.setFixedPhone(fp);
-		
-		servicePackages.add(servicePackage);
-		
-		MobileInternet mi = new MobileInternet();
-		mi.setIdService(1);
-		mi.setNumGigaMI(10);
-		mi.setExtraGigaFeeMI(9.99f);
-		servicePackage = new ServicePackage();
-		servicePackage.setIdServicePackage(1);
-		servicePackage.setName("Nome del service pkg 2");
-		servicePackage.setMobileInternet(mi);
-		servicePackages.add(servicePackage);*/
-		
+		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());		
 		ctx.setVariable("servicePackages", servicePackages);
 		templateEngine.process(path, ctx, response.getWriter());
 

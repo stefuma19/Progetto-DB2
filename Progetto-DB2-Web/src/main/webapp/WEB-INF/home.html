@@ -6,9 +6,30 @@
 </head>
 <body>
 	<div>
-		<table><tr>
-			<td>Welcome <span th:text="${session.consUsername}"> consUsername </span></td>
-		</tr></table>
+		Welcome <span th:text="${session.consUsername}"> consUsername </span>
+	</div>
+	<br>
+	<div>
+		<a href="GoToBuyPage">Buy a service package</a>
+	</div>
+	
+	<table>
+		<tr  th:each="sp : ${servicePackages}">
+			<td>
+				<span th:text="${sp.name}">Service Package name</span>
+				<ul>
+					<li th::text="${sp.fixedPhone.idService}"></li>
+					<li th::text="${sp.fixedInternet} != null ? 'Fixed Internet'"></li>
+					<li th::text="${sp.mobilePhone} != null ? 'Mobile Phone'"></li>
+					<li th::text="${sp.mobileInternet} != null ? 'Mobile Internet'"></li>
+				</ul>
+			</td>
+		</tr>
+	</table>	
+	
+	<div>
+		Rejected orders:
+		da implementare
 	</div>
 
 </body>

@@ -33,8 +33,8 @@ public class ConsumerService {
 	}
 
 	
-	public String registrate(String email, String username, String password) {
+	public boolean registrate(String email, String username, String password) throws CredentialsException{
 		//TODO: da fare
-		return null;
+		return true;
 	}
 }

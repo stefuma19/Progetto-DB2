@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.NonUniqueResultException;
+
 import it.polimi.db2.progetto.entities.Consumer;
 import it.polimi.db2.progetto.exceptions.*;
 import java.util.List;
@@ -33,8 +34,21 @@ public class ConsumerService {
 	}
 
 	
-	public boolean registrate(String email, String username, String password) throws CredentialsException{
-		//TODO: da fare
-		return true;
+	public boolean register(String email, String username, String password) throws CredentialsException{
+	
+		if(em.createNamedQuery("Consumer.findUsername", Consumer.class).setParameter(1, username).getResultList().size() != 0) {
+			return false;
+		}
+		else {
+			Consumer c = new Consumer();
+			c.setEmail(email);
+			c.setUsername(username);
+			c.setPassword(password);
+			c.setInsolvent(false);
+			c.setNumFailedPayments(0);
+			em.persist(c);
+			return true;
+		}
+		
 	}
 }

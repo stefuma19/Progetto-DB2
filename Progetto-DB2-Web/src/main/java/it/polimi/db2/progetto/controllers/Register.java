@@ -20,14 +20,14 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import it.polimi.db2.progetto.exceptions.CredentialsException;
 import it.polimi.db2.progetto.services.ConsumerService;
 
-@WebServlet("/Registrate")
-public class Registrate extends HttpServlet{
+@WebServlet("/Register")
+public class Register extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
 	@EJB(name = "it.polimi.db2.progetto.services/ConsumerService")
 	private ConsumerService consumerService;
 	
-	public Registrate() {
+	public Register() {
 		super();
 	}
 
@@ -62,7 +62,7 @@ public class Registrate extends HttpServlet{
 		boolean isRegistrated = false;
 		try {
 			// query db to authenticate for user
-			isRegistrated = consumerService.registrate(email, username, password);
+			isRegistrated = consumerService.register(email, username, password);
 		} catch (CredentialsException e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not registrate");

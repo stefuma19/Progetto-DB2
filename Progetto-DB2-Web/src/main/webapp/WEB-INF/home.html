@@ -14,7 +14,7 @@
 	</div>
 	<br>
 	<table>
-		<tr  th:each="sp : ${servicePackages}">
+		<tr th:each="sp : ${servicePackages}">
 			<td>
 				<span th:text="${sp.name}">Service Package name</span><br>
 				<div th:if="${sp.fixedPhone != null}">
@@ -55,8 +55,15 @@
 	</table>	
 	<br>
 	<div th:if="${session.consIsInsolvent}">
-		Rejected orders:
-		da implementare
+	<div th:if="${invalidOrders != null}">
+		<table>
+			<tr th:each="or : ${invalidOrders}">
+				<td>
+					<span th:text="${or.totValue}">total value</span><br>
+				</td>
+			</tr>
+		</table>
+	</div>
 	</div>
 
 </body>

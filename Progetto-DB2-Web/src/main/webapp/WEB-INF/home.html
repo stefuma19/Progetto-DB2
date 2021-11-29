@@ -53,13 +53,22 @@
 			</td>
 		</tr>
 	</table>	
-	<br>
+	<br><hr>
 	<div th:if="${session.consIsInsolvent}">
 	<div th:if="${invalidOrders != null}">
 		<table>
 			<tr th:each="ord : ${invalidOrders}" >
 				<td>
-					<span th:text="${ord.totValue}">total value</span><br>
+				<div>
+					<ul><li>Order of service package "<span th:text="${ord.servicePackage.name}"></span>"
+						<ul>
+							<li>Total value: <span th:text="${#numbers.formatDecimal(ord.totValue, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+							<li>Purchase data: <span th:text="${#dates.format(ord.creationDate, 'dd-MMM-yyyy')}"></span></li>
+							<li>Activation data: <span th:text="${#dates.format(ord.startDate, 'dd-MMM-yyyy')}"></span></li>
+							
+						</ul>
+					</li></ul>
+				</div>
 				</td>
 			</tr>
 		</table>

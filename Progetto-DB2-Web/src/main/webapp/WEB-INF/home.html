@@ -5,79 +5,82 @@
 	<title>Home page</title>
 </head>
 <body>
-	<div>
-		Welcome <span th:text="${session.consUsername}"> consUsername </span>
-	</div>
-	<br>
-	<div>
-		<a href="GoToBuyPage">Buy a service package</a>
-	</div>
-	<br>
-	<table style="width:100%; border: 1px solid black; border-collapse: collapse;">
-		<tr th:each="sp : ${servicePackages}">
-			<td>
-				<span th:text="${sp.name}">Service Package name</span><br>
-				<div th:if="${sp.fixedPhone != null}">
-					<ul><li>Fixed Phone</li></ul>
-				</div>
-				<div th:if="${sp.fixedInternet != null}">
-					<ul><li>Fixed Internet
-						<ul>
-							<li>Number of included Gigabytes: <span th:text="${sp.fixedInternet.numGigaFI}"></span></li>
-							<li>Fee for extra Gigabytes: <span th:text="${#numbers.formatDecimal(
-											sp.fixedInternet.extraGigaFeeFI, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
-						</ul>
-					</li></ul>
-				</div>
-				<div th:if="${sp.mobilePhone != null}">
-					<ul><li>Mobile Phone
-						<ul>
-							<li>Number of minutes: <span th:text="${sp.mobilePhone.numMin}"></span></li>
-							<li>Number of SMSs: <span th:text="${sp.mobilePhone.numSMS}"></span></li>
-							<li>Fee for extra minutes: <span th:text="${#numbers.formatDecimal(
-											sp.mobilePhone.minFee, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
-							<li>Fee for extra SMSs: <span th:text="${#numbers.formatDecimal(
-											sp.mobilePhone.smsFee, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
-						</ul>
-					</li></ul>
-				</div>
-				<div th:if="${sp.mobileInternet != null}">
-					<ul><li>Mobile Internet
-						<ul>
-							<li>Number of included Gigabytes: <span th:text="${sp.mobileInternet.extraGigaFeeMI}"></span></li>
-							<li>Fee for extra Gigabytes: <span th:text="${#numbers.formatDecimal(
-											sp.mobileInternet.extraGigaFeeMI, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
-						</ul>
-					</li></ul>
-				</div>
-			</td>
-		</tr>
-	</table>	
-	<br><hr>
-	<div th:if="${session.consIsInsolvent}">
-	<div th:if="${invalidOrders != null}">
-		<table>
-			<tr th:each="ord : ${invalidOrders}" >
-				<td>
-				<div>
-					<ul><li>Order of service package "<span th:text="${ord.servicePackage.name}"></span>"
-						<ul>
-							<li>Total value: <span th:text="${#numbers.formatDecimal(ord.totValue, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
-							<li>Purchase data: <span th:text="${#dates.format(ord.creationDate, 'dd-MMM-yyyy')}"></span></li>
-							<li>Activation data: <span th:text="${#dates.format(ord.startDate, 'dd-MMM-yyyy')}"></span></li>
-							
-						</ul>
-					</li></ul>
-				</div>
-				<form action="GoToConfirmPage" method="POST">
-					<input type="hidden" id="orderId" name="orderId" th:value="${ord.idOrder}">
-				    <input type="submit" value="Confirm" />
-				</form>
-				</td>
-			</tr>
-		</table>
-	</div>
-	</div>
-
+	<table style="width:30%; border-collapse: collapse; margin-left: auto; margin-right: auto;"><tr>
+		<td style="text-align: center; vertical-align: middle;">
+			<h2>Welcome <span th:text="${session.consUsername}"> consUsername </span></h2>
+			<div>
+				<a href="GoToBuyPage">Buy a service package</a>
+			</div>
+			<br>
+		</td></tr><tr><td>
+			<table style="width:100%; border: 1px solid black; border-collapse: collapse;">
+				<tr th:each="sp : ${servicePackages}" style="border: 1px solid black;">
+					<td style="border: 1px solid black;">
+					<table><tr>
+						<th><span th:text="${sp.name}">Service Package name</span></th>
+						<td><div th:if="${sp.fixedPhone != null}">
+							<ul><li>Fixed Phone</li></ul>
+						</div>
+						<div th:if="${sp.fixedInternet != null}">
+							<ul><li>Fixed Internet
+								<ul>
+									<li>Number of included Gigabytes: <span th:text="${sp.fixedInternet.numGigaFI}"></span></li>
+									<li>Fee for extra Gigabytes: <span th:text="${#numbers.formatDecimal(
+													sp.fixedInternet.extraGigaFeeFI, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+								</ul>
+							</li></ul>
+						</div>
+						<div th:if="${sp.mobilePhone != null}">
+							<ul><li>Mobile Phone
+								<ul>
+									<li>Number of minutes: <span th:text="${sp.mobilePhone.numMin}"></span></li>
+									<li>Number of SMSs: <span th:text="${sp.mobilePhone.numSMS}"></span></li>
+									<li>Fee for extra minutes: <span th:text="${#numbers.formatDecimal(
+													sp.mobilePhone.minFee, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+									<li>Fee for extra SMSs: <span th:text="${#numbers.formatDecimal(
+													sp.mobilePhone.smsFee, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+								</ul>
+							</li></ul>
+						</div>
+						<div th:if="${sp.mobileInternet != null}">
+							<ul><li>Mobile Internet
+								<ul>
+									<li>Number of included Gigabytes: <span th:text="${sp.mobileInternet.extraGigaFeeMI}"></span></li>
+									<li>Fee for extra Gigabytes: <span th:text="${#numbers.formatDecimal(
+													sp.mobileInternet.extraGigaFeeMI, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+								</ul>
+							</li></ul>
+						</div>
+					</td></tr></table>
+					</td>			
+				</tr>
+			</table>	
+			<br><hr>
+			<div th:if="${session.consIsInsolvent}">
+			<div th:if="${invalidOrders != null}">
+				<table>
+					<tr th:each="ord : ${invalidOrders}" >
+						<td>
+						<div>
+							<ul><li>Order of service package "<span th:text="${ord.servicePackage.name}"></span>"
+								<ul>
+									<li>Total value: <span th:text="${#numbers.formatDecimal(ord.totValue, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+									<li>Purchase data: <span th:text="${#dates.format(ord.creationDate, 'dd-MMM-yyyy')}"></span></li>
+									<li>Activation data: <span th:text="${#dates.format(ord.startDate, 'dd-MMM-yyyy')}"></span></li>
+									
+								</ul>
+							</li></ul>
+						</div>
+						<form action="GoToConfirmPage" method="POST">
+							<input type="hidden" id="orderId" name="orderId" th:value="${ord.idOrder}">
+						    <input type="submit" value="Confirm" />
+						</form>
+						</td>
+					</tr>
+				</table>
+			</div>
+			</div>
+		</td>
+	</tr></table>
 </body>
 </html>

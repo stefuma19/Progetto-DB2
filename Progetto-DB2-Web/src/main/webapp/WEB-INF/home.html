@@ -13,7 +13,7 @@
 		<a href="GoToBuyPage">Buy a service package</a>
 	</div>
 	<br>
-	<table>
+	<table style="width:100%; border: 1px solid black; border-collapse: collapse;">
 		<tr th:each="sp : ${servicePackages}">
 			<td>
 				<span th:text="${sp.name}">Service Package name</span><br>

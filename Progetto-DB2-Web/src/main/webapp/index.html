@@ -5,27 +5,28 @@
 <title>Login page</title>
 </head>
 <body>
-	<h1>Welcome to the Telcom Application</h1>
-
-	<form action="CheckLogin" method="POST">
-		Username: <input type="text" name="username" required> <br>
-		Password: <input type="password" name="pwd" required><br>
-		<input type="submit" value="login">
-		<p th:text=" ${errorMsg}"></p>
-	</form>
+	<table style="width:100%; border: 1px solid black; border-collapse: collapse;"><tr><td>
+		<h1>Welcome to the Telcom Application</h1>
 	
-	<form action="Register" method="POST">
-		Email: <input type="text" name="email" required> <br>
-		Username: <input type="text" name="username" required> <br>
-		Password: <input type="password" name="pwd" required><br>
-		<input type="submit" value="register">
-		<p th:text=" ${errorMsgReg}"></p>
-	</form>
-	
-	
-	<form action="SkipLogin" method="POST">
-	    <input type="submit" value="Skip" />
-	</form>
-
+		<form action="CheckLogin" method="POST">
+			Username: <input type="text" name="username" required> <br>
+			Password: <input type="password" name="pwd" required><br>
+			<input type="submit" value="login">
+			<p th:text=" ${errorMsg}"></p>
+		</form>
+		
+		<form action="Register" method="POST">
+			Email: <input type="text" name="email" required> <br>
+			Username: <input type="text" name="username" required> <br>
+			Password: <input type="password" name="pwd" required><br>
+			<input type="submit" value="register">
+			<p th:text=" ${errorMsgReg}"></p>
+		</form>
+		
+		
+		<form action="SkipLogin" method="POST">
+		    <input type="submit" value="Skip" />
+		</form>
+	</td></tr></table>
 </body>
 </html>

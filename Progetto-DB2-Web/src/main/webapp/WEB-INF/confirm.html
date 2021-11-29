@@ -1,11 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Confirm page</title>
+	<meta charset="ISO-8859-1">
+	<title>Confirm page</title>
 </head>
 <body>
-	
+	<table style="width:100%; border: 1px solid black; border-collapse: collapse;">
+		<tr>
+			<th colspan="5">
+				Details of the order:
+			</th>
+		</tr>
+		<tr>
+			<td>
+				<!-- <span th:text="${sp.name}">Service Package name</span> -->
+				SERVICE PKG NAME & SERVICES
+			</td>
+			<td>
+				OPT PRODUCTS
+			</td>
+			<td>
+				VALIDITY PERIOD
+			</td>
+			<td>
+				TOTAL PRICE
+			</td>
+			<td>
+				START DATE
+			</td>
+		</tr>
+		<tr>
+			<td colspan="5" th:if="${session.consUsername != null && session.consUsername != ''}">
+				<form action="ConfirmOrder" method="POST">
+					<input type="submit" value="Buy"/>
+					<input type="submit" value="!Buy"/>
+				</form>
+			</td>
+			<td colspan="5" th:if="${session.consUsername == null || session.consUsername == ''}">
+				You're not logged! <a href="index.html">Log in</a>
+			</td>
+		</tr>
+	</table>
 
 </body>
 </html>

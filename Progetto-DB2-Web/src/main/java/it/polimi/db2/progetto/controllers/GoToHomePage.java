@@ -52,7 +52,7 @@ public class GoToHomePage extends HttpServlet {
 			throws ServletException, IOException {
 		
 		List<ServicePackage> servicePackages = spService.findAllServicePackages();
-		List<Order> invalidOrders = orderService.getInvalidOrders((String)request.getSession().getAttribute("consUsername"));
+		List<Order> invalidOrders = orderService.getInvalidOrders((String) request.getSession().getAttribute("consUsername"));
 
 		String path = "/WEB-INF/home.html";
 		ServletContext servletContext = getServletContext();

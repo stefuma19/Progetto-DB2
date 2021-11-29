@@ -57,9 +57,9 @@
 	<div th:if="${session.consIsInsolvent}">
 	<div th:if="${invalidOrders != null}">
 		<table>
-			<tr th:each="or : ${invalidOrders}">
+			<tr th:each="ord : ${invalidOrders}" >
 				<td>
-					<span th:text="${or.totValue}">total value</span><br>
+					<span th:text="${ord.totValue}">total value</span><br>
 				</td>
 			</tr>
 		</table>

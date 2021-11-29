@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="order", schema ="db2progetto")
+@NamedQuery(name = "Order.getInvalidOrders", query = "SELECT o FROM Order o  WHERE o.userConsumer = ?1 and o.isValid = false")
 
 public class Order implements Serializable{
 	private static final long serialVersionUID = 1L;

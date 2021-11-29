@@ -31,6 +31,8 @@ public class GoToHomePage extends HttpServlet {
 	private TemplateEngine templateEngine;
 	@EJB(name = "it.polimi.db2.progetto.services/ServicePackageService")
 	private ServicePackageService spService;
+	@EJB(name = "it.polimi.db2.progetto.services/OrderService")
+	private OrderService orderService;
 
 	public GoToHomePage() {
 		super();
@@ -50,11 +52,13 @@ public class GoToHomePage extends HttpServlet {
 			throws ServletException, IOException {
 		
 		List<ServicePackage> servicePackages = spService.findAllServicePackages();
+		List<Order> invalidOrders = orderService.getInvalidOrders((String)request.getSession().getAttribute("consUsername"));
 
 		String path = "/WEB-INF/home.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());		
 		ctx.setVariable("servicePackages", servicePackages);
+		ctx.setVariable("invalidOrders", invalidOrders);
 		templateEngine.process(path, ctx, response.getWriter());
 
 	}

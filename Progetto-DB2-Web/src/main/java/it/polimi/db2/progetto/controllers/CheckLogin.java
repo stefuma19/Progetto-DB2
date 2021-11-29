@@ -57,10 +57,10 @@ public class CheckLogin extends HttpServlet {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing credential value");
 			return;
 		}
-		String consUsername = null;
+		Consumer consumer = null;
 		try {
 			// query db to authenticate for user
-			consUsername = consumerService.checkLogin(usrn, pwd);
+			consumer = consumerService.checkLogin(usrn, pwd);
 		} catch (CredentialsException | NonUniqueResultException e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not check credentials");
@@ -71,14 +71,15 @@ public class CheckLogin extends HttpServlet {
 		// show login page with error message
 
 		String path;
-		if (consUsername == null) {
+		if (consumer == null) {
 			ServletContext servletContext = getServletContext();
 			final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 			ctx.setVariable("errorMsg", "Incorrect username or password");
 			path = "/index.html";
 			templateEngine.process(path, ctx, response.getWriter());
 		} else {
-			request.getSession().setAttribute("consUsername", consUsername);
+			request.getSession().setAttribute("consUsername", consumer.getUsername());
+			request.getSession().setAttribute("consIsInsolvent", consumer.isInsolvent());
 			path = getServletContext().getContextPath() + "/GoToHomePage";
 			response.sendRedirect(path);
 		}

@@ -18,7 +18,7 @@ public class ConsumerService {
 	public ConsumerService() {
 	}
 
-	public String checkLogin(String username, String password) throws CredentialsException, NonUniqueResultException {
+	public Consumer checkLogin(String username, String password) throws CredentialsException, NonUniqueResultException {
 		List<Consumer> cList = null;
 		try {
 			cList = em.createNamedQuery("Consumer.checkCredentials", Consumer.class).setParameter(1, username).setParameter(2, password)
@@ -29,7 +29,7 @@ public class ConsumerService {
 		if (cList.isEmpty())
 			return null;
 		else if (cList.size() == 1)
-			return cList.get(0).getUsername();
+			return cList.get(0);
 		throw new NonUniqueResultException("More than one user registered with same credentials");
 	}
 

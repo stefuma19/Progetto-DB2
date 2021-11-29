@@ -1,11 +1,93 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Buy page</title>
+	<meta charset="ISO-8859-1">
+	<title>Buy Page</title>
 </head>
 <body>
-	
-
+	List of purchasable service packages: <br>
+	<table>
+		<tr th:each="sp : ${servicePackages}">
+			<td>
+				<span th:text="${sp.name}">Service Package name</span><br>
+				<div th:if="${sp.fixedPhone != null}">
+					<ul><li>Fixed Phone</li></ul>
+				</div>
+				<div th:if="${sp.fixedInternet != null}">
+					<ul><li>Fixed Internet
+						<ul>
+							<li>Number of included Gigabytes: <span th:text="${sp.fixedInternet.numGigaFI}"></span></li>
+							<li>Fee for extra Gigabytes: <span th:text="${#numbers.formatDecimal(
+											sp.fixedInternet.extraGigaFeeFI, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+						</ul>
+					</li></ul>
+				</div>
+				<div th:if="${sp.mobilePhone != null}">
+					<ul><li>Mobile Phone
+						<ul>
+							<li>Number of minutes: <span th:text="${sp.mobilePhone.numMin}"></span></li>
+							<li>Number of SMSs: <span th:text="${sp.mobilePhone.numSMS}"></span></li>
+							<li>Fee for extra minutes: <span th:text="${#numbers.formatDecimal(
+											sp.mobilePhone.minFee, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+							<li>Fee for extra SMSs: <span th:text="${#numbers.formatDecimal(
+											sp.mobilePhone.smsFee, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+						</ul>
+					</li></ul>
+				</div>
+				<div th:if="${sp.mobileInternet != null}">
+					<ul><li>Mobile Internet
+						<ul>
+							<li>Number of included Gigabytes: <span th:text="${sp.mobileInternet.extraGigaFeeMI}"></span></li>
+							<li>Fee for extra Gigabytes: <span th:text="${#numbers.formatDecimal(
+											sp.mobileInternet.extraGigaFeeMI, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+						</ul>
+					</li></ul>
+				</div>
+			</td>
+			<td>
+				<table>
+					<tr>
+						<td>Optional products</td>
+					</tr>
+					<tr th:if="${sp.optionalProducts.empty}"><td>There are no available optional products</td></tr>
+					<tr th:each="op : ${sp.optionalProducts}">
+						<td>
+							<span th:text="${op.nameOP}"></span>
+							<ul>
+								<li>Monthly fee: <span th:text="${#numbers.formatDecimal(
+											op.monthlyFeeOP, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+							</ul>
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table>
+					<tr>
+						<td>Validity period</td>
+					</tr>
+					<tr th:each="vp : ${validityPeriods}">
+						<td>
+							Number of months: <span th:text="${vp.numMonth}"></span><br>
+							Monthly fee: <span th:text="${#numbers.formatDecimal(
+											vp.monthlyFee, 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table>
+					<tr>
+						<td>Start date: </td>
+					</tr>
+					<tr>
+						<td>
+							BUTTON - FORM
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>	
 </body>
 </html>

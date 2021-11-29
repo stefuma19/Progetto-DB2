@@ -8,6 +8,8 @@ import javax.persistence.*;
 @Entity
 @Table(name="validity_period", schema ="db2progetto")
 
+@NamedQuery(name="ValidityPeriod.findAll", query="SELECT vp FROM ValidityPeriod vp")
+
 public class ValidityPeriod implements Serializable{
 	private static final long serialVersionUID = 1L;
 

@@ -6,17 +6,18 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import it.polimi.db2.progetto.entities.ServicePackage;
+import it.polimi.db2.progetto.entities.ValidityPeriod;
+
 
 @Stateless
-public class ServicePackageService {
+public class ValidityPeriodService {
 	@PersistenceContext(unitName = "Progetto-DB2-EJB")
 	private EntityManager em;
 	
-	public ServicePackageService() {
+	public ValidityPeriodService() {
 	}
 	
-	public List<ServicePackage> findAllServicePackages() {
-		return em.createNamedQuery("ServicePackage.findAll", ServicePackage.class).getResultList();
+	public List<ValidityPeriod> findAllValidityPeriods() {
+		return em.createNamedQuery("ValidityPeriod.findAll", ValidityPeriod.class).getResultList();
 	}
 }

@@ -69,6 +69,10 @@
 						</ul>
 					</li></ul>
 				</div>
+				<form action="GoToConfirmPage" method="POST">
+					<input type="hidden" id="orderId" name="orderId" th:value="${ord.idOrder}">
+				    <input type="submit" value="Confirm" />
+				</form>
 				</td>
 			</tr>
 		</table>

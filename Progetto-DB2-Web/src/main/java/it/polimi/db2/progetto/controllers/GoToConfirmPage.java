@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
@@ -42,7 +43,14 @@ public class GoToConfirmPage extends HttpServlet{
 		
 		String path = "/WEB-INF/confirm.html";
 		ServletContext servletContext = getServletContext();
-		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());		
+		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());	
+		
+		if(StringEscapeUtils.escapeJava(request.getParameter("idOrder")) != null){
+			//abbiamo l'ordine da pagare
+		}else {
+			//dobbiamo mostrare i vari valori che prendiamo da request
+		}
+		
 		//ctx.setVariable("servicePackages", servicePackages);
 		//ctx.setVariable("invalidOrders", invalidOrders);
 		templateEngine.process(path, ctx, response.getWriter());

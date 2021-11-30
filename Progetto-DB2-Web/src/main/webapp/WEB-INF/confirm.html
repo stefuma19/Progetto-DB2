@@ -5,16 +5,20 @@
 	<title>Confirm page</title>
 </head>
 <body>
+	<table style="width:100%;"><tr>
+		<td style="text-align: center; vertical-align: middle;">
+			<h2>Details of the order</h2></td></tr>
+		<tr><td style="text-align: center; vertical-align: middle;">
+			<a href="GoToBuyPage">Change the service package</a></td>
+	</tr></table><br>
 	<table style="width:100%; border: 1px solid black; border-collapse: collapse;">
-		<tr>
-			<th colspan="5">
-				Details of the order:
-			</th>
-		</tr>
 		<tr>
 			<td>
 				<!-- <span th:text="${sp.name}">Service Package name</span> -->
-				SERVICE PKG NAME & SERVICES
+				SERVICE PKG NAME
+			</td>
+			<td>
+				SERVICES
 			</td>
 			<td>
 				OPT PRODUCTS
@@ -30,14 +34,16 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="5" th:if="${session.consUsername != null && session.consUsername != ''}">
+			<td colspan="6" th:if="${session.consUsername != null && session.consUsername != ''}" 
+					style="text-align: center; vertical-align: middle;">
 				<form action="ConfirmOrder" method="POST">
-					<input type="submit" value="Buy"/>
+					<br><input type="submit" value="Buy"/>
 					<input type="submit" value="!Buy"/>
 				</form>
 			</td>
-			<td colspan="5" th:if="${session.consUsername == null || session.consUsername == ''}">
-				You're not logged! <a href="index.html">Log in</a>
+			<td colspan="6" th:if="${session.consUsername == null || session.consUsername == ''}"
+					style="text-align: center; vertical-align: middle;">
+				<br>You're not logged! <a href="index.html">Log in</a>
 			</td>
 		</tr>
 	</table>

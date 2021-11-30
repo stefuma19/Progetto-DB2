@@ -4,8 +4,17 @@
 	<meta charset="ISO-8859-1">
 	<title>Buy Page</title>
 </head>
-<body>
-	List of purchasable service packages: <br>
+<body> 
+	<table style="width:60%; border-collapse: collapse; margin-left: auto; margin-right: auto;"><tr>
+		<td style="text-align: center; vertical-align: middle;" colspan=2>
+			<h2>List of purchasable service packages</h2></td></tr>
+		<tr><td style="text-align: center; width:50%"><a href="GoToHomePage">Home page</a></td>
+			<td th:if="${session.consUsername != null && session.consUsername != ''}" style="text-align: center;">
+				<a href="GoToBuyPage">Logout</a></td>
+			<td th:if="${session.consUsername == null || session.consUsername == ''}" style="text-align: center;">
+				<a href="index.html">Login</a></td>
+	</tr></table>
+	<br>
 	<table style="width:100%; border: 1px solid black; border-collapse: collapse;">
 		<tr th:each="sp : ${servicePackages}" style="border: 1px solid black;">
 			<td><form action="GoToConfirmPage" method="POST">

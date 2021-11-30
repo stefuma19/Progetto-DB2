@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<table th:fragment="sp">
+		<tr><th><span th:text="${sp.name}">Service Package name</span></th>
+		<td><div th:if="${sp.fixedPhone != null}">
+			<ul><li>Fixed Phone</li></ul>
+		</div>
+		<div th:if="${sp.fixedInternet != null}">
+			<ul><li>Fixed Internet
+				<ul>
+					<li>Number of included Gigabytes: <span th:text="${sp.fixedInternet.numGigaFI}"></span></li>
+					<li>Fee for extra Gigabytes: <span th:text="${#numbers.formatDecimal(
+									sp.fixedInternet.extraGigaFeeFI, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+				</ul>
+			</li></ul>
+		</div>
+		<div th:if="${sp.mobilePhone != null}">
+			<ul><li>Mobile Phone
+				<ul>
+					<li>Number of minutes: <span th:text="${sp.mobilePhone.numMin}"></span></li>
+					<li>Number of SMSs: <span th:text="${sp.mobilePhone.numSMS}"></span></li>
+					<li>Fee for extra minutes: <span th:text="${#numbers.formatDecimal(
+									sp.mobilePhone.minFee, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+					<li>Fee for extra SMSs: <span th:text="${#numbers.formatDecimal(
+									sp.mobilePhone.smsFee, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+				</ul>
+			</li></ul>
+		</div>
+		<div th:if="${sp.mobileInternet != null}">
+			<ul><li>Mobile Internet
+				<ul>
+					<li>Number of included Gigabytes: <span th:text="${sp.mobileInternet.extraGigaFeeMI}"></span></li>
+					<li>Fee for extra Gigabytes: <span th:text="${#numbers.formatDecimal(
+									sp.mobileInternet.extraGigaFeeMI, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+				</ul>
+			</li></ul>
+		</div>
+	</td></tr></table>
+</body>
+</html>

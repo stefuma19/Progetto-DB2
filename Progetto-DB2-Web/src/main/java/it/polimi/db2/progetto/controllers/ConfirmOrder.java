@@ -1,7 +1,5 @@
 package it.polimi.db2.progetto.controllers;
 
-
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -65,13 +63,21 @@ public class ConfirmOrder extends HttpServlet{
 			throws ServletException, IOException {
 		
 		//String temp = (String) request.getSession().getAttribute("sd");
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
 		
+		boolean valid;
+		
+		if(StringEscapeUtils.escapeJava(request.getParameter("confirmOrder")).equals("Buy")) {
+			valid = true;
+		}else {
+			valid = false;
+		}
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
 		try {
 			orderService.createOrder(consumerService.findConsumerById((String)request.getSession().getAttribute("consUsername")), 
 					(ServicePackage)request.getSession().getAttribute("sp"), 
 					(ValidityPeriod)request.getSession().getAttribute("vp"), 
-					true, 
+					valid, 
 					(float)request.getSession().getAttribute("tp"), 
 					formatter.parse((String)request.getSession().getAttribute("sd")), 
 					(List<OptionalProduct>)request.getSession().getAttribute("ops"));

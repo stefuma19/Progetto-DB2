@@ -107,8 +107,8 @@
 			<td th:if="${session.consUsername != null && session.consUsername != ''}" 
 					style="text-align: center; vertical-align: middle;">
 				<form action="ConfirmOrder" method="POST">
-					<br><input type="submit" value="Buy"/>
-					<input type="submit" value="!Buy"/>
+					<br><input type="submit" name="confirmOrder" value="Buy"/>
+					<input type="submit" name="confirmOrder" value="!Buy"/>
 				</form>
 			</td>
 			<td th:if="${session.consUsername == null || session.consUsername == ''}"

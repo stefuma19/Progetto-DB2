@@ -106,6 +106,8 @@
 						</td>
 						<td style="width: 15%">
 							Start date: <input type="date" id="startDate" name="startDate" required>
+							<p th:if="${session.errorMsg!=null && session.errorMsgID==sp.idServicePackage}"
+									 th:text="${session.errorMsg}"></p>
 						</td>
 						<td style="width: 5%">
 							    <input type="submit" value="Confirm"/>

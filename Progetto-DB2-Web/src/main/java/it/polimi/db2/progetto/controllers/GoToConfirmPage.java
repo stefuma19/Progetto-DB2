@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -68,6 +69,8 @@ public class GoToConfirmPage extends HttpServlet{
 		String path = "/WEB-INF/confirm.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());	
+		request.getSession().removeAttribute("errorMsg");
+		request.getSession().removeAttribute("errorMsgID");
 		
 		ServicePackage sp;
 		ValidityPeriod vp;
@@ -98,7 +101,7 @@ public class GoToConfirmPage extends HttpServlet{
 			sp = servicePackageService.findServicePackagesById(idSP);
 			
 			if(request.getParameter(idSP + "_validityPeriod")==null) {
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Request parameter bad formed");
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing validity period");
 				return;
 			}
 			int idVP = Integer.parseInt(request.getParameter(idSP + "_validityPeriod"));
@@ -116,10 +119,25 @@ public class GoToConfirmPage extends HttpServlet{
 				}
 			}
 			
-			if(request.getParameter("startDate")==null) {
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Request parameter bad formed");
+			if(request.getParameter("startDate")=="") {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing start date");
 				return;
 			}
+			try {
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				Date now = format.parse(format.format(new Date()));
+				Date startDate = format.parse(request.getParameter("startDate")); 
+				if(startDate.compareTo(now) < 0) {
+					request.getSession().setAttribute("errorMsg", "Start date is earlier than today");
+					request.getSession().setAttribute("errorMsgID", idSP);
+					path = getServletContext().getContextPath() + "/GoToBuyPage";
+					response.sendRedirect(path);
+					return;
+				}
+			} catch (ParseException e) {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.toString());
+				return;
+			} 
 			request.getSession().setAttribute("sd", request.getParameter("startDate"));
 		}
 		

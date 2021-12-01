@@ -11,7 +11,7 @@
 		<tr><td style="text-align: center; vertical-align: middle;">
 			<a href="GoToBuyPage">Change the service package</a></td>
 	</tr></table><br>
-	<table style="width:100%; border: 1px solid black; border-collapse: collapse;">
+	<table style="width:100%; border: 1px solid black; border-collapse: collapse;" rules="all">
 		<tr>
 			<th style="width: 15%">
 				Service package
@@ -68,25 +68,22 @@
 								<li>Number of included Gigabytes: <span th:text="${session.sp.mobileInternet.extraGigaFeeMI}"></span></li>
 								<li>Fee for extra Gigabytes: <span th:text="${#numbers.formatDecimal(
 												session.sp.mobileInternet.extraGigaFeeMI, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
-							</ul>
-						</li></ul>
+							</ul></li>
+						</ul>
 					</div>
 				</td></tr></table>
 			</td>
-			<td style="text-align: center; vertical-align: middle; width: 20%">
-				<span th:if="${session.sp.optionalProducts.empty}">No selected optional products</span>
-				<div th:if="${!session.sp.optionalProducts.empty}">
-					<table>
-						<tr th:each="op : ${session.sp.optionalProducts}">
-							<td>
-									<span th:text="${op.nameOP}"></span>
-								<ul>
-									<li>Monthly fee: <span th:text="${#numbers.formatDecimal(
-												op.monthlyFeeOP, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
-								</ul>
-							</td>
-						</tr>
-					</table>
+			<td style="width: 20%">
+				<span th:if="${session.sp.optionalProducts.empty}" style="text-align: center; vertical-align: middle;">
+								No selected optional products</span>
+				<div th:if="${!session.sp.optionalProducts.empty}" th:each="op : ${session.sp.optionalProducts}">
+						<ul>
+							<li><span th:text="${op.nameOP}"></span>
+							<ul>
+								<li>Monthly fee: <span th:text="${#numbers.formatDecimal(
+											op.monthlyFeeOP, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+							</ul></li>
+						</ul>
 				</div>
 			</td>
 			<td style="text-align: center; vertical-align: middle; width: 20%">
@@ -102,15 +99,17 @@
 				Start date
 			</td>
 		</tr>
+	</table>
+	<table style="width:100%;">
 		<tr>
-			<td colspan="6" th:if="${session.consUsername != null && session.consUsername != ''}" 
+			<td th:if="${session.consUsername != null && session.consUsername != ''}" 
 					style="text-align: center; vertical-align: middle;">
 				<form action="ConfirmOrder" method="POST">
 					<br><input type="submit" value="Buy"/>
 					<input type="submit" value="!Buy"/>
 				</form>
 			</td>
-			<td colspan="6" th:if="${session.consUsername == null || session.consUsername == ''}"
+			<td th:if="${session.consUsername == null || session.consUsername == ''}"
 					style="text-align: center; vertical-align: middle;">
 				<br>You're not logged! <a href="index.html">Log in</a>
 			</td>

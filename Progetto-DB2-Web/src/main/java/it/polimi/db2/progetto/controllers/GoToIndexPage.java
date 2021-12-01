@@ -23,10 +23,13 @@ public class GoToIndexPage extends HttpServlet {
 			throws ServletException, IOException {
 
 		String remember = request.getParameter("rememberOrder");
-		if(remember.equals("yes") || remember.equals("no")) {
+		if(remember!=null && (remember.equals("yes") || remember.equals("no"))) {
 			request.getSession().setAttribute("rememberOrder", remember);
 		}
-		else ; //TODO eccezione
+		else {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Request parameter bad formed");
+			return;
+		}
 
 		String path = getServletContext().getContextPath() + "/index.html";
 		response.sendRedirect(path);

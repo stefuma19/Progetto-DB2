@@ -45,8 +45,8 @@
 								<ul><li>Order of service package "<span th:text="${ord.servicePackage.name}"></span>"
 									<ul>
 										<li>Total value: <span th:text="${#numbers.formatDecimal(ord.totValue, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
-										<li>Purchase data: <span th:text="${#dates.format(ord.creationDate, 'dd-MMM-yyyy')}"></span></li>
-										<li>Activation data: <span th:text="${#dates.format(ord.startDate, 'dd-MMM-yyyy')}"></span></li>
+										<li>Purchase data: <span th:text="${#dates.format(ord.creationDate, 'yyyy-MM-dd')}"></span></li>
+										<li>Activation data: <span th:text="${#dates.format(ord.startDate, 'yyyy-MM-dd')}"></span></li>
 										
 									</ul>
 								</li></ul>

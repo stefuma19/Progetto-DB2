@@ -20,4 +20,8 @@ public class ValidityPeriodService {
 	public List<ValidityPeriod> findAllValidityPeriods() {
 		return em.createNamedQuery("ValidityPeriod.findAll", ValidityPeriod.class).getResultList();
 	}
+	
+	public ValidityPeriod findValidityPeriodById(int idVP) {
+		return em.createNamedQuery("ValidityPeriod.findId", ValidityPeriod.class).setParameter(1, idVP).getResultList().get(0);
+	}
 }

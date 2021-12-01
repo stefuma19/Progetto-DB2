@@ -22,6 +22,7 @@
 					<tr>
 						<th style="width: 10%">
 							<span th:text="${sp.name}">Service Package name</span><br>
+							<input type="hidden" name="idSP" th:value="${sp.idServicePackage}">
 						</th>
 						<td style="width: 25%">
 							<div th:if="${sp.fixedPhone != null}">
@@ -67,7 +68,7 @@
 								<tr th:each="op : ${sp.optionalProducts}">
 									<td>
 										<input type="checkbox" th:value="${op.idOP}" th:id="${op.idOP}" 
-														th:name="${sp.idServicePackage + '_OptionalProducts'}">
+														th:name="${sp.idServicePackage + '_optionalProducts'}">
 											<span th:text="${op.nameOP}"></span>
 										<ul>
 											<li>Monthly fee: <span th:text="${#numbers.formatDecimal(

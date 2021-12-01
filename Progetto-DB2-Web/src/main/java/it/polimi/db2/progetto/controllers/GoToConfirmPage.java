@@ -1,9 +1,12 @@
 package it.polimi.db2.progetto.controllers;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,14 +22,27 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import it.polimi.db2.progetto.entities.FixedPhone;
 import it.polimi.db2.progetto.entities.MobileInternet;
+import it.polimi.db2.progetto.entities.OptionalProduct;
 import it.polimi.db2.progetto.entities.Order;
 import it.polimi.db2.progetto.entities.ServicePackage;
 import it.polimi.db2.progetto.entities.ValidityPeriod;
+import it.polimi.db2.progetto.services.OptionalProductService;
+import it.polimi.db2.progetto.services.ServicePackageService;
+import it.polimi.db2.progetto.services.ValidityPeriodService;
 
 @WebServlet("/GoToConfirmPage")
 public class GoToConfirmPage extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
+	
+	@EJB(name = "it.polimi.db2.progetto.services/ServicePackageService")
+	private ServicePackageService servicePackageService;
+	
+	@EJB(name = "it.polimi.db2.progetto.services/ValidityPeriodService")
+	private ValidityPeriodService validityPeriodService;	
+	
+	@EJB(name = "it.polimi.db2.progetto.services/OptionalProductService")
+	private OptionalProductService optionalProductService;
 	
 	public GoToConfirmPage() {
 		super();
@@ -53,30 +69,37 @@ public class GoToConfirmPage extends HttpServlet{
 			//abbiamo l'ordine da pagare
 		}else {
 			//dobbiamo mostrare i vari valori che prendiamo da request
+			float tp = 0;
+			
+			int idSP = Integer.parseInt(request.getParameter("idSP"));
+			ServicePackage sp = servicePackageService.findServicePackagesById(idSP);
+			
+			int idVP = Integer.parseInt(request.getParameter(request.getParameter("idSP") + "_validityPeriod"));
+			ValidityPeriod vp = validityPeriodService.findValidityPeriodById(idVP);
+			tp += vp.getNumMonth() * vp.getNumMonth();
+
+			List<OptionalProduct> ops = new ArrayList<>();
+			String[] ids = request.getParameterValues(request.getParameter("idSP") + "_optionalProducts");
+			if(ids != null) {
+				for(int i = 0; i < ids.length; i++) {
+					int idOP = Integer.parseInt(ids[i]);
+					OptionalProduct op = optionalProductService.findOptionalProductById(idOP);
+					ops.add(op);
+					tp += vp.getNumMonth() * op.getMonthlyFeeOP();
+				}
+			}
+			
+			//SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy");
+			
+			request.getSession().setAttribute("sp", sp);
+			request.getSession().setAttribute("vp", vp);
+			request.getSession().setAttribute("ops", ops);
+			request.getSession().setAttribute("tp", tp);
+			
+				request.getSession().setAttribute("sd", request.getParameter("startDate"));
+			
+			
 		}
-		
-		//ctx.setVariable("servicePackages", servicePackages);
-		//ctx.setVariable("invalidOrders", invalidOrders);
-		
-		FixedPhone fp = new FixedPhone();
-		fp.setIdService(0);
-		MobileInternet mi = new MobileInternet();
-		mi.setIdService(1);
-		mi.setNumGigaMI(10);
-		mi.setExtraGigaFeeMI(9.99f);
-		ServicePackage servicePackage = new ServicePackage();
-		servicePackage.setIdServicePackage(0);
-		servicePackage.setName("Nome del service pkg 1");
-		servicePackage.setFixedPhone(fp);
-		servicePackage.setMobileInternet(mi);
-		servicePackage.setOptionalProducts(new ArrayList<>());
-		ValidityPeriod vp = new ValidityPeriod();
-		vp.setIdValidityPeriod(0);
-		vp.setMonthlyFee(5.70f);
-		vp.setNumMonth(3);
-		request.getSession().setAttribute("sp", servicePackage);
-		request.getSession().setAttribute("vp", vp);
-		request.getSession().setAttribute("tp", 80.0f);
 		
 		templateEngine.process(path, ctx, response.getWriter());
 

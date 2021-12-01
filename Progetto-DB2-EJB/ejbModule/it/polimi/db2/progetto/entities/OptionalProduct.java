@@ -8,6 +8,8 @@ import javax.persistence.*;
 @Entity
 @Table(name="optional_product", schema ="db2progetto")
 
+@NamedQuery(name="OptionalProduct.findId", query="SELECT op FROM OptionalProduct op WHERE op.idOP = ?1")
+
 public class OptionalProduct implements Serializable{
 	private static final long serialVersionUID = 1L;
 

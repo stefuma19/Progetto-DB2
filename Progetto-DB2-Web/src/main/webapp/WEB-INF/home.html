@@ -10,11 +10,15 @@
 			<table><tr>
 				<td colspan=2>
 					<h2>Welcome <span th:text="${session.consUsername}"> consUsername </span></h2></td></tr>
-				<tr><td style="width:700px"><a href="GoToBuyPage">Buy a service package</a></td>
+				<tr><td style="width:700px">
+					<form action="GoToBuyPage" method="POST"><input type="submit" value="Buy a service package"/></form>
+				</td>
 				<td th:if="${session.consUsername != null && session.consUsername != ''}" style="width:700px">
-					<a href="GoToBuyPage">Logout</a></td>
+					<form action="Logout" method="POST"><input type="submit" value="Logout"/></form>
+				</td>
 				<td th:if="${session.consUsername == null || session.consUsername == ''}" style="width:700px">
-					<a href="index.html">Login</a></td>
+					<form action="index.html" method="POST"><input type="submit" value="Login"/></form>
+				</td>
 			</tr></table>
 			<br>
 		</td></tr><tr><td>
@@ -29,38 +33,42 @@
 			</td><td>
 				<table style="width:100%; border: 1px solid black; border-collapse: collapse;">
 					<tr th:each="sp : ${servicePackages}" style="border: 1px solid black;">
-						<td th:if="${sp.idServicePackage % 2 == 0}" style="border: 1px solid black;  height:320px; width:700px">
+						<td th:if="${sp.idServicePackage % 2 == 0}" style="border: 1px solid black; height:320px; width:700px">
 							<div th:insert="@{WEB-INF/fragmentHome.html} :: sp"></div>
 						</td>			
 					</tr>
 				</table>
 			</td></tr></table>	
 			<br><hr>
-			<div th:if="${session.consIsInsolvent}">
-				<div th:if="${invalidOrders != null}">
-					<table>
-						<tr th:each="ord : ${invalidOrders}" >
-							<td>
-							<div>
-								<ul><li>Order of service package "<span th:text="${ord.servicePackage.name}"></span>"
-									<ul>
-										<li>Total value: <span th:text="${#numbers.formatDecimal(ord.totValue, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
-										<li>Purchase data: <span th:text="${#dates.format(ord.creationDate, 'yyyy-MM-dd')}"></span></li>
-										<li>Activation data: <span th:text="${#dates.format(ord.startDate, 'yyyy-MM-dd')}"></span></li>
-										
-									</ul>
-								</li></ul>
-							</div>
+			<div th:if="${session.consIsInsolvent && invalidOrders != null}">
+				<h2 style="text-align: center;">Rejected orders</h2>
+				<table style="border: 1px solid black; border-collapse: collapse; width:100%" rules="rows">
+					<tr>
+						<th style="height:50px;">Service package</th>
+						<th>Total value</th>
+						<th>Purchase date</th>
+						<th>Activation date</th>
+						<th></th>
+					</tr>
+					<tr th:each="ord : ${invalidOrders}" >
+						<td style="text-align: center; vertical-align: middle; height:50px;">
+							<span th:text="${ord.servicePackage.name}"></span></td>
+						<td style="text-align: center; vertical-align: middle;">
+							<span th:text="${#numbers.formatDecimal(ord.totValue, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</td>
+						<td style="text-align: center; vertical-align: middle;">
+							<span th:text="${#dates.format(ord.creationDate, 'yyyy-MM-dd')}"></span></td>
+						<td style="text-align: center; vertical-align: middle;">
+							<span th:text="${#dates.format(ord.startDate, 'yyyy-MM-dd')}"></span></td>
+						<td>
 							<form action="GoToConfirmPage" method="POST">
 								<input type="hidden" id="orderId" name="orderId" th:value="${ord.idOrder}">
 							    <input type="submit" value="Confirm" />
 							</form>
-							</td>
-						</tr>
-					</table>
-				</div>
+						</td>
+					</tr>
+				</table>
 			</div>
 		</td>
-	</tr></table>
+	</tr></table><br><br>
 </body>
 </html>

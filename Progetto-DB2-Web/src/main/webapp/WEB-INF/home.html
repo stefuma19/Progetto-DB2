@@ -43,7 +43,7 @@
 				</table>
 			</td></tr></table>	
 			<br><hr>
-			<div th:if="${session.consIsInsolvent && invalidOrders != null}">
+			<div th:if="${invalidOrders != null && !invalidOrders.empty}">
 				<h2 style="text-align: center;">Rejected orders</h2>
 				<table style="border: 1px solid black; border-collapse: collapse; width:100%" rules="rows">
 					<tr>

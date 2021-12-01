@@ -79,33 +79,33 @@ public class CheckLogin extends HttpServlet {
 			ctx.setVariable("errorMsg", "Incorrect username or password");
 			path = "/index.html";
 			templateEngine.process(path, ctx, response.getWriter());
-		} else {
-			if(request.getSession().getAttribute("rememberOrder") != null && 
-					((String)request.getSession().getAttribute("rememberOrder")).equals("yes")) {
+		} else if(request.getSession().getAttribute("rememberOrder") != null){
+			if(((String)request.getSession().getAttribute("rememberOrder")).equals("yes")) {
 				request.getSession().setAttribute("consUsername", consumer.getUsername());
-				request.getSession().setAttribute("consIsInsolvent", consumer.isInsolvent());
 				ServletContext servletContext = getServletContext();
 				final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 				path = "/WEB-INF/confirm.html";
 				templateEngine.process(path, ctx, response.getWriter());
 			}
-			else if(request.getSession().getAttribute("rememberOrder") != null && 
-					((String)request.getSession().getAttribute("rememberOrder")).equals("no")) {
+			else if(((String)request.getSession().getAttribute("rememberOrder")).equals("no")) {
 				HttpSession session = request.getSession(false);
 				if (session != null) {
 					session.invalidate();
 				}
 				request.getSession().setAttribute("consUsername", consumer.getUsername());
-				request.getSession().setAttribute("consIsInsolvent", consumer.isInsolvent());
 				path = getServletContext().getContextPath() + "/GoToHomePage";
 				response.sendRedirect(path);
 			}
-			else {
-				request.getSession().setAttribute("consUsername", consumer.getUsername());
-				request.getSession().setAttribute("consIsInsolvent", consumer.isInsolvent());
-				path = getServletContext().getContextPath() + "/GoToHomePage";
-				response.sendRedirect(path);
+			else ; //TODO eccezione
+		}
+		else {
+			HttpSession session = request.getSession(false);
+			if (session != null) {
+				session.invalidate();
 			}
+			request.getSession().setAttribute("consUsername", consumer.getUsername());
+			path = getServletContext().getContextPath() + "/GoToHomePage";
+			response.sendRedirect(path);
 		}
 	}
 

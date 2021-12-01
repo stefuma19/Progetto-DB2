@@ -80,13 +80,17 @@ public class CheckLogin extends HttpServlet {
 			path = "/index.html";
 			templateEngine.process(path, ctx, response.getWriter());
 		} else {
-			if(((String)request.getSession().getAttribute("rememberOrder")).equals("yes")) {
+			if(request.getSession().getAttribute("rememberOrder") != null && 
+					((String)request.getSession().getAttribute("rememberOrder")).equals("yes")) {
+				request.getSession().setAttribute("consUsername", consumer.getUsername());
+				request.getSession().setAttribute("consIsInsolvent", consumer.isInsolvent());
 				ServletContext servletContext = getServletContext();
 				final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 				path = "/WEB-INF/confirm.html";
 				templateEngine.process(path, ctx, response.getWriter());
 			}
-			else if(((String)request.getSession().getAttribute("rememberOrder")).equals("no")) {
+			else if(request.getSession().getAttribute("rememberOrder") != null && 
+					((String)request.getSession().getAttribute("rememberOrder")).equals("no")) {
 				HttpSession session = request.getSession(false);
 				if (session != null) {
 					session.invalidate();
@@ -96,7 +100,12 @@ public class CheckLogin extends HttpServlet {
 				path = getServletContext().getContextPath() + "/GoToHomePage";
 				response.sendRedirect(path);
 			}
-			else ; //eccezione
+			else {
+				request.getSession().setAttribute("consUsername", consumer.getUsername());
+				request.getSession().setAttribute("consIsInsolvent", consumer.isInsolvent());
+				path = getServletContext().getContextPath() + "/GoToHomePage";
+				response.sendRedirect(path);
+			}
 		}
 	}
 

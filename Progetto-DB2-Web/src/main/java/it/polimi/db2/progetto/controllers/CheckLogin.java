@@ -9,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang.StringEscapeUtils;
 
 import org.thymeleaf.TemplateEngine;
@@ -78,10 +80,23 @@ public class CheckLogin extends HttpServlet {
 			path = "/index.html";
 			templateEngine.process(path, ctx, response.getWriter());
 		} else {
-			request.getSession().setAttribute("consUsername", consumer.getUsername());
-			request.getSession().setAttribute("consIsInsolvent", consumer.isInsolvent());
-			path = getServletContext().getContextPath() + "/GoToHomePage";
-			response.sendRedirect(path);
+			if(((String)request.getSession().getAttribute("rememberOrder")).equals("yes")) {
+				ServletContext servletContext = getServletContext();
+				final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
+				path = "/WEB-INF/confirm.html";
+				templateEngine.process(path, ctx, response.getWriter());
+			}
+			else if(((String)request.getSession().getAttribute("rememberOrder")).equals("no")) {
+				HttpSession session = request.getSession(false);
+				if (session != null) {
+					session.invalidate();
+				}
+				request.getSession().setAttribute("consUsername", consumer.getUsername());
+				request.getSession().setAttribute("consIsInsolvent", consumer.isInsolvent());
+				path = getServletContext().getContextPath() + "/GoToHomePage";
+				response.sendRedirect(path);
+			}
+			else ; //eccezione
 		}
 	}
 

@@ -15,7 +15,10 @@
 			<form action="Logout" method="POST"><input type="submit" value="Logout"/></form>
 		</td>
 		<td th:if="${session.consUsername == null || session.consUsername == ''}" style="text-align: center;">
-			<form action="index.html" method="POST"><input type="submit" value="Login"/></form>
+			<form action="GoToIndexPage" method="POST">
+				<input type="hidden" name="rememberOrder" value="no"/>
+				<input type="submit" value="Login"/>
+			</form>
 		</td>
 	</tr></table>
 	<br>

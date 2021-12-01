@@ -113,7 +113,11 @@
 			</td>
 			<td th:if="${session.consUsername == null || session.consUsername == ''}"
 					style="text-align: center; vertical-align: middle;">
-				<br>You're not logged! <form action="index.html" method="POST"><input type="submit" value="Login"/></form>
+				<br>You're not logged!<br>
+				<form action="GoToIndexPage" method="POST">
+					<input type="hidden" name="rememberOrder" value="yes"/>
+					<input type="submit" value="Login"/>
+				</form>
 			</td>
 		</tr>
 	</table>

@@ -62,15 +62,18 @@ public class ConfirmOrder extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		//String temp = (String) request.getSession().getAttribute("sd");
-		
 		boolean valid;
-		
-		if(StringEscapeUtils.escapeJava(request.getParameter("confirmOrder")).equals("Buy")) {
-			valid = true;
-		}else {
-			valid = false;
-			consumerService.updateIsInsolvent((String)request.getSession().getAttribute("consUsername"), !valid);
+		if(request.getParameter("confirmOrder")!=null) {
+			if(StringEscapeUtils.escapeJava(request.getParameter("confirmOrder")).equals("Buy")) {
+				valid = true;
+			} else {
+				valid = false;
+				consumerService.updateIsInsolvent((String)request.getSession().getAttribute("consUsername"), !valid);
+			}
+		}
+		else {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Request parameter bad formed");
+			return;
 		}
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  

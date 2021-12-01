@@ -96,7 +96,10 @@ public class CheckLogin extends HttpServlet {
 				path = getServletContext().getContextPath() + "/GoToHomePage";
 				response.sendRedirect(path);
 			}
-			else ; //TODO eccezione
+			else {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Request parameter bad formed");
+				return;
+			}
 		}
 		else {
 			HttpSession session = request.getSession(false);

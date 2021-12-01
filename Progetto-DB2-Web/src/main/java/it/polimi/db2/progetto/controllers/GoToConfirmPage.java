@@ -89,6 +89,8 @@ public class GoToConfirmPage extends HttpServlet{
 			tp = order.getTotValue();
 			ops = order.getOptionalProductsOrdered();
 			request.getSession().setAttribute("sd", format.format(order.getStartDate()));
+			request.getSession().setAttribute("orderId", order.getIdOrder());
+			
 			
 		}else {
 			//dobbiamo mostrare i vari valori che prendiamo da request
@@ -106,7 +108,7 @@ public class GoToConfirmPage extends HttpServlet{
 			}
 			int idVP = Integer.parseInt(request.getParameter(idSP + "_validityPeriod"));
 			vp = validityPeriodService.findValidityPeriodById(idVP);
-			tp += vp.getNumMonth() * vp.getNumMonth();
+			tp += vp.getNumMonth() * vp.getMonthlyFee();
 
 			
 			String[] ids = request.getParameterValues(idSP + "_optionalProducts");

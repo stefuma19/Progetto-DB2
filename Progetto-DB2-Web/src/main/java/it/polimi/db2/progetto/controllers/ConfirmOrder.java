@@ -76,23 +76,33 @@ public class ConfirmOrder extends HttpServlet{
 			return;
 		}
 		
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
-		try {
-			orderService.createOrder(consumerService.findConsumerById((String)request.getSession().getAttribute("consUsername")), 
-					(ServicePackage)request.getSession().getAttribute("sp"), 
-					(ValidityPeriod)request.getSession().getAttribute("vp"), 
-					valid, 
-					(float)request.getSession().getAttribute("tp"), 
-					formatter.parse((String)request.getSession().getAttribute("sd")), 
-					(List<OptionalProduct>)request.getSession().getAttribute("ops"));
-		} catch (ParseException e) {
-			e.printStackTrace();
+		if(null != request.getSession().getAttribute("orderId")){
+			//only validate order
+			
+			orderService.validateOrder((int)request.getSession().getAttribute("orderId"), valid);
+			
+		}else {
+			
+			//it's a new order
+			
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
+			try {
+				orderService.createOrder(consumerService.findConsumerById((String)request.getSession().getAttribute("consUsername")), 
+						(ServicePackage)request.getSession().getAttribute("sp"), 
+						(ValidityPeriod)request.getSession().getAttribute("vp"), 
+						valid, 
+						(float)request.getSession().getAttribute("tp"), 
+						formatter.parse((String)request.getSession().getAttribute("sd")), 
+						(List<OptionalProduct>)request.getSession().getAttribute("ops"));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 		}
 		
-		String path = "/WEB-INF/confirm.html";
-		ServletContext servletContext = getServletContext();
-		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());	
-		templateEngine.process(path, ctx, response.getWriter());
+		request.getSession().setAttribute("orderId", null);
+		
+		String path = getServletContext().getContextPath() + "/GoToHomePage";
+		response.sendRedirect(path);
 
 	}
 

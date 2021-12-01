@@ -39,6 +39,12 @@ public class OrderService {
 		em.persist(o);
 	}
 	
+	public void validateOrder(int idOrder, boolean valid) {
+		Order o = findOrderById(idOrder);
+		o.setValid(valid);
+		em.persist(o);
+	}
+	
 	public Order findOrderById(int idOrder) {
 		List<Order> ords = em.createNamedQuery("Order.findOrderById", Order.class).setParameter(1, idOrder).getResultList();
 		

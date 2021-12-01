@@ -54,6 +54,8 @@ public class GoToHomePage extends HttpServlet {
 		List<ServicePackage> servicePackages = spService.findAllServicePackages();
 		List<Order> invalidOrders = orderService.getInvalidOrders((String) request.getSession().getAttribute("consUsername"));
 
+		
+		
 		String path = "/WEB-INF/home.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());		

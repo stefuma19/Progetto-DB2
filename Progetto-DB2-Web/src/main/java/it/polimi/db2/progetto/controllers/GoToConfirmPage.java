@@ -92,11 +92,18 @@ public class GoToConfirmPage extends HttpServlet{
 		}else {
 			//dobbiamo mostrare i vari valori che prendiamo da request
 			
-			
+			if(request.getParameter("idSP")==null) {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Request parameter bad formed");
+				return;
+			}
 			int idSP = Integer.parseInt(request.getParameter("idSP"));
 			sp = servicePackageService.findServicePackagesById(idSP);
 			
-			int idVP = Integer.parseInt(request.getParameter(request.getParameter("idSP") + "_validityPeriod"));
+			if(request.getParameter(idSP + "_validityPeriod")==null) {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Request parameter bad formed");
+				return;
+			}
+			int idVP = Integer.parseInt(request.getParameter(idSP + "_validityPeriod"));
 			vp = validityPeriodService.findValidityPeriodById(idVP);
 			tp += vp.getNumMonth() * vp.getMonthlyFee();
 
@@ -111,12 +118,11 @@ public class GoToConfirmPage extends HttpServlet{
 				}
 			}
 			
-			
-			
-			
-
+			if(request.getParameter("startDate")==null) {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Request parameter bad formed");
+				return;
+			}
 			request.getSession().setAttribute("sd", request.getParameter("startDate"));
-			
 		}
 		
 		request.getSession().setAttribute("sp", sp);

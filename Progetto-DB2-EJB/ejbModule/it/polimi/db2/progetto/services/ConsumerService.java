@@ -49,6 +49,15 @@ public class ConsumerService {
 			em.persist(c);
 			return true;
 		}
+	}
+	
+	public Consumer findConsumerById(String username) {
+		List<Consumer> cons = em.createNamedQuery("Consumer.findUsername", Consumer.class).setParameter(1, username).getResultList();
 		
+		if(cons.size() == 0) {
+			return null;
+		}else {
+			return cons.get(0);
+		}
 	}
 }

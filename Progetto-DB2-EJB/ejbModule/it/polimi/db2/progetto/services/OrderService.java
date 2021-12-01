@@ -1,5 +1,6 @@
 package it.polimi.db2.progetto.services;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -9,7 +10,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
 import it.polimi.db2.progetto.entities.Consumer;
+import it.polimi.db2.progetto.entities.OptionalProduct;
 import it.polimi.db2.progetto.entities.Order;
+import it.polimi.db2.progetto.entities.ServicePackage;
+import it.polimi.db2.progetto.entities.ValidityPeriod;
 import it.polimi.db2.progetto.exceptions.CredentialsException;
 
 @Stateless
@@ -20,12 +24,19 @@ public class OrderService {
 	public OrderService() {
 	}
 	
-	public boolean createOrder(String username, int idServicePackage, int idValidity, boolean valid) {
-		//chiamerà la named query che aggiunge l'ordine al db
-		if(valid) {
-			//invoca validateOrder
-		}
-		return false;
+	public void createOrder(Consumer c, ServicePackage sp, ValidityPeriod vp, boolean valid, float tp, Date sd, List<OptionalProduct> ops) {
+		
+		Order o = new Order();
+		o.setUserConsumer(c);
+		o.setTotValue(tp);
+		o.setServicePackage(sp);
+		o.setValidityPeriod(vp);
+		o.setOptionalProductsOrdered(ops);
+		o.setValid(valid);
+		o.setStartDate(sd);
+		o.setCreationDate(new Date());
+		
+		em.persist(o);
 	}
 	
 	public boolean validateOrder(int idOrder) {

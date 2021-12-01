@@ -96,7 +96,7 @@ public class GoToConfirmPage extends HttpServlet{
 			request.getSession().setAttribute("ops", ops);
 			request.getSession().setAttribute("tp", tp);
 			
-				request.getSession().setAttribute("sd", request.getParameter("startDate"));
+			request.getSession().setAttribute("sd", request.getParameter("startDate"));
 			
 			
 		}

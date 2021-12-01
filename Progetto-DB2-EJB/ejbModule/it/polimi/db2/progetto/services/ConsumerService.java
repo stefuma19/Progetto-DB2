@@ -51,6 +51,15 @@ public class ConsumerService {
 		}
 	}
 	
+	public void updateIsInsolvent(String username, boolean isInsolvent) {
+		
+		Consumer c = em.createNamedQuery("Consumer.findUsername", Consumer.class).setParameter(1, username).getResultList().get(0);
+			
+		c.setInsolvent(isInsolvent);
+		em.persist(c);
+		
+	}
+	
 	public Consumer findConsumerById(String username) {
 		List<Consumer> cons = em.createNamedQuery("Consumer.findUsername", Consumer.class).setParameter(1, username).getResultList();
 		

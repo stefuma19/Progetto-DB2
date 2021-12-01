@@ -70,6 +70,7 @@ public class ConfirmOrder extends HttpServlet{
 			valid = true;
 		}else {
 			valid = false;
+			consumerService.updateIsInsolvent((String)request.getSession().getAttribute("consUsername"), !valid);
 		}
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  

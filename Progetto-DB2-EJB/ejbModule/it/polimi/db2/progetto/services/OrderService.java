@@ -39,9 +39,14 @@ public class OrderService {
 		em.persist(o);
 	}
 	
-	public boolean validateOrder(int idOrder) {
-		//findOrderbyId.set valid a true
-		return false;
+	public Order findOrderById(int idOrder) {
+		List<Order> ords = em.createNamedQuery("Order.findOrderById", Order.class).setParameter(1, idOrder).getResultList();
+		
+		if(ords.size() == 0) {
+			return null;
+		}else {
+			return ords.get(0);
+		}
 	}
 	
 	public List<Order> getInvalidOrders(String username){

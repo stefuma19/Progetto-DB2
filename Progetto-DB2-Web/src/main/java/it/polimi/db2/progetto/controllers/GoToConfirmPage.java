@@ -27,6 +27,7 @@ import it.polimi.db2.progetto.entities.Order;
 import it.polimi.db2.progetto.entities.ServicePackage;
 import it.polimi.db2.progetto.entities.ValidityPeriod;
 import it.polimi.db2.progetto.services.OptionalProductService;
+import it.polimi.db2.progetto.services.OrderService;
 import it.polimi.db2.progetto.services.ServicePackageService;
 import it.polimi.db2.progetto.services.ValidityPeriodService;
 
@@ -43,6 +44,9 @@ public class GoToConfirmPage extends HttpServlet{
 	
 	@EJB(name = "it.polimi.db2.progetto.services/OptionalProductService")
 	private OptionalProductService optionalProductService;
+	
+	@EJB(name = "it.polimi.db2.progetto.services/OrderService")
+	private OrderService orderService;
 	
 	public GoToConfirmPage() {
 		super();
@@ -65,21 +69,37 @@ public class GoToConfirmPage extends HttpServlet{
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());	
 		
-		if(StringEscapeUtils.escapeJava(request.getParameter("idOrder")) != null){
+		ServicePackage sp;
+		ValidityPeriod vp;
+		float tp = 0;
+		List<OptionalProduct> ops = new ArrayList<>();
+		
+		if(StringEscapeUtils.escapeJava(request.getParameter("orderId")) != null){
 			//abbiamo l'ordine da pagare
+			
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			
+			Order order = orderService.findOrderById(Integer.parseInt(request.getParameter("orderId")));
+			
+			sp = order.getServicePackage();
+			vp = order.getValidityPeriod();
+			tp = order.getTotValue();
+			ops = order.getOptionalProductsOrdered();
+			request.getSession().setAttribute("sd", format.format(order.getStartDate()));
+			
 		}else {
 			//dobbiamo mostrare i vari valori che prendiamo da request
-			float tp = 0;
+			
 			
 			int idSP = Integer.parseInt(request.getParameter("idSP"));
-			ServicePackage sp = servicePackageService.findServicePackagesById(idSP);
+			sp = servicePackageService.findServicePackagesById(idSP);
 			
 			int idVP = Integer.parseInt(request.getParameter(request.getParameter("idSP") + "_validityPeriod"));
-			ValidityPeriod vp = validityPeriodService.findValidityPeriodById(idVP);
+			vp = validityPeriodService.findValidityPeriodById(idVP);
 			tp += vp.getNumMonth() * vp.getNumMonth();
 
-			List<OptionalProduct> ops = new ArrayList<>();
-			String[] ids = request.getParameterValues(request.getParameter("idSP") + "_optionalProducts");
+			
+			String[] ids = request.getParameterValues(idSP + "_optionalProducts");
 			if(ids != null) {
 				for(int i = 0; i < ids.length; i++) {
 					int idOP = Integer.parseInt(ids[i]);
@@ -89,17 +109,19 @@ public class GoToConfirmPage extends HttpServlet{
 				}
 			}
 			
-			//SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy");
 			
-			request.getSession().setAttribute("sp", sp);
-			request.getSession().setAttribute("vp", vp);
-			request.getSession().setAttribute("ops", ops);
-			request.getSession().setAttribute("tp", tp);
 			
+			
+
 			request.getSession().setAttribute("sd", request.getParameter("startDate"));
 			
-			
 		}
+		
+		request.getSession().setAttribute("sp", sp);
+		request.getSession().setAttribute("vp", vp);
+		request.getSession().setAttribute("ops", ops);
+		request.getSession().setAttribute("tp", tp);
+		
 		
 		templateEngine.process(path, ctx, response.getWriter());
 

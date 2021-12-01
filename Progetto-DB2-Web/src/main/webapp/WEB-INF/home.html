@@ -21,7 +21,7 @@
 			<table><tr><td>
 				<table style="width:100%; border: 1px solid black; border-collapse: collapse;">
 					<tr th:each="sp : ${servicePackages}" style="border: 1px solid black;">
-						<td th:if="${sp.idServicePackage % 2 == 0}" style="border: 1px solid black; height:320px; width:700px">
+						<td th:if="${sp.idServicePackage % 2 == 1}" style="border: 1px solid black; height:320px; width:700px">
 							<div th:insert="@{WEB-INF/fragmentHome.html} :: sp"></div>
 						</td>			
 					</tr>
@@ -29,7 +29,7 @@
 			</td><td>
 				<table style="width:100%; border: 1px solid black; border-collapse: collapse;">
 					<tr th:each="sp : ${servicePackages}" style="border: 1px solid black;">
-						<td th:if="${sp.idServicePackage % 2 == 1}" style="border: 1px solid black;  height:320px; width:700px">
+						<td th:if="${sp.idServicePackage % 2 == 0}" style="border: 1px solid black;  height:320px; width:700px">
 							<div th:insert="@{WEB-INF/fragmentHome.html} :: sp"></div>
 						</td>			
 					</tr>

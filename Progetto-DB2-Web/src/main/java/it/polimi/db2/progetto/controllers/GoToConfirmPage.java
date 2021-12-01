@@ -1,6 +1,7 @@
 package it.polimi.db2.progetto.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -16,8 +17,11 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
+import it.polimi.db2.progetto.entities.FixedPhone;
+import it.polimi.db2.progetto.entities.MobileInternet;
 import it.polimi.db2.progetto.entities.Order;
 import it.polimi.db2.progetto.entities.ServicePackage;
+import it.polimi.db2.progetto.entities.ValidityPeriod;
 
 @WebServlet("/GoToConfirmPage")
 public class GoToConfirmPage extends HttpServlet{
@@ -53,6 +57,27 @@ public class GoToConfirmPage extends HttpServlet{
 		
 		//ctx.setVariable("servicePackages", servicePackages);
 		//ctx.setVariable("invalidOrders", invalidOrders);
+		
+		FixedPhone fp = new FixedPhone();
+		fp.setIdService(0);
+		MobileInternet mi = new MobileInternet();
+		mi.setIdService(1);
+		mi.setNumGigaMI(10);
+		mi.setExtraGigaFeeMI(9.99f);
+		ServicePackage servicePackage = new ServicePackage();
+		servicePackage.setIdServicePackage(0);
+		servicePackage.setName("Nome del service pkg 1");
+		servicePackage.setFixedPhone(fp);
+		servicePackage.setMobileInternet(mi);
+		servicePackage.setOptionalProducts(new ArrayList<>());
+		ValidityPeriod vp = new ValidityPeriod();
+		vp.setIdValidityPeriod(0);
+		vp.setMonthlyFee(5.70f);
+		vp.setNumMonth(3);
+		request.getSession().setAttribute("sp", servicePackage);
+		request.getSession().setAttribute("vp", vp);
+		request.getSession().setAttribute("tp", 80.0f);
+		
 		templateEngine.process(path, ctx, response.getWriter());
 
 	}

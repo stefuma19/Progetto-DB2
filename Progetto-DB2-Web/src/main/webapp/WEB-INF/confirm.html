@@ -13,24 +13,93 @@
 	</tr></table><br>
 	<table style="width:100%; border: 1px solid black; border-collapse: collapse;">
 		<tr>
-			<td>
-				<!-- <span th:text="${sp.name}">Service Package name</span> -->
-				SERVICE PKG NAME
+			<th style="width: 15%">
+				Service package
+			</th>
+			<th style="width: 25%">
+				Service
+			</th>
+			<th style="width: 20%">
+				Optional products
+			</th>
+			<th style="width: 20%">
+				Validity period
+			</th>
+			<th style="width: 10%">
+				Total price
+			</th>
+			<th style="width: 10%">
+				Start date
+			</th>
+		</tr>
+		<tr>
+			<td style="text-align: center; vertical-align: middle; width: 15%">
+				<span th:text="${session.sp.name}"></span>
 			</td>
-			<td>
-				SERVICES
+			<td style="width: 25%">
+				<table><tr><td>
+					<div th:if="${session.sp.fixedPhone != null}">
+						<ul><li>Fixed Phone</li></ul>
+					</div>
+					<div th:if="${session.sp.fixedInternet != null}">
+						<ul><li>Fixed Internet
+							<ul>
+								<li>Number of included Gigabytes: <span th:text="${session.sp.fixedInternet.numGigaFI}"></span></li>
+								<li>Fee for extra Gigabytes: <span th:text="${#numbers.formatDecimal(
+												session.sp.fixedInternet.extraGigaFeeFI, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+							</ul>
+						</li></ul>
+					</div>
+					<div th:if="${session.sp.mobilePhone != null}">
+						<ul><li>Mobile Phone
+							<ul>
+								<li>Number of minutes: <span th:text="${session.sp.mobilePhone.numMin}"></span></li>
+								<li>Number of SMSs: <span th:text="${session.sp.mobilePhone.numSMS}"></span></li>
+								<li>Fee for extra minutes: <span th:text="${#numbers.formatDecimal(
+												session.sp.mobilePhone.minFee, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+								<li>Fee for extra SMSs: <span th:text="${#numbers.formatDecimal(
+												session.sp.mobilePhone.smsFee, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+							</ul>
+						</li></ul>
+					</div>
+					<div th:if="${session.sp.mobileInternet != null}">
+						<ul><li>Mobile Internet
+							<ul>
+								<li>Number of included Gigabytes: <span th:text="${session.sp.mobileInternet.extraGigaFeeMI}"></span></li>
+								<li>Fee for extra Gigabytes: <span th:text="${#numbers.formatDecimal(
+												session.sp.mobileInternet.extraGigaFeeMI, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+							</ul>
+						</li></ul>
+					</div>
+				</td></tr></table>
 			</td>
-			<td>
-				OPT PRODUCTS
+			<td style="text-align: center; vertical-align: middle; width: 20%">
+				<span th:if="${session.sp.optionalProducts.empty}">No selected optional products</span>
+				<div th:if="${!session.sp.optionalProducts.empty}">
+					<table>
+						<tr th:each="op : ${session.sp.optionalProducts}">
+							<td>
+									<span th:text="${op.nameOP}"></span>
+								<ul>
+									<li>Monthly fee: <span th:text="${#numbers.formatDecimal(
+												op.monthlyFeeOP, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+								</ul>
+							</td>
+						</tr>
+					</table>
+				</div>
 			</td>
-			<td>
-				VALIDITY PERIOD
+			<td style="text-align: center; vertical-align: middle; width: 20%">
+				Number of months: <span th:text="${session.vp.numMonth}"></span><br>
+				Monthly fee: <span th:text="${#numbers.formatDecimal(
+								session.vp.monthlyFee, 0, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
-			<td>
-				TOTAL PRICE
+			<td style="text-align: center; vertical-align: middle; width: 10%">
+				<span th:text="${#numbers.formatDecimal(
+					session.tp, 0, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
-			<td>
-				START DATE
+			<td style="text-align: center; vertical-align: middle; width: 10%">
+				Start date
 			</td>
 		</tr>
 		<tr>

@@ -43,7 +43,12 @@ public class Register extends HttpServlet{
 			throws ServletException, IOException {
 		String username = null;
 		String password = null;
-		String email = null;
+		String email = null;		
+
+		String path = "/index.html";
+		ServletContext servletContext = getServletContext();
+		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
+		
 		try {
 			username = StringEscapeUtils.escapeJava(request.getParameter("username"));
 			password = StringEscapeUtils.escapeJava(request.getParameter("pwd"));
@@ -52,10 +57,30 @@ public class Register extends HttpServlet{
 			if (username == null || password == null || email == null || username.isEmpty() || password.isEmpty() || email.isEmpty()) {
 				throw new Exception("Missing or empty credential value");
 			}
+			if(email.length()>64) {
+				ctx.setVariable("errorMsgReg", "Email too long");
+				templateEngine.process(path, ctx, response.getWriter());
+				return;
+			}
+			if(!email.contains("@") || email.indexOf('@')==email.length()-1) {
+				ctx.setVariable("errorMsgReg", "Email has wrong format");
+				templateEngine.process(path, ctx, response.getWriter());
+				return;
+			}
+			if(username.length()>32) {
+				ctx.setVariable("errorMsgReg", "Username too long");
+				templateEngine.process(path, ctx, response.getWriter());
+				return;
+			}
+			if(password.length()>16) {
+				ctx.setVariable("errorMsgReg", "Password too long");
+				templateEngine.process(path, ctx, response.getWriter());
+				return;
+			}
 
 		} catch (Exception e) {
 			// for debugging only e.printStackTrace();
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing registration credential value");
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
 			return;
 		}
 		boolean isRegistrated = false;
@@ -71,16 +96,11 @@ public class Register extends HttpServlet{
 		// If the user exists, add info to the session and go to home page, otherwise
 		// show login page with error message
 
-		String path;
-
-		ServletContext servletContext = getServletContext();
-		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		if (!isRegistrated) {
 			ctx.setVariable("errorMsgReg", "Impossible to registrate with these credentials");
 		} else {
 			ctx.setVariable("errorMsgReg", "Registration completed, please login");
 		}
-		path = "/index.html";
 		templateEngine.process(path, ctx, response.getWriter());
 	}
 

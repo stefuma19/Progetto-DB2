@@ -132,7 +132,15 @@ public class GoToConfirmPage extends HttpServlet{
 					int idOP = Integer.parseInt(ids[i]);
 					try {
 						OptionalProduct op = optionalProductService.findOptionalProductById(idOP);
-						if(!sp.getOptionalProducts().contains(op)) {
+						//TODO: messo qua il controllo, non so se c'è un posto più appropriato
+						boolean contains = false;
+						for (OptionalProduct opInSp : sp.getOptionalProducts()) {
+							if(opInSp.getIdOP()==op.getIdOP()) {
+								contains = true;
+								break;
+							}
+						}
+						if(!contains) {
 							response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Mismatch between service package and optional products");
 							return;
 						}

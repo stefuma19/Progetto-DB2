@@ -10,8 +10,8 @@
 					margin-left: auto; margin-right: auto;"><tr>
 		<td style="text-align: center; vertical-align: middle;">
 			<form action="CheckLogin" method="POST"><br>
-				Username: <input type="text" name="username" required> <br><br>
-				Password: <input type="password" name="pwd" required><br><br>
+				Username:<br><input type="text" name="username" required> <br><br>
+				Password:<br><input type="password" name="pwd" required><br><br>
 				<input type="submit" value="Login">
 				<p th:if="${errorMsg!=null}" th:text=" ${errorMsg}"></p>
 			</form>
@@ -20,9 +20,9 @@
 					margin-left: auto; margin-right: auto;"><tr>
 		<td style="text-align: center; vertical-align: middle;">
 			<form action="Register" method="POST"><br>
-				Email: <input type="email" name="email" maxlength="64" required> <br><br>
-				Username: <input type="text" name="username" maxlength="32" required> <br><br>
-				Password: <input type="password" name="pwd" maxlength="16" required><br><br>
+				Email:<br><input type="email" name="email" maxlength="64" required> <br><br>
+				Username:<br><input type="text" name="username" maxlength="32" required> <br><br>
+				Password:<br><input type="password" name="pwd" maxlength="16" required><br><br>
 				<input type="submit" value="Register">
 				<p th:if="${errorMsgReg!=null}" th:text=" ${errorMsgReg}"></p>
 			</form>

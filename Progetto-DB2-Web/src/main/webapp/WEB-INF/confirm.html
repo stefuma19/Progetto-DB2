@@ -5,7 +5,7 @@
 	<title>Confirm page</title>
 </head>
 <body>
-	<div th:if="${!session.consUsername.empty}">
+	<div th:if="${session.consUsername!=null && !session.consUsername.empty}">
 		<table style="position:absolute; top:0; right:0; "><tr>
 			<td><span th:text="'Welcome ' + ${session.consUsername}"></span></td>
 		</tr></table>

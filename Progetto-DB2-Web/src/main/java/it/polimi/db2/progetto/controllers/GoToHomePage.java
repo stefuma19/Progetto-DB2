@@ -15,9 +15,7 @@ import org.thymeleaf.TemplateEngine;
 import it.polimi.db2.progetto.services.*;
 import it.polimi.db2.progetto.entities.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;

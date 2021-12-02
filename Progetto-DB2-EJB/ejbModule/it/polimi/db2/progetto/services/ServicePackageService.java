@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import it.polimi.db2.progetto.entities.ServicePackage;
+import it.polimi.db2.progetto.exceptions.IdException;
 
 @Stateless
 public class ServicePackageService {
@@ -20,7 +21,11 @@ public class ServicePackageService {
 		return em.createNamedQuery("ServicePackage.findAll", ServicePackage.class).getResultList();
 	}
 	
-	public ServicePackage findServicePackagesById(int idSP) {
-		return em.createNamedQuery("ServicePackage.findId", ServicePackage.class).setParameter(1, idSP).getResultList().get(0);
+	public ServicePackage findServicePackagesById(int idSP) throws IdException {
+		try {
+			return em.createNamedQuery("ServicePackage.findId", ServicePackage.class).setParameter(1, idSP).getResultList().get(0);
+		} catch (Exception e) {
+			throw new IdException("Could not find service package");
+		}
 	}
 }

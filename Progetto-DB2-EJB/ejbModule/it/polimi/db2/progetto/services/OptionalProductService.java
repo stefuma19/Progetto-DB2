@@ -1,12 +1,11 @@
 package it.polimi.db2.progetto.services;
 
-import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import it.polimi.db2.progetto.entities.OptionalProduct;
+import it.polimi.db2.progetto.exceptions.IdException;
 
 
 
@@ -18,7 +17,11 @@ public class OptionalProductService {
 	public OptionalProductService() {
 	}
 	
-	public OptionalProduct findOptionalProductById(int idOP) {
-		return em.createNamedQuery("OptionalProduct.findId", OptionalProduct.class).setParameter(1, idOP).getResultList().get(0);
+	public OptionalProduct findOptionalProductById(int idOP) throws IdException {
+		try {
+			return em.createNamedQuery("OptionalProduct.findId", OptionalProduct.class).setParameter(1, idOP).getResultList().get(0);
+		} catch (Exception e) {
+			throw new IdException("Could not find optional product");
+		}
 	}
 }

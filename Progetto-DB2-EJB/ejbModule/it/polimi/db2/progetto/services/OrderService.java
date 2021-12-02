@@ -5,16 +5,14 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 
 import it.polimi.db2.progetto.entities.Consumer;
 import it.polimi.db2.progetto.entities.OptionalProduct;
 import it.polimi.db2.progetto.entities.Order;
 import it.polimi.db2.progetto.entities.ServicePackage;
 import it.polimi.db2.progetto.entities.ValidityPeriod;
-import it.polimi.db2.progetto.exceptions.CredentialsException;
+import it.polimi.db2.progetto.exceptions.IdException;
 
 @Stateless
 public class OrderService {
@@ -39,19 +37,17 @@ public class OrderService {
 		em.persist(o);
 	}
 	
-	public void validateOrder(int idOrder, boolean valid) {
+	public void validateOrder(int idOrder, boolean valid) throws IdException {
 		Order o = findOrderById(idOrder);
 		o.setValid(valid);
 		em.persist(o);
 	}
 	
-	public Order findOrderById(int idOrder) {
-		List<Order> ords = em.createNamedQuery("Order.findOrderById", Order.class).setParameter(1, idOrder).getResultList();
-		
-		if(ords.size() == 0) {
-			return null;
-		}else {
-			return ords.get(0);
+	public Order findOrderById(int idOrder) throws IdException {
+		try {
+			return em.createNamedQuery("Order.findOrderById", Order.class).setParameter(1, idOrder).getResultList().get(0);
+		} catch (Exception e) {
+			throw new IdException("Could not find order");
 		}
 	}
 	

@@ -51,12 +51,15 @@ public class ConsumerService {
 		}
 	}
 	
-	public void updateIsInsolvent(String username, boolean isInsolvent) {
-		
-		Consumer c = em.createNamedQuery("Consumer.findUsername", Consumer.class).setParameter(1, username).getResultList().get(0);
-			
-		c.setInsolvent(isInsolvent);
-		em.persist(c);
+	public void updateIsInsolvent(String username, boolean isInsolvent) throws CredentialsException {
+		try {
+			Consumer c = em.createNamedQuery("Consumer.findUsername", Consumer.class).setParameter(1, username).getResultList().get(0);
+				
+			c.setInsolvent(isInsolvent);
+			em.persist(c);
+		} catch (Exception e) {
+			throw new CredentialsException("Could not find username");
+		}
 		
 	}
 	

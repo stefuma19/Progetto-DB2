@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.persistence.NonUniqueResultException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,17 +22,13 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
-import it.polimi.db2.progetto.entities.FixedPhone;
-import it.polimi.db2.progetto.entities.MobileInternet;
 import it.polimi.db2.progetto.entities.OptionalProduct;
-import it.polimi.db2.progetto.entities.Order;
 import it.polimi.db2.progetto.entities.ServicePackage;
 import it.polimi.db2.progetto.entities.ValidityPeriod;
+import it.polimi.db2.progetto.exceptions.CredentialsException;
+import it.polimi.db2.progetto.exceptions.IdException;
 import it.polimi.db2.progetto.services.ConsumerService;
-import it.polimi.db2.progetto.services.OptionalProductService;
 import it.polimi.db2.progetto.services.OrderService;
-import it.polimi.db2.progetto.services.ServicePackageService;
-import it.polimi.db2.progetto.services.ValidityPeriodService;
 
 @WebServlet("/ConfirmOrder")
 public class ConfirmOrder extends HttpServlet{
@@ -68,7 +65,13 @@ public class ConfirmOrder extends HttpServlet{
 				valid = true;
 			} else {
 				valid = false;
-				consumerService.updateIsInsolvent((String)request.getSession().getAttribute("consUsername"), !valid);
+				try {
+					consumerService.updateIsInsolvent((String)request.getSession().getAttribute("consUsername"), !valid);
+				} catch (CredentialsException e) {
+					e.printStackTrace();
+					response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not find consumer");
+					return;
+				}
 			}
 		}
 		else {
@@ -79,8 +82,13 @@ public class ConfirmOrder extends HttpServlet{
 		if(null != request.getSession().getAttribute("orderId")){
 			//only validate order
 			
-			orderService.validateOrder((int)request.getSession().getAttribute("orderId"), valid);
-			
+			try {
+				orderService.validateOrder((int)request.getSession().getAttribute("orderId"), valid);
+			} catch (IdException e) {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+				return;
+			}
+				
 		}else {
 			
 			//it's a new order

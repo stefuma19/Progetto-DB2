@@ -21,12 +21,11 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
-import it.polimi.db2.progetto.entities.FixedPhone;
-import it.polimi.db2.progetto.entities.MobileInternet;
 import it.polimi.db2.progetto.entities.OptionalProduct;
 import it.polimi.db2.progetto.entities.Order;
 import it.polimi.db2.progetto.entities.ServicePackage;
 import it.polimi.db2.progetto.entities.ValidityPeriod;
+import it.polimi.db2.progetto.exceptions.IdException;
 import it.polimi.db2.progetto.services.OptionalProductService;
 import it.polimi.db2.progetto.services.OrderService;
 import it.polimi.db2.progetto.services.ServicePackageService;
@@ -82,7 +81,13 @@ public class GoToConfirmPage extends HttpServlet{
 			
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			
-			Order order = orderService.findOrderById(Integer.parseInt(request.getParameter("orderId")));
+			Order order;
+			try {
+				order = orderService.findOrderById(Integer.parseInt(request.getParameter("orderId")));
+			} catch (IdException e) {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+				return;
+			}
 			
 			sp = order.getServicePackage();
 			vp = order.getValidityPeriod();
@@ -100,14 +105,24 @@ public class GoToConfirmPage extends HttpServlet{
 				return;
 			}
 			int idSP = Integer.parseInt(request.getParameter("idSP"));
-			sp = servicePackageService.findServicePackagesById(idSP);
+			try {
+				sp = servicePackageService.findServicePackagesById(idSP);
+			} catch (IdException e) {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+				return;
+			}
 			
 			if(request.getParameter(idSP + "_validityPeriod")==null) {
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing validity period");
 				return;
 			}
 			int idVP = Integer.parseInt(request.getParameter(idSP + "_validityPeriod"));
-			vp = validityPeriodService.findValidityPeriodById(idVP);
+			try {
+				vp = validityPeriodService.findValidityPeriodById(idVP);
+			} catch (IdException e) {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+				return;
+			}
 			tp += vp.getNumMonth() * vp.getMonthlyFee();
 
 			
@@ -115,9 +130,18 @@ public class GoToConfirmPage extends HttpServlet{
 			if(ids != null) {
 				for(int i = 0; i < ids.length; i++) {
 					int idOP = Integer.parseInt(ids[i]);
-					OptionalProduct op = optionalProductService.findOptionalProductById(idOP);
-					ops.add(op);
-					tp += vp.getNumMonth() * op.getMonthlyFeeOP();
+					try {
+						OptionalProduct op = optionalProductService.findOptionalProductById(idOP);
+						if(!sp.getOptionalProducts().contains(op)) {
+							response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Mismatch between service package and optional products");
+							return;
+						}
+						ops.add(op);
+						tp += vp.getNumMonth() * op.getMonthlyFeeOP();
+					} catch (IdException e) {
+						response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+						return;
+					}
 				}
 			}
 			
@@ -148,9 +172,7 @@ public class GoToConfirmPage extends HttpServlet{
 		request.getSession().setAttribute("ops", ops);
 		request.getSession().setAttribute("tp", tp);
 		
-		
 		templateEngine.process(path, ctx, response.getWriter());
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

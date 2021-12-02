@@ -1,6 +1,7 @@
 package it.polimi.db2.progetto.controllers;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -57,6 +58,7 @@ public class GoToBuyPage extends HttpServlet {
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());		
 		ctx.setVariable("servicePackages", servicePackages);
 		ctx.setVariable("validityPeriods", validityPeriods);
+		ctx.setVariable("todayDate", new Date());
 		templateEngine.process(path, ctx, response.getWriter());
 
 	}

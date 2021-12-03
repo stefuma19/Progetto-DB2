@@ -19,7 +19,9 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import it.polimi.db2.progetto.services.ConsumerService;
+import it.polimi.db2.progetto.services.EmployeeService;
 import it.polimi.db2.progetto.entities.Consumer;
+import it.polimi.db2.progetto.entities.Employee;
 import it.polimi.db2.progetto.exceptions.CredentialsException;
 import javax.persistence.NonUniqueResultException;
 
@@ -28,8 +30,8 @@ public class CheckLogin extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
-	//@EJB(name = "it.polimi.db2.progetto.services/ConsumerService")
-	//private ConsumerService consumerService;
+	@EJB(name = "it.polimi.db2.progetto.services/EmployeeService")
+	private EmployeeService employeeService;
 
 	public CheckLogin() {
 		super();
@@ -46,9 +48,48 @@ public class CheckLogin extends HttpServlet{
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			//TODO: controllo login dell'employee
-	}
+		String usrn = null;
+		String pwd = null;
+		try {
+			usrn = StringEscapeUtils.escapeJava(request.getParameter("username"));
+			pwd = StringEscapeUtils.escapeJava(request.getParameter("pwd"));
+			if (usrn == null || pwd == null || usrn.isEmpty() || pwd.isEmpty()) {
+				throw new Exception("Missing or empty credential value");
+			}
 
+		} catch (Exception e) {
+			// for debugging only e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing credential value");
+			return;
+		}
+		Employee employee = null;
+		try {
+			// query db to authenticate for user
+			employee = employeeService.checkLogin(usrn, pwd);
+		} catch (CredentialsException | NonUniqueResultException e) {
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not check credentials");
+			return;
+		}
+
+		// If the user exists, add info to the session and go to home page, otherwise
+		// show login page with error message
+
+		String path;
+		if (employee == null) {
+			ServletContext servletContext = getServletContext();
+			final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
+			ctx.setVariable("errorMsg", "Incorrect username or password");
+			path = "/index.html";
+			templateEngine.process(path, ctx, response.getWriter());
+		} else {
+			request.getSession().setAttribute("emplUsername", employee.getUsername());  //TODO:Serve?
+			path = getServletContext().getContextPath() + "/GoToHomePage";
+			response.sendRedirect(path);
+			}
+			
+	}
+	
 	public void destroy() {
 	}
 }

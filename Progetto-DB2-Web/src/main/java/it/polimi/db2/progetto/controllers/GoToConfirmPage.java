@@ -124,7 +124,6 @@ public class GoToConfirmPage extends HttpServlet{
 				return;
 			}
 			tp += vp.getNumMonth() * vp.getMonthlyFee();
-
 			
 			String[] ids = request.getParameterValues(idSP + "_optionalProducts");
 			if(ids != null) {

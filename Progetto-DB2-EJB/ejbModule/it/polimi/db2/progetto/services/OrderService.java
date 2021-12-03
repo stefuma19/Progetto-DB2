@@ -22,7 +22,7 @@ public class OrderService {
 	public OrderService() {
 	}
 	
-	public void createOrder(Consumer c, ServicePackage sp, ValidityPeriod vp, boolean valid, float tp, Date sd, List<OptionalProduct> ops) {
+	public Order createOrder(Consumer c, ServicePackage sp, ValidityPeriod vp, boolean valid, float tp, Date sd, List<OptionalProduct> ops) {
 		
 		Order o = new Order();
 		o.setUserConsumer(c);
@@ -35,12 +35,14 @@ public class OrderService {
 		o.setCreationDate(new Date());
 		
 		em.persist(o);
+		return o;
 	}
 	
-	public void validateOrder(int idOrder, boolean valid) throws IdException {
+	public Order validateOrder(int idOrder, boolean valid) throws IdException {
 		Order o = findOrderById(idOrder);
 		o.setValid(valid);
-		em.persist(o);
+		em.persist(o);    //TODO: crea duplicati nel db, anche con merge e senza questa riga
+		return o;
 	}
 	
 	public Order findOrderById(int idOrder) throws IdException {

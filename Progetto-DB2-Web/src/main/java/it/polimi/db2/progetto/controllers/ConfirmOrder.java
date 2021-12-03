@@ -19,12 +19,14 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import it.polimi.db2.progetto.entities.OptionalProduct;
+import it.polimi.db2.progetto.entities.Order;
 import it.polimi.db2.progetto.entities.ServicePackage;
 import it.polimi.db2.progetto.entities.ValidityPeriod;
 import it.polimi.db2.progetto.exceptions.CredentialsException;
 import it.polimi.db2.progetto.exceptions.IdException;
 import it.polimi.db2.progetto.services.ConsumerService;
 import it.polimi.db2.progetto.services.OrderService;
+import it.polimi.db2.progetto.services.SasService;
 
 @WebServlet("/ConfirmOrder")
 public class ConfirmOrder extends HttpServlet{
@@ -35,6 +37,8 @@ public class ConfirmOrder extends HttpServlet{
 	private OrderService orderService;
 	@EJB(name = "it.polimi.db2.progetto.services/ConsumerService")
 	private ConsumerService consumerService;
+	@EJB(name = "it.polimi.db2.progetto.services/SasService")
+	private SasService sasService;
 	//dopo aver cliccato il pulsante per creare (pagare) ordine, invoca l'orderservice.createOrder
 	
 	public ConfirmOrder() {
@@ -75,11 +79,13 @@ public class ConfirmOrder extends HttpServlet{
 			return;
 		}
 		
+		Order order = null;
+		
 		if(null != request.getSession().getAttribute("orderId")){
 			//only validate order
 			
 			try {
-				orderService.validateOrder((int)request.getSession().getAttribute("orderId"), valid);
+				order = orderService.validateOrder((int)request.getSession().getAttribute("orderId"), valid);
 			} catch (IdException e) {
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
 				return;
@@ -91,7 +97,7 @@ public class ConfirmOrder extends HttpServlet{
 			
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
 			try {
-				orderService.createOrder(consumerService.findConsumerById((String)request.getSession().getAttribute("consUsername")), 
+				order = orderService.createOrder(consumerService.findConsumerById((String)request.getSession().getAttribute("consUsername")), 
 						(ServicePackage)request.getSession().getAttribute("sp"), 
 						(ValidityPeriod)request.getSession().getAttribute("vp"), 
 						valid, 
@@ -101,6 +107,10 @@ public class ConfirmOrder extends HttpServlet{
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
+		}
+		
+		if(valid) {
+			sasService.createSas(order);
 		}
 		
 		request.getSession().setAttribute("orderId", null);

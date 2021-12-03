@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Login page</title>
+</head>
+<body>
+	<h1 align="center">Welcome to the Telcom Management Application</h1>
+	<table style="width:20%; border: 1px solid black; border-collapse: collapse; 
+					margin-left: auto; margin-right: auto;"><tr>
+		<td style="text-align: center; vertical-align: middle;">
+			<form action="CheckLogin" method="POST"><br>
+				Username:<br><input type="text" name="username" required> <br><br>
+				Password:<br><input type="password" name="pwd" required><br><br>
+				<input type="submit" value="Login">
+				<p th:if="${errorMsg!=null}" th:text=" ${errorMsg}"></p>
+			</form>
+	</td></tr></table>
+</body>
+</html>

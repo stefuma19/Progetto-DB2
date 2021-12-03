@@ -28,8 +28,8 @@ public class CheckLogin extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
-	@EJB(name = "it.polimi.db2.progetto.services/ConsumerService")
-	private ConsumerService consumerService;
+	//@EJB(name = "it.polimi.db2.progetto.services/ConsumerService")
+	//private ConsumerService consumerService;
 
 	public CheckLogin() {
 		super();
@@ -46,7 +46,7 @@ public class CheckLogin extends HttpServlet{
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+			//TODO: controllo login dell'employee
 	}
 
 	public void destroy() {

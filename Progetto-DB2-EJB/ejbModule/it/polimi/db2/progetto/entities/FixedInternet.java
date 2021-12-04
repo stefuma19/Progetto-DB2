@@ -8,6 +8,8 @@ import javax.persistence.*;
 @Entity
 @Table(name="fixed_internet", schema ="db2progetto")
 
+@NamedQuery(name="FixedInternet.findAll", query="SELECT fi FROM FixedInternet fi")
+
 public class FixedInternet implements Serializable{
 
 	private static final long serialVersionUID = 1L;

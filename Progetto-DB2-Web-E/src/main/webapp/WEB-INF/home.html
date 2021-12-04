@@ -5,36 +5,162 @@
 	<title>Home page</title>
 </head>
 <body>
-	<table>
-		<tr>
-			<td colspan=2>
-				Service packages creation<br>
-				Name<br>
-				<table><tr>
-					<td>Services to associate</td>
-					<td>Optional products to associate</td>
-				</tr></table>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Services creation
-				<table>
+	<div>
+		<table style="position:absolute; top:0; right:0; "><tr>
+			<td><span th:text="'Welcome ' + ${session.emplUsername}"></span></td>
+		</tr></table>
+	</div>
+	<table style="width:60%; border: 1px solid black; border-collapse: collapse; 
+			margin-left: auto; margin-right: auto;">
+		<tr style="border: 1px solid black; vertical-align:center; height:50px">
+			<th>Service package creation</th>
+		</tr><tr>
+			<td><form action="CreateSP" method="POST">
+				<table style="width:100%; border-collapse: collapse; 
+						margin-left: auto; margin-right: auto;" rules="cols"><tr>
 					<tr>
-						<td>Fixed phone</td>
-						<td>Fixed Internet</td>
-						<td>Mobile phone</td>
-						<td>Mobile Internet</td>
+						<td style="text-align: center; vertical-align:center; height:40px" colspan=2>
+							Name: <input type="text" name="spName" required>
+						</td>
+					</tr><tr>
+					<th style="width:50%; vertical-align:center; height:40px">Available services</th>
+					<th>Available optional products</th></tr><tr>
+					<td style="width:50%">
+						<table style="width:100%;">
+							<tr><th style="text-align: left;">
+								<input type="checkbox" value="fp" id="fp" name="servicePackage" required>
+									Fixed Phone
+							</th></tr>
+						</table><br><table style="width:100%;">
+							<tr><th style="text-align: left;">
+								<input type="checkbox" value="fi" id="fi" name="servicePackage" required>
+									Fixed Internet
+							</th></tr>
+							<tr th:each="fi : ${fis}">
+								<td>
+									<table><tr><td style="vertical-align: top;">
+										<input type="radio" th:value="${fi.idService}" th:id="${fi.idService}" 
+															name="fixedInternet" checked>
+									</td><td>
+										Number of included Gigabytes: <span th:text="${fi.numGigaFI}"></span><br>
+										Fee for extra Gigabytes: <span th:text="${#numbers.formatDecimal(
+												fi.extraGigaFeeFI, 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+									</td></tr></table>
+								</td>
+							</tr>
+						</table><br><table style="width:100%;">
+							<tr><th style="text-align: left;">
+								<input type="checkbox" value="mp" id="mp" name="servicePackage" required>
+									Mobile Phone
+							</th></tr>
+							<tr th:each="mp : ${mps}">
+								<td>
+									<table><tr><td style="vertical-align: top;">
+										<input type="radio" th:value="${mp.idService}" th:id="${mp.idService}" 
+															name="mobilePhone" checked>
+									</td><td>
+										Number of minutes: <span th:text="${mp.numMin}"></span><br>
+										Number of SMSs: <span th:text="${mp.numSMS}"></span><br>
+										Fee for extra minutes: <span th:text="${#numbers.formatDecimal(
+											mp.minFee, 0, 'COMMA', 2, 'POINT')}"></span>&euro;<br>
+										Fee for extra SMSs: <span th:text="${#numbers.formatDecimal(
+											mp.smsFee, 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+									</td></tr></table>
+								</td>
+							</tr>
+						</table><br><table style="width:100%;">
+							<tr><th style="text-align: left;">
+								<input type="checkbox" value="mi" id="mi" name="servicePackage" required>
+									Mobile Internet
+							</th></tr>
+							<tr th:each="mi : ${mis}">
+								<td>
+									<table><tr><td style="vertical-align: top;">
+										<input type="radio" th:value="${mi.idService}" th:id="${mi.idService}" 
+															name="mobileInternet" checked>
+									</td><td>
+										Number of included Gigabytes: <span th:text="${mi.numGigaMI}"></span><br>
+										Fee for extra Gigabytes: <span th:text="${#numbers.formatDecimal(
+												mi.extraGigaFeeMI, 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+									</td></tr></table>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td style="vertical-align:top;">
+						<table>
+							<tr th:each="op : ${ops}">
+									<td>
+										<table><tr><td style="vertical-align: top;">
+											<input type="checkbox" th:value="${op.idOP}" name="optionalProducts'}">
+										</td><td>
+											<span th:text="${op.nameOP}"></span><br>
+											Monthly fee: <span th:text="${#numbers.formatDecimal(
+												op.monthlyFeeOP, 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+										</td></tr></table>
+									</td>
+								</tr>
+						</table>
+					</td>
+				</tr></table>
+			</form></td>
+		</tr>	
+	</table><br>
+	<table style="width:60%; border: 1px solid black; border-collapse: collapse;
+			margin-left: auto; margin-right: auto;" rules="cols">
+		<tr style="border: 1px solid black;">
+			<th style="vertical-align:center; height:50px">Service creation</th>
+		</tr><tr>
+			<td>
+				<table style="width:100%">
+					<tr>	
+						<th style="width:33%; vertical-align:center; height:40px">Fixed Internet</th>
+						<th style="width:33%;">Mobile phone</th>
+						<th style="width:33%;">Mobile Internet</th>
+					<tr>
+						<td style="width:33%; text-align: center;">
+							<form action="CreateFI" method="POST">
+								Number of included Gigabytes: <br><input type="number" id="numGigaFI" min="0" required><br><br>
+								Fee for extra Gigabytes: <br><input type="number" id="extraGigaFeeFI" step="0.01" min="0" required><br><br>
+								<input type="submit" value="Create"><br>
+								<p th:if="${errorMsgFI!=null}" th:text=" ${errorMsgFI}"></p>
+							</form>
+						</td>
+						<td style="width:33%; text-align: center;">
+							<form action="CreateMP" method="POST">
+								Number of minutes: <br><input type="number" id="numMin" min="0" required><br><br>
+								Number of SMSs: <br><input type="number" id="numSms" min="0" required><br><br>
+								Fee for extra minutes: <br><input type="number" id="minFee" step="0.01" min="0" required><br><br>
+								Fee for extra SMSs: <br><input type="number" id="smsFee" step="0.01" min="0" required><br><br>
+								<input type="submit" value="Create"><br>
+								<p th:if="${errorMsgMP!=null}" th:text=" ${errorMsgMP}"></p>
+							</form>
+						</td>
+						<td style="width:33%; text-align: center;">
+							<form action="CreateMI" method="POST">
+								Number of included Gigabytes: <br><input type="number" id="numGigaMI" min="0" required><br><br>
+								Fee for extra Gigabytes: <br><input type="number" id="extraGigaFeeMI" step="0.01" min="0" required><br><br>
+								<input type="submit" value="Create"><br>
+								<p th:if="${errorMsgMI!=null}" th:text=" ${errorMsgMI}"></p>
+							</form>
+						</td>
 					</tr>
 				</table>
 			</td>
+		</tr>	
+	</table><br>
+	<table style="width:60%; border: 1px solid black; border-collapse: collapse; margin-left: auto; margin-right: auto;">
+		<tr style="border: 1px solid black;">
+			<th style="vertical-align:center; height:50px">Optional product creation</th>
+		</tr><tr><td style="vertical-align:center; height:50px">
+			<form action="CreateOP" method="POST"><table style="width:100%;"><tr>
+				<td style="width:45%;">Name: <input type="text" name="opName" required></td>
+				<td style="width:45%;">Monthly fee: <input type="number" id="monthlyFeeOP" step="0.01" min="0" required></td>
+				<td style="width:10%;"><input type="submit" value="Create"></td>
+			</tr></table></form>	
 		</tr>
-		<tr>
-			<td>
-				Optional products creation<br>
-				Name<br>
-				Monthly fee
-			</td>
+		<tr th:if="${errorMsgOP!=null}" >
+			<td><span th:text=" ${errorMsgOP}"></span></td>
 		</tr>
 	</table>
 </body>

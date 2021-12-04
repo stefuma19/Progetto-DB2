@@ -26,7 +26,18 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 @WebServlet("/GoToHomePage")
 public class GoToHomePage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	private TemplateEngine templateEngine;
+	@EJB(name = "it.polimi.db2.progetto.services/FixedInternetService")
+	private FixedInternetService fiService;
+	@EJB(name = "it.polimi.db2.progetto.services/FixedPhoneService")
+	private FixedPhoneService fpService;
+	@EJB(name = "it.polimi.db2.progetto.services/MobileInternetService")
+	private MobileInternetService miService;
+	@EJB(name = "it.polimi.db2.progetto.services/MobilePhoneService")
+	private MobilePhoneService mpService;
+	@EJB(name = "it.polimi.db2.progetto.services/OptionalProductService")
+	private OptionalProductService opService;
 
 	public GoToHomePage() {
 		super();
@@ -43,11 +54,20 @@ public class GoToHomePage extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		List<FixedInternet> fis = fiService.findAllFIServices();
+		List<FixedPhone> fps = fpService.findAllFPServices(); //TODO: serve?
+		List<MobileInternet> mis = miService.findAllMIServices();
+		List<MobilePhone> mps = mpService.findAllMPServices();
+		List<OptionalProduct> ops = opService.findAllOptionalProducts();
 		
 		String path = "/WEB-INF/home.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
+		ctx.setVariable("fis", fis);
+		ctx.setVariable("fps", fps); //TODO: serve? per ora nell'home.html non lo aggiungo
+		ctx.setVariable("mis", mis);
+		ctx.setVariable("mps", mps);
+		ctx.setVariable("ops", ops);
 		templateEngine.process(path, ctx, response.getWriter());
 
 	}

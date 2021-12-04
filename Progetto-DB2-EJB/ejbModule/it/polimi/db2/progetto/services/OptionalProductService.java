@@ -1,5 +1,7 @@
 package it.polimi.db2.progetto.services;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,6 +17,10 @@ public class OptionalProductService {
 	private EntityManager em;
 	
 	public OptionalProductService() {
+	}
+	
+	public List<OptionalProduct> findAllOptionalProducts() {
+		return em.createNamedQuery("OptionalProduct.findAll", OptionalProduct.class).getResultList();
 	}
 	
 	public OptionalProduct findOptionalProductById(int idOP) throws IdException {

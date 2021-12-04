@@ -24,7 +24,7 @@ public class ValidityPeriodService {
 	
 	public ValidityPeriod findValidityPeriodById(int idVP) throws IdException {
 		try {
-			return em.createNamedQuery("ValidityPeriod.findId", ValidityPeriod.class).setParameter(1, idVP).getResultList().get(0);
+			return em.find(ValidityPeriod.class, idVP);
 		} catch (Exception e) {
 			throw new IdException("Could not find validity period");
 		}

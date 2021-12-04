@@ -22,10 +22,10 @@ public class OrderService {
 	public OrderService() {
 	}
 	
-	public Order createOrder(Consumer c, ServicePackage sp, ValidityPeriod vp, boolean valid, float tp, Date sd, List<OptionalProduct> ops) {
+	public Order createOrder(String consUser, ServicePackage sp, ValidityPeriod vp, boolean valid, float tp, Date sd, List<OptionalProduct> ops) {
 		
 		Order o = new Order();
-		o.setUserConsumer(c);
+		o.setUserConsumer(em.find(Consumer.class, consUser));
 		o.setTotValue(tp);
 		o.setServicePackage(sp);
 		o.setValidityPeriod(vp);
@@ -39,15 +39,16 @@ public class OrderService {
 	}
 	
 	public Order validateOrder(int idOrder, boolean valid) throws IdException {
-		Order o = findOrderById(idOrder);
+		
+		Order o = em.find(Order.class, idOrder);
 		o.setValid(valid);
-		em.persist(o);    //TODO: crea duplicati nel db, anche con merge e senza questa riga
+		//em.persist(o);    //TODO: crea duplicati nel db, anche con merge e senza questa riga
 		return o;
 	}
 	
 	public Order findOrderById(int idOrder) throws IdException {
 		try {
-			return em.createNamedQuery("Order.findOrderById", Order.class).setParameter(1, idOrder).getResultList().get(0);
+			return em.find(Order.class , idOrder);
 		} catch (Exception e) {
 			throw new IdException("Could not find order");
 		}
@@ -55,10 +56,10 @@ public class OrderService {
 	
 	public List<Order> getInvalidOrders(String username){
 
-		List<Consumer> c = em.createNamedQuery("Consumer.findUsername", Consumer.class).setParameter(1, username).getResultList();
+		Consumer c = em.find(Consumer.class, username);
 		
-		if(c.size() > 0) {
-			return em.createNamedQuery("Order.getInvalidOrders", Order.class).setParameter(1, c.get(0)).getResultList();
+		if(c != null) {
+			return em.createNamedQuery("Order.getInvalidOrders", Order.class).setParameter(1, c).getResultList();
 		}
 		else return null;
 	}

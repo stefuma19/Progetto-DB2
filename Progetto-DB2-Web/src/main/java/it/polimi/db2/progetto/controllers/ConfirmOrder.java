@@ -97,7 +97,7 @@ public class ConfirmOrder extends HttpServlet{
 			
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
 			try {
-				order = orderService.createOrder(consumerService.findConsumerById((String)request.getSession().getAttribute("consUsername")), 
+				order = orderService.createOrder((String)request.getSession().getAttribute("consUsername"), 
 						(ServicePackage)request.getSession().getAttribute("sp"), 
 						(ValidityPeriod)request.getSession().getAttribute("vp"), 
 						valid, 

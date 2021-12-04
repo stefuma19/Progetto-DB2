@@ -36,7 +36,7 @@ public class ConsumerService {
 	
 	public boolean register(String email, String username, String password) throws CredentialsException{
 	
-		if(em.createNamedQuery("Consumer.findUsername", Consumer.class).setParameter(1, username).getResultList().size() != 0) {
+		if(em.find(Consumer.class, username) != null) {
 			return false;
 		}
 		else {
@@ -53,23 +53,14 @@ public class ConsumerService {
 	
 	public void updateIsInsolvent(String username, boolean isInsolvent) throws CredentialsException {
 		try {
-			Consumer c = em.createNamedQuery("Consumer.findUsername", Consumer.class).setParameter(1, username).getResultList().get(0);
-				
+			Consumer c = em.find(Consumer.class , username);
 			c.setInsolvent(isInsolvent);
-			em.persist(c);
+			//em.persist(c);
 		} catch (Exception e) {
 			throw new CredentialsException("Could not find username");
 		}
 		
 	}
 	
-	public Consumer findConsumerById(String username) {
-		List<Consumer> cons = em.createNamedQuery("Consumer.findUsername", Consumer.class).setParameter(1, username).getResultList();
-		
-		if(cons.size() == 0) {
-			return null;
-		}else {
-			return cons.get(0);
-		}
-	}
+	
 }

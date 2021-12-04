@@ -17,7 +17,7 @@ public class ServiceActivationSchedule implements Serializable{
 	private Date actDate;
 	private Date deactDate;
 	
-	@OneToOne(fetch =FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+	@OneToOne(fetch =FetchType.LAZY/*, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE}*/)
 	@JoinColumn(name = "IdOrder")
 	private Order order;
 	

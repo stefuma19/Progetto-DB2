@@ -35,6 +35,10 @@ public void createSas(Order o) {
         cal.add(Calendar.DATE, o.getValidityPeriod().getNumMonth()*30);
 		sas.setDeactDate(cal.getTime());
 		
-		em.persist(sas);
+		o.setServiceActivationSchedule(sas);
+		
+		em.persist(sas);  //
+		
+		
 	}
 }

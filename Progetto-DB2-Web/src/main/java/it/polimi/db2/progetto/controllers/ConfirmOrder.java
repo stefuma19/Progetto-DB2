@@ -60,7 +60,7 @@ public class ConfirmOrder extends HttpServlet{
 			throws ServletException, IOException {
 		
 		boolean valid;
-		if(request.getParameter("confirmOrder")!=null) {
+		if(request.getParameter("confirmOrder")!=null) {  //pulsante premuto da confirm
 			if(StringEscapeUtils.escapeJava(request.getParameter("confirmOrder")).equals("Buy")) {
 				valid = true;
 			} else {
@@ -81,7 +81,7 @@ public class ConfirmOrder extends HttpServlet{
 		
 		Order order = null;
 		
-		if(null != request.getSession().getAttribute("orderId")){
+		if(null != request.getSession().getAttribute("orderId")){ //ordine già fatto, va solo pagato
 			//only validate order
 			
 			try {

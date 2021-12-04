@@ -55,7 +55,6 @@ public class ConsumerService {
 		try {
 			Consumer c = em.find(Consumer.class , username);
 			c.setInsolvent(isInsolvent);
-			//em.persist(c);
 		} catch (Exception e) {
 			throw new CredentialsException("Could not find username");
 		}

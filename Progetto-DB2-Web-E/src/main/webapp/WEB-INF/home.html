@@ -154,13 +154,13 @@
 			<th style="vertical-align:center; height:50px">Optional product creation</th>
 		</tr><tr><td style="vertical-align:center; height:50px">
 			<form action="CreateOP" method="POST"><table style="width:100%;"><tr>
-				<td style="width:45%;">Name: <input type="text" name="opName" required></td>
-				<td style="width:45%;">Monthly fee: <input type="number" id="monthlyFeeOP" step="0.01" min="0" required></td>
+				<td style="width:45%;">Name: <input type="text" name="opName" id="opName" maxlength="32" required></td>
+				<td style="width:45%;">Monthly fee: <input type="number" name="opMonthlyFee" id="opMonthlyFee" step="0.01" min="0.01" required></td>
 				<td style="width:10%;"><input type="submit" value="Create"></td>
 			</tr></table></form>	
 		</tr>
-		<tr th:if="${errorMsgOP!=null}" >
-			<td><span th:text=" ${errorMsgOP}"></span></td>
+		<tr th:if="${session.errorMsgOP!=null}" >
+			<td><span th:text=" ${session.errorMsgOP}"></span></td>
 		</tr>
 	</table>
 </body>

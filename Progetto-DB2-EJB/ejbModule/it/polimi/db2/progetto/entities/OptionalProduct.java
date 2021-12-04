@@ -9,12 +9,14 @@ import javax.persistence.*;
 @Table(name="optional_product", schema ="db2progetto")
 
 @NamedQueries({@NamedQuery(name="OptionalProduct.findAll", query="SELECT op FROM OptionalProduct op"),
-			   @NamedQuery(name="OptionalProduct.findId", query="SELECT op FROM OptionalProduct op WHERE op.idOP = ?1")})
+			@NamedQuery(name="OptionalProduct.findOP", 
+						query="SELECT op FROM OptionalProduct op WHERE op.nameOP = ?1 and op.monthlyFeeOP = ?2")})
+
 
 public class OptionalProduct implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	@Id @GeneratedValue
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idOP;
 	
 	private String nameOP;

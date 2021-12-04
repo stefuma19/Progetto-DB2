@@ -23,7 +23,7 @@ public class ServicePackageService {
 	
 	public ServicePackage findServicePackagesById(int idSP) throws IdException {
 		try {
-			return em.createNamedQuery("ServicePackage.findId", ServicePackage.class).setParameter(1, idSP).getResultList().get(0);
+			return em.find(ServicePackage.class, idSP);
 		} catch (Exception e) {
 			throw new IdException("Could not find service package");
 		}

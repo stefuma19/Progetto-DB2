@@ -1,5 +1,7 @@
 package it.polimi.db2.progetto.services;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -30,9 +32,17 @@ public void createSas(Order o) {
 		sas.setOrder(o);
 		sas.setActDate(o.getStartDate());
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		
+		//TODO: non aggiunge i giorni in modo corretto
+		
 		Calendar cal = Calendar.getInstance();
-        cal.setTime(o.getStartDate());               //TODO: non aggiunge i giorni in modo corretto
-        cal.add(Calendar.DATE, o.getValidityPeriod().getNumMonth()*30);
+        try {
+			cal.setTime(sdf.parse(sdf.format(o.getStartDate())));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}               
+        cal.add(Calendar.MONTH, o.getValidityPeriod().getNumMonth());
 		sas.setDeactDate(cal.getTime());
 		
 		o.setServiceActivationSchedule(sas);

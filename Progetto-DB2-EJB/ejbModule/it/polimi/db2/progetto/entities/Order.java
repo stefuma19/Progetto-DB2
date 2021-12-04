@@ -1,6 +1,7 @@
 package it.polimi.db2.progetto.entities;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +17,9 @@ public class Order implements Serializable{
 	private int idOrder;
 	private float totValue;
 	private boolean isValid;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date startDate;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
 	
 	@ManyToMany(fetch=FetchType.EAGER)
@@ -76,6 +79,8 @@ public class Order implements Serializable{
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
+		
+		
 	}
 
 	public Date getCreationDate() {

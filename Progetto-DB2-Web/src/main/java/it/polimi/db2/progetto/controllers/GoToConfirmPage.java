@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -156,8 +157,9 @@ public class GoToConfirmPage extends HttpServlet{
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing start date");
 				return;
 			}
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			try {
-				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				
 				Date now = format.parse(format.format(new Date()));
 				Date startDate = format.parse(request.getParameter("startDate")); 
 				if(startDate.compareTo(now) < 0) {
@@ -171,6 +173,18 @@ public class GoToConfirmPage extends HttpServlet{
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.toString());
 				return;
 			} 
+
+			/*format = new SimpleDateFormat("yyyy-MM-dd");
+			Calendar cal = Calendar.getInstance();
+			try {
+				cal.setTime(format.parse(request.getParameter("startDate")));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			cal.set(Calendar.HOUR_OF_DAY,0);
+			cal.set(Calendar.MINUTE,0);
+			*/
 			request.getSession().setAttribute("sd", request.getParameter("startDate"));
 		}
 		

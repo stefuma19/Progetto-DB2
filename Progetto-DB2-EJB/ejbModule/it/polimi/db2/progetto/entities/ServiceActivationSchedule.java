@@ -14,7 +14,9 @@ public class ServiceActivationSchedule implements Serializable{
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idSAS;
 	
+	@Temporal(TemporalType.DATE)
 	private Date actDate;
+	@Temporal(TemporalType.DATE)
 	private Date deactDate;
 	
 	@OneToOne(fetch =FetchType.LAZY/*, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE}*/)

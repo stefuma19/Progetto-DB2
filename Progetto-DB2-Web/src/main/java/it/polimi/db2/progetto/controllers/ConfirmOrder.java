@@ -3,6 +3,8 @@ package it.polimi.db2.progetto.controllers;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -96,17 +98,34 @@ public class ConfirmOrder extends HttpServlet{
 			//it's a new order
 			
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
+			
+
+			Calendar cal = Calendar.getInstance();
+			
 			try {
-				order = orderService.createOrder((String)request.getSession().getAttribute("consUsername"), 
-						(ServicePackage)request.getSession().getAttribute("sp"), 
-						(ValidityPeriod)request.getSession().getAttribute("vp"), 
-						valid, 
-						(float)request.getSession().getAttribute("tp"), 
-						formatter.parse((String)request.getSession().getAttribute("sd")), 
-						(List<OptionalProduct>)request.getSession().getAttribute("ops"));
-			} catch (ParseException e) {
-				e.printStackTrace();
+				cal.setTime(formatter.parse((String)request.getSession().getAttribute("sd")));
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
+			
+			cal.set(Calendar.HOUR_OF_DAY,10);
+			cal.set(Calendar.MINUTE,10);
+			
+			
+
+			System.out.print(cal.getTime().toString());
+			
+			
+			order = orderService.createOrder((String)request.getSession().getAttribute("consUsername"), 
+					(ServicePackage)request.getSession().getAttribute("sp"), 
+					(ValidityPeriod)request.getSession().getAttribute("vp"), 
+					valid, 
+					(float)request.getSession().getAttribute("tp"), 
+					cal.getTime(), 
+					(List<OptionalProduct>)request.getSession().getAttribute("ops"));
+			
+			
 		}
 		
 		if(valid) {

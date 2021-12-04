@@ -14,6 +14,7 @@ public class Alert implements Serializable{
 	@Id @GeneratedValue
 	private int idAlert;
 	private float amount;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastRejection;
 	
 	@OneToOne(fetch =FetchType.LAZY)

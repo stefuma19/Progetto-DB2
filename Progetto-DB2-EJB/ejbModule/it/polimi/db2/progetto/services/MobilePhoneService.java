@@ -6,8 +6,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import it.polimi.db2.progetto.entities.MobileInternet;
 import it.polimi.db2.progetto.entities.MobilePhone;
+import it.polimi.db2.progetto.exceptions.IdException;
 
 @Stateless
 public class MobilePhoneService {
@@ -34,5 +34,13 @@ public class MobilePhoneService {
 		mp.setSmsFee(feeSMS);
 		em.persist(mp);
 		return true;
+	}
+	
+	public MobilePhone findMobilePhoneById(int id) throws IdException {
+		try {
+			return em.find(MobilePhone.class, id);
+		} catch (Exception e) {
+			throw new IdException("Could not find mobile phone service");
+		}
 	}
 }

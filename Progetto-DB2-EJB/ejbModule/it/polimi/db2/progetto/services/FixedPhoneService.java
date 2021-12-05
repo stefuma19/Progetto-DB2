@@ -20,5 +20,15 @@ public class FixedPhoneService {
 	public List<FixedPhone> findAllFPServices() {
 		return em.createNamedQuery("FixedPhone.findAll", FixedPhone.class).getResultList();
 	}
+	
+	public FixedPhone checkFpExists() {
+		List<FixedPhone> fis = findAllFPServices();
+		if(fis.isEmpty()) {
+			FixedPhone fi = new FixedPhone();
+			em.persist(fi);
+			return fi;
+		}
+		else return fis.get(0);
+	}
 
 }

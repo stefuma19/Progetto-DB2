@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import it.polimi.db2.progetto.entities.MobileInternet;
+import it.polimi.db2.progetto.exceptions.IdException;
 
 @Stateless
 public class MobileInternetService {
@@ -31,5 +32,13 @@ public class MobileInternetService {
 		mi.setExtraGigaFeeMI(fee);
 		em.persist(mi);
 		return true;
+	}
+	
+	public MobileInternet findMobileInternetById(int id) throws IdException {
+		try {
+			return em.find(MobileInternet.class, id);
+		} catch (Exception e) {
+			throw new IdException("Could not find mobile internet service");
+		}
 	}
 }

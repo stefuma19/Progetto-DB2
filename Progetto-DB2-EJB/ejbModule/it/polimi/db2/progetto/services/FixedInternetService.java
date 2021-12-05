@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import it.polimi.db2.progetto.entities.FixedInternet;
+import it.polimi.db2.progetto.exceptions.IdException;
 
 @Stateless
 public class FixedInternetService {
@@ -31,5 +32,13 @@ public class FixedInternetService {
 		fi.setExtraGigaFeeFI(fee);
 		em.persist(fi);
 		return true;
+	}
+	
+	public FixedInternet findFixedInternetById(int id) throws IdException {
+		try {
+			return em.find(FixedInternet.class, id);
+		} catch (Exception e) {
+			throw new IdException("Could not find fixed internet service");
+		}
 	}
 }

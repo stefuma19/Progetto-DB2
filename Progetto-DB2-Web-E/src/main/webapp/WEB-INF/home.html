@@ -8,7 +8,7 @@
 	<div>
 		<table style="position:absolute; top:0; right:0; "><tr>
 			<td><span th:text="'Welcome ' + ${session.emplUsername}"></span></td>
-			<td><form action="SalesReport" method="POST"><input type="submit" value="SalesReport"/></form></td>
+			<td><form action="SalesReport" method="POST"><input type="submit" value="Sales Report"/></form></td>
 		</tr></table>
 	</div>
 	<table style="width:60%; border: 1px solid black; border-collapse: collapse; 
@@ -19,7 +19,6 @@
 			<td><form action="CreateSP" method="POST">
 				<table style="width:100%; border-collapse: collapse; 
 						margin-left: auto; margin-right: auto;" rules="cols"><tr>
-					<tr>
 						<td style="text-align: center; vertical-align:center; height:40px" colspan=2>
 							Name: <input type="text" name="spName" required>
 						</td>
@@ -29,12 +28,12 @@
 					<td style="width:50%">
 						<table style="width:100%;">
 							<tr><th style="text-align: left;">
-								<input type="checkbox" value="fp" id="fp" name="servicePackage" required>
+								<input type="checkbox" value="fp" id="fp" name="servicePackage">
 									Fixed Phone
 							</th></tr>
 						</table><br><table style="width:100%;">
 							<tr><th style="text-align: left;">
-								<input type="checkbox" value="fi" id="fi" name="servicePackage" required>
+								<input type="checkbox" value="fi" id="fi" name="servicePackage">
 									Fixed Internet
 							</th></tr>
 							<tr th:each="fi : ${fis}">
@@ -51,7 +50,7 @@
 							</tr>
 						</table><br><table style="width:100%;">
 							<tr><th style="text-align: left;">
-								<input type="checkbox" value="mp" id="mp" name="servicePackage" required>
+								<input type="checkbox" value="mp" id="mp" name="servicePackage">
 									Mobile Phone
 							</th></tr>
 							<tr th:each="mp : ${mps}">
@@ -71,7 +70,7 @@
 							</tr>
 						</table><br><table style="width:100%;">
 							<tr><th style="text-align: left;">
-								<input type="checkbox" value="mi" id="mi" name="servicePackage" required>
+								<input type="checkbox" value="mi" id="mi" name="servicePackage">
 									Mobile Internet
 							</th></tr>
 							<tr th:each="mi : ${mis}">
@@ -102,6 +101,16 @@
 									</td>
 								</tr>
 						</table>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center; vertical-align:center;" colspan=2>
+						<input type="submit" value="Create">
+					</td>
+				</tr>
+				<tr th:if="${session.errorMsgSP!=null}">
+					<td style="text-align: center; vertical-align:center;" colspan=2>
+						<span th:text=" ${session.errorMsgSP}"></span>
 					</td>
 				</tr></table>
 			</form></td>

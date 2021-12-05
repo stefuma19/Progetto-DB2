@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class FixedPhone implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	@Id @GeneratedValue
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idService;
 	
 	@OneToMany(fetch =FetchType.LAZY, mappedBy = "fixedPhone")

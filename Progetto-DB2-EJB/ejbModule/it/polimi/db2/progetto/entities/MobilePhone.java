@@ -8,12 +8,14 @@ import javax.persistence.*;
 @Entity
 @Table(name="mobile_phone", schema ="db2progetto")
 
-@NamedQuery(name="MobilePhone.findAll", query="SELECT mp FROM MobilePhone mp")
+@NamedQueries({@NamedQuery(name="MobilePhone.findAll", query="SELECT mp FROM MobilePhone mp"),
+			@NamedQuery(name="MobilePhone.findMP", 
+			query="SELECT mp FROM MobilePhone mp WHERE mp.numMin = ?1 and mp.numSms = ?2 and mp.minFee = ?3 and mp.smsFee = ?4")})
 
 public class MobilePhone implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	@Id @GeneratedValue
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idService;
 	
 	@OneToMany(fetch =FetchType.LAZY, mappedBy = "mobilePhone")

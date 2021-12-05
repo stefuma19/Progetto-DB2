@@ -13,16 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
-import it.polimi.db2.progetto.services.OptionalProductService;
+import it.polimi.db2.progetto.services.MobileInternetService;
 
-@WebServlet("/CreateOP")
-public class CreateOP extends HttpServlet {
+@WebServlet("/CreateMI")
+public class CreateMI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	@EJB(name = "it.polimi.db2.progetto.services/OptionalProductService")
-	private OptionalProductService opService;
+	@EJB(name = "it.polimi.db2.progetto.services/MobileInternetService")
+	private MobileInternetService miService;
 	
-	public CreateOP() {
+	public CreateMI() {
 		super();
 	}
 	
@@ -36,37 +36,38 @@ public class CreateOP extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		request.getSession().removeAttribute("errorMsgOP");	
+		request.getSession().removeAttribute("errorMsgMI");	
 		String path = getServletContext().getContextPath() + "/GoToHomePage";
 
-		if (request.getParameter("opName") == null || request.getParameter("opName") == "" ||
-				request.getParameter("opMonthlyFee") == null || request.getParameter("opMonthlyFee") == "") {
+		if (request.getParameter("numGigaMI") == null || request.getParameter("numGigaMI") == "" ||
+				request.getParameter("extraGigaFeeMI") == null || request.getParameter("extraGigaFeeMI") == "") {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing parameters");
 			return;
 		}
-		
-		String opName = request.getParameter("opName");
-		Float opMonthlyFee;
+
+		Integer numGigaMI;
+		Float extraGigaFeeMI;
 		try {
-			opMonthlyFee = Float.parseFloat(request.getParameter("opMonthlyFee"));
+			numGigaMI = Integer.parseInt(request.getParameter("numGigaMI"));
+			extraGigaFeeMI = Float.parseFloat(request.getParameter("extraGigaFeeMI"));
 		} catch (NumberFormatException e) {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad parameters format");
 			return;
 		}
 
-		if(opName.length()>32) {
-			request.getSession().setAttribute("errorMsgOP", "Name too long");
+		if(numGigaMI<=0) {
+			request.getSession().setAttribute("errorMsgMI", "Non positive giga");
 			response.sendRedirect(path);
 			return;
 		}
-		if(opMonthlyFee<=0) {
-			request.getSession().setAttribute("errorMsgOP", "Non positive fee");
+		if(extraGigaFeeMI<=0) {
+			request.getSession().setAttribute("errorMsgMI", "Non positive fee");
 			response.sendRedirect(path);
 			return;
 		}
 
-		if(!opService.createOP(opName, opMonthlyFee))
-			request.getSession().setAttribute("errorMsgOP", "Already existent optional product");
+		if(!miService.createMI(numGigaMI, extraGigaFeeMI))
+			request.getSession().setAttribute("errorMsgMI", "Already existent service");
 		
 		response.sendRedirect(path);
 

@@ -20,4 +20,16 @@ public class MobileInternetService {
 		return em.createNamedQuery("MobileInternet.findAll", MobileInternet.class).getResultList();
 	}
 
+	public boolean createMI(int num, float fee) {
+		
+		if(!em.createNamedQuery("MobileInternet.findMI", MobileInternet.class)
+				.setParameter(1, num).setParameter(2, fee).getResultList().isEmpty())
+			return false;
+	
+		MobileInternet mi = new MobileInternet();
+		mi.setNumGigaMI(num);
+		mi.setExtraGigaFeeMI(fee);
+		em.persist(mi);
+		return true;
+	}
 }

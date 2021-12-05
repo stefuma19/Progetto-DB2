@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
@@ -18,9 +17,7 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
-import it.polimi.db2.progetto.services.ConsumerService;
 import it.polimi.db2.progetto.services.EmployeeService;
-import it.polimi.db2.progetto.entities.Consumer;
 import it.polimi.db2.progetto.entities.Employee;
 import it.polimi.db2.progetto.exceptions.CredentialsException;
 import javax.persistence.NonUniqueResultException;

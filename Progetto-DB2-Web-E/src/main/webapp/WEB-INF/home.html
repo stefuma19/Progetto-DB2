@@ -8,6 +8,7 @@
 	<div>
 		<table style="position:absolute; top:0; right:0; "><tr>
 			<td><span th:text="'Welcome ' + ${session.emplUsername}"></span></td>
+			<td><form action="SalesReport" method="POST"><input type="submit" value="SalesReport"/></form></td>
 		</tr></table>
 	</div>
 	<table style="width:60%; border: 1px solid black; border-collapse: collapse; 
@@ -120,28 +121,28 @@
 					<tr>
 						<td style="width:33%; text-align: center;">
 							<form action="CreateFI" method="POST">
-								Number of included Gigabytes: <br><input type="number" id="numGigaFI" min="0" required><br><br>
-								Fee for extra Gigabytes: <br><input type="number" id="extraGigaFeeFI" step="0.01" min="0" required><br><br>
+								Number of included Gigabytes: <br><input type="number" name="numGigaFI" id="numGigaFI" min="1" required><br><br>
+								Fee for extra Gigabytes: <br><input type="number" name="extraGigaFeeFI" id="extraGigaFeeFI" step="0.01" min="0.01" required><br><br>
 								<input type="submit" value="Create"><br>
-								<p th:if="${errorMsgFI!=null}" th:text=" ${errorMsgFI}"></p>
+								<p th:if="${session.errorMsgFI!=null}" th:text=" ${session.errorMsgFI}"></p>
 							</form>
 						</td>
 						<td style="width:33%; text-align: center;">
 							<form action="CreateMP" method="POST">
-								Number of minutes: <br><input type="number" id="numMin" min="0" required><br><br>
-								Number of SMSs: <br><input type="number" id="numSms" min="0" required><br><br>
-								Fee for extra minutes: <br><input type="number" id="minFee" step="0.01" min="0" required><br><br>
-								Fee for extra SMSs: <br><input type="number" id="smsFee" step="0.01" min="0" required><br><br>
+								Number of minutes: <br><input type="number" name="numMin" id="numMin" min="1" required><br><br>
+								Number of SMSs: <br><input type="number" name="numSms" id="numSms" min="1" required><br><br>
+								Fee for extra minutes: <br><input type="number" name="minFee" id="minFee" step="0.01" min="0.01" required><br><br>
+								Fee for extra SMSs: <br><input type="number" name="smsFee" id="smsFee" step="0.01" min="0.01" required><br><br>
 								<input type="submit" value="Create"><br>
-								<p th:if="${errorMsgMP!=null}" th:text=" ${errorMsgMP}"></p>
+								<p th:if="${session.errorMsgMP!=null}" th:text=" ${session.errorMsgMP}"></p>
 							</form>
 						</td>
 						<td style="width:33%; text-align: center;">
 							<form action="CreateMI" method="POST">
-								Number of included Gigabytes: <br><input type="number" id="numGigaMI" min="0" required><br><br>
-								Fee for extra Gigabytes: <br><input type="number" id="extraGigaFeeMI" step="0.01" min="0" required><br><br>
+								Number of included Gigabytes: <br><input type="number" name="numGigaMI" id="numGigaMI" min="1" required><br><br>
+								Fee for extra Gigabytes: <br><input type="number" name="extraGigaFeeMI" id="extraGigaFeeMI" step="0.01" min="0.01" required><br><br>
 								<input type="submit" value="Create"><br>
-								<p th:if="${errorMsgMI!=null}" th:text=" ${errorMsgMI}"></p>
+								<p th:if="${session.errorMsgMI!=null}" th:text=" ${session.errorMsgMI}"></p>
 							</form>
 						</td>
 					</tr>
@@ -160,7 +161,7 @@
 			</tr></table></form>	
 		</tr>
 		<tr th:if="${session.errorMsgOP!=null}" >
-			<td><span th:text=" ${session.errorMsgOP}"></span></td>
+			<td style="text-align: center;"><span th:text=" ${session.errorMsgOP}"></span></td>
 		</tr>
 	</table>
 </body>

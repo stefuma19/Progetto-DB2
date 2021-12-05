@@ -8,13 +8,15 @@ import javax.persistence.*;
 @Entity
 @Table(name="mobile_internet", schema ="db2progetto")
 
-@NamedQuery(name="MobileInternet.findAll", query="SELECT mi FROM MobileInternet mi")
+@NamedQueries({@NamedQuery(name="MobileInternet.findAll", query="SELECT mi FROM MobileInternet mi"),
+	@NamedQuery(name="MobileInternet.findMI", 
+	query="SELECT mi FROM MobileInternet mi WHERE mi.numGigaMI = ?1 and mi.extraGigaFeeMI = ?2")})
 
 public class MobileInternet implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Id @GeneratedValue
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idService;
 	
 	@OneToMany(fetch =FetchType.LAZY, mappedBy = "mobileInternet")

@@ -136,6 +136,7 @@ public class ConfirmOrder extends HttpServlet{
 		
 		if(valid) {
 			sasService.createSas(order);
+			consumerService.checkIsInsolvent((String)request.getSession().getAttribute("consUsername"));
 		}
 		
 		if(createAlert) {

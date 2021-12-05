@@ -72,6 +72,15 @@ public class ConsumerService {
 		}
 		return false;
 	}
+
+	public void checkIsInsolvent(String consUser) {
+		
+		Consumer c = em.find(Consumer.class , consUser);
+		if((long)em.createNamedQuery("Order.getNotPaidNumber").setParameter(1, c).getResultList().get(0) == 0) {
+			c.setInsolvent(false);
+			c.setNumFailedPayments(0);
+		}
+	}
 	
 	
 }

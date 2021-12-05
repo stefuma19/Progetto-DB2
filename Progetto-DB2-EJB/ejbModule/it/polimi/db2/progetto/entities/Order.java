@@ -9,7 +9,9 @@ import javax.persistence.*;
 @Entity
 @Table(name="order", schema ="db2progetto")
 @NamedQueries({ @NamedQuery(name = "Order.getInvalidOrders", query = "SELECT o FROM Order o  WHERE o.userConsumer = ?1 and o.isValid = false"),
-	@NamedQuery(name = "Order.getNotPaidAmount", query = "SELECT SUM(o.totValue) FROM Order o  WHERE o.userConsumer = ?1 and o.isValid = false")})
+	@NamedQuery(name = "Order.getNotPaidAmount", query = "SELECT SUM(o.totValue) FROM Order o  WHERE o.userConsumer = ?1 and o.isValid = false"),
+	@NamedQuery(name = "Order.getNotPaidNumber", query = "SELECT COUNT(o) FROM Order o  WHERE o.userConsumer = ?1 and o.isValid = false")})
+
 public class Order implements Serializable{
 	private static final long serialVersionUID = 1L;
 

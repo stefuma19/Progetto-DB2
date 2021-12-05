@@ -92,7 +92,7 @@
 							<tr th:each="op : ${ops}">
 									<td>
 										<table><tr><td style="vertical-align: top;">
-											<input type="checkbox" th:value="${op.idOP}" name="optionalProducts'}">
+											<input type="checkbox" th:value="${op.idOP}" name="optionalProducts">
 										</td><td>
 											<span th:text="${op.nameOP}"></span><br>
 											Monthly fee: <span th:text="${#numbers.formatDecimal(

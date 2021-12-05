@@ -77,7 +77,7 @@ public class ServicePackageService {
 		sp.setMobileInternet(mobileInternet);
 		sp.setOptionalProducts(optionalProducts);
 		
-		if(fixedPhone != null) {
+		/*if(fixedPhone != null) {
 			fixedPhone.addServicePackage(sp);
 		}
 		if(fixedInternet != null) {
@@ -88,7 +88,7 @@ public class ServicePackageService {
 		}
 		if(mobileInternet != null) {
 			mobileInternet.addServicePackage(sp);
-		}
+		}*/
 		
 		for(OptionalProduct op : optionalProducts) {
 			op.addServicePackage(sp);

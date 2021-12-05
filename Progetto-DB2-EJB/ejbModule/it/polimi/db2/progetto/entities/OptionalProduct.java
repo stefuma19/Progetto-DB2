@@ -68,5 +68,9 @@ public class OptionalProduct implements Serializable{
 		this.orders = orders;
 	}
 	
+	public void addServicePackage(ServicePackage servicePackage) {
+		this.servicePackages.add(servicePackage);
+	}
+	
 	
 }

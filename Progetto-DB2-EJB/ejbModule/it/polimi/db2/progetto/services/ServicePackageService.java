@@ -76,6 +76,24 @@ public class ServicePackageService {
 		sp.setMobilePhone(mobilePhone);
 		sp.setMobileInternet(mobileInternet);
 		sp.setOptionalProducts(optionalProducts);
+		
+		if(fixedPhone != null) {
+			fixedPhone.addServicePackage(sp);
+		}
+		if(fixedInternet != null) {
+			fixedInternet.addServicePackage(sp);
+		}
+		if(mobilePhone != null) {
+			mobilePhone.addServicePackage(sp);
+		}
+		if(mobileInternet != null) {
+			mobileInternet.addServicePackage(sp);
+		}
+		
+		for(OptionalProduct op : optionalProducts) {
+			op.addServicePackage(sp);
+		}
+		
 		em.persist(sp);
 		return true;
 	}

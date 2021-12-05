@@ -99,6 +99,13 @@ public class Register extends HttpServlet{
 		if (!isRegistrated) {
 			ctx.setVariable("errorMsgReg", "Impossible to registrate with these credentials");
 		} else {
+			if(request.getSession().getAttribute("rememberOrder") != null &&
+					((String)request.getSession().getAttribute("rememberOrder")).equals("yes")) {
+				request.getSession().setAttribute("consUsername", username);
+				path = "/WEB-INF/confirm.html";
+				templateEngine.process(path, ctx, response.getWriter());
+				return;
+			}
 			ctx.setVariable("errorMsgReg", "Registration completed, please login");
 		}
 		templateEngine.process(path, ctx, response.getWriter());

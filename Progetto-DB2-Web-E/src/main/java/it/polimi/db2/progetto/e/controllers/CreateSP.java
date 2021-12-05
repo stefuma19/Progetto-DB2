@@ -64,7 +64,8 @@ public class CreateSP extends HttpServlet {
 
 		if (request.getParameter("spName") == null || request.getParameter("spName") == "" || 
 				request.getParameterValues("servicePackage") == null || request.getParameter("fixedInternet") == null ||
-				request.getParameter("mobilePhone") == null || request.getParameter("mobileInternet") == null) {
+				request.getParameter("mobilePhone") == null || request.getParameter("mobileInternet") == null ||
+				request.getParameterValues("servicePackage") == null) {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing parameters");
 			return;
 		}

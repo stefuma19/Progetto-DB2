@@ -41,7 +41,7 @@
 				Start date
 			</th>
 		</tr>
-		<tr>
+		<tr th:if="${session.sp!=null}">
 			<td style="text-align: center; vertical-align: middle; width: 15%">
 				<span th:text="${session.sp.name}"></span>
 			</td>
@@ -112,7 +112,7 @@
 	</table>
 	<table style="width:100%;">
 		<tr>
-			<td th:if="${session.consUsername != null && session.consUsername != ''}" 
+			<td th:if="${session.consUsername != null && session.consUsername != '' && session.sp!=null}" 
 					style="text-align: center; vertical-align: middle;">
 				<form action="ConfirmOrder" method="POST">
 					<br><input type="submit" name="confirmOrder" value="Buy"/>

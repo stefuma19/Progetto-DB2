@@ -173,17 +173,6 @@ public class GoToConfirmPage extends HttpServlet{
 				return;
 			} 
 
-			/*format = new SimpleDateFormat("yyyy-MM-dd");
-			Calendar cal = Calendar.getInstance();
-			try {
-				cal.setTime(format.parse(request.getParameter("startDate")));
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			cal.set(Calendar.HOUR_OF_DAY,0);
-			cal.set(Calendar.MINUTE,0);
-			*/
 			request.getSession().setAttribute("sd", request.getParameter("startDate"));
 		}
 		

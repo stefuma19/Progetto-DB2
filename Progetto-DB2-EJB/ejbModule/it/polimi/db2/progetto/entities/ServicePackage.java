@@ -9,8 +9,10 @@ import java.util.List;
 
 @NamedQueries({@NamedQuery(name="ServicePackage.findAll", query="SELECT sp FROM ServicePackage sp"),
 	@NamedQuery(name="ServicePackage.findByName", query="SELECT sp FROM ServicePackage sp WHERE sp.name = ?1"),
-	@NamedQuery(name="ServicePackage.findSP", query="SELECT sp FROM ServicePackage sp WHERE sp.fixedPhone = ?1"
-			+ " and sp.fixedInternet = ?2 and sp.mobilePhone = ?3 and sp.mobileInternet = ?4")})
+	@NamedQuery(name="ServicePackage.findSP", 
+			query="SELECT sp FROM ServicePackage sp WHERE (?1 is null or sp.fixedPhone = ?1)"
+			+ " and (?2 is null or sp.fixedInternet = ?2) and (?3 is null or sp.mobilePhone = ?3)"
+			+ " and (?4 is null or sp.mobileInternet = ?4)")})
 
 public class ServicePackage implements Serializable{
 	private static final long serialVersionUID = 1L;

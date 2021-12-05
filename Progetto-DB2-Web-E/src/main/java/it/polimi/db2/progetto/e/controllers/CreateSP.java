@@ -70,7 +70,7 @@ public class CreateSP extends HttpServlet {
 		}
 		
 		String spName = request.getParameter("spName");
-		String[] sp = request.getParameterValues("servicePackage");
+		String[] services = request.getParameterValues("servicePackage");
 		FixedPhone fp=null; FixedInternet fi=null; MobilePhone mp=null; MobileInternet mi=null;
 		String[] ops = request.getParameterValues("optionalProducts"); 
 		List<OptionalProduct> opList = new ArrayList<>();
@@ -80,15 +80,15 @@ public class CreateSP extends HttpServlet {
 			response.sendRedirect(path);
 			return;
 		}
-		if (sp.length<=0) {
+		if (services.length<=0) {
 			request.getSession().setAttribute("errorMsgSP", "Select at least one service");
 			response.sendRedirect(path);
 			return;
 		}
 		boolean valid=false;
-		if(sp!=null) {
-			for(int i=0; i<sp.length; i++) {
-				if(sp[i].equals("fp") || sp[i].equals("fi") || sp[i].equals("mp") || sp[i].equals("mi")) {
+		if(services!=null) {
+			for(int i=0; i<services.length; i++) {
+				if(services[i].equals("fp") || services[i].equals("fi") || services[i].equals("mp") || services[i].equals("mi")) {
 					valid = true;
 					break;
 				}
@@ -100,17 +100,17 @@ public class CreateSP extends HttpServlet {
 		}
 		
 		try {
-			for(int i=0; i<sp.length; i++) {
-				if(sp[i].equals("fp")) {
+			for(int i=0; i<services.length; i++) {
+				if(services[i].equals("fp")) {
 					fp = fpService.checkFpExists();
 				}
-				else if(sp[i].equals("fi")) {
+				else if(services[i].equals("fi")) {
 					fi = fiService.findFixedInternetById(Integer.parseInt(request.getParameter("fixedInternet")));
 				}
-				else if(sp[i].equals("mp")) {
+				else if(services[i].equals("mp")) {
 					mp = mpService.findMobilePhoneById(Integer.parseInt(request.getParameter("mobilePhone")));
 				}
-				else if(sp[i].equals("mi")) {
+				else if(services[i].equals("mi")) {
 					mi = miService.findMobileInternetById(Integer.parseInt(request.getParameter("mobileInternet")));
 				}
 			}

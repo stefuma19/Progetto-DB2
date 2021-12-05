@@ -26,6 +26,7 @@ import it.polimi.db2.progetto.entities.ServicePackage;
 import it.polimi.db2.progetto.entities.ValidityPeriod;
 import it.polimi.db2.progetto.exceptions.CredentialsException;
 import it.polimi.db2.progetto.exceptions.IdException;
+import it.polimi.db2.progetto.services.AlertService;
 import it.polimi.db2.progetto.services.ConsumerService;
 import it.polimi.db2.progetto.services.OrderService;
 import it.polimi.db2.progetto.services.SasService;
@@ -41,6 +42,8 @@ public class ConfirmOrder extends HttpServlet{
 	private ConsumerService consumerService;
 	@EJB(name = "it.polimi.db2.progetto.services/SasService")
 	private SasService sasService;
+	@EJB(name = "it.polimi.db2.progetto.services/AlertService")
+	private AlertService alertService;
 	//dopo aver cliccato il pulsante per creare (pagare) ordine, invoca l'orderservice.createOrder
 	
 	public ConfirmOrder() {
@@ -62,6 +65,7 @@ public class ConfirmOrder extends HttpServlet{
 			throws ServletException, IOException {
 		
 		boolean valid;
+		boolean createAlert = false;
 		if(request.getParameter("confirmOrder")!=null) {  //pulsante premuto da confirm
 			if(StringEscapeUtils.escapeJava(request.getParameter("confirmOrder")).equals("Buy")) {
 				valid = true;
@@ -69,6 +73,7 @@ public class ConfirmOrder extends HttpServlet{
 				valid = false;
 				try {
 					consumerService.updateIsInsolvent((String)request.getSession().getAttribute("consUsername"), !valid);
+					createAlert = consumerService.addFailerPayments((String)request.getSession().getAttribute("consUsername"));
 				} catch (CredentialsException e) {
 					e.printStackTrace();
 					response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not find consumer");
@@ -82,6 +87,10 @@ public class ConfirmOrder extends HttpServlet{
 		}
 		
 		Order order = null;
+		
+		if(createAlert) {
+			alertService.createAlert((String)request.getSession().getAttribute("consUsername"));
+		}
 		
 		if(null != request.getSession().getAttribute("orderId")){ //ordine già fatto, va solo pagato
 			//only validate order

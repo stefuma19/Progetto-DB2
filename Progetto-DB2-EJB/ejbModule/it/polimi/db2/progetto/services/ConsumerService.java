@@ -58,7 +58,19 @@ public class ConsumerService {
 		} catch (Exception e) {
 			throw new CredentialsException("Could not find username");
 		}
-		
+	}
+	
+	public boolean addFailerPayments(String username) throws CredentialsException {
+		try {
+			Consumer c = em.find(Consumer.class , username);
+			c.setNumFailedPayments(c.getNumFailedPayments() + 1);
+			if(c.getNumFailedPayments() == 3) {
+				return true;
+			}
+		} catch (Exception e) {
+			throw new CredentialsException("Could not find username");
+		}
+		return false;
 	}
 	
 	

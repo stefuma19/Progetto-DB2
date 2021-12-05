@@ -115,8 +115,8 @@ public class ConfirmOrder extends HttpServlet{
 				e1.printStackTrace();
 			}
 			
-			cal.set(Calendar.HOUR_OF_DAY,10);
-			cal.set(Calendar.MINUTE,10);
+			cal.set(Calendar.HOUR_OF_DAY,0);
+			cal.set(Calendar.MINUTE,0);
 			
 			
 

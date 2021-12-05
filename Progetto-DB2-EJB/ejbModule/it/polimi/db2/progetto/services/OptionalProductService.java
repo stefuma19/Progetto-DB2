@@ -1,17 +1,12 @@
 package it.polimi.db2.progetto.services;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import it.polimi.db2.progetto.entities.Consumer;
 import it.polimi.db2.progetto.entities.OptionalProduct;
-import it.polimi.db2.progetto.entities.Order;
-import it.polimi.db2.progetto.entities.ServicePackage;
-import it.polimi.db2.progetto.entities.ValidityPeriod;
 import it.polimi.db2.progetto.exceptions.IdException;
 
 

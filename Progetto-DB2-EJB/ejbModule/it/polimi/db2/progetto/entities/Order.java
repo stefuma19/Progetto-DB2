@@ -1,7 +1,6 @@
 package it.polimi.db2.progetto.entities;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 

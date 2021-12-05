@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import it.polimi.db2.progetto.entities.MobileInternet;
 import it.polimi.db2.progetto.entities.MobilePhone;
 
 @Stateless
@@ -18,5 +19,20 @@ public class MobilePhoneService {
 	
 	public List<MobilePhone> findAllMPServices() {
 		return em.createNamedQuery("MobilePhone.findAll", MobilePhone.class).getResultList();
+	}
+	
+	public boolean createMP(int numMin, int numSMS, float feeMin, float feeSMS) {
+		
+		if(!em.createNamedQuery("MobilePhone.findMP", MobilePhone.class).setParameter(1, numMin)
+				.setParameter(2, numSMS).setParameter(3, feeMin).setParameter(4, feeSMS).getResultList().isEmpty())
+			return false;
+	
+		MobilePhone mp = new MobilePhone();
+		mp.setNumMin(numMin);
+		mp.setNumSms(numSMS);
+		mp.setMinFee(feeMin);
+		mp.setSmsFee(feeSMS);
+		em.persist(mp);
+		return true;
 	}
 }

@@ -8,13 +8,15 @@ import javax.persistence.*;
 @Entity
 @Table(name="fixed_internet", schema ="db2progetto")
 
-@NamedQuery(name="FixedInternet.findAll", query="SELECT fi FROM FixedInternet fi")
+@NamedQueries({@NamedQuery(name="FixedInternet.findAll", query="SELECT fi FROM FixedInternet fi"),
+	@NamedQuery(name="FixedInternet.findFI", 
+	query="SELECT fi FROM FixedInternet fi WHERE fi.numGigaFI = ?1 and fi.extraGigaFeeFI = ?2")})
 
 public class FixedInternet implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Id @GeneratedValue
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idService;
 	
 	@OneToMany(fetch =FetchType.LAZY, mappedBy = "fixedInternet")

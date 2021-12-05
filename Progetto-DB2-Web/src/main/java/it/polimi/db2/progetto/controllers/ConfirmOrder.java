@@ -87,9 +87,7 @@ public class ConfirmOrder extends HttpServlet{
 		
 		Order order = null;
 		
-		if(createAlert) {
-			alertService.createAlert((String)request.getSession().getAttribute("consUsername"));
-		}
+		
 		
 		if(null != request.getSession().getAttribute("orderId")){ //ordine già fatto, va solo pagato
 			//only validate order
@@ -138,6 +136,10 @@ public class ConfirmOrder extends HttpServlet{
 		
 		if(valid) {
 			sasService.createSas(order);
+		}
+		
+		if(createAlert) {
+			alertService.createAlert((String)request.getSession().getAttribute("consUsername"));
 		}
 		
 		request.getSession().setAttribute("orderId", null);

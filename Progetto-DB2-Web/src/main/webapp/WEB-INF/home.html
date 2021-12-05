@@ -61,7 +61,7 @@
 						<td style="text-align: center; vertical-align: middle;">
 							<span th:text="${#dates.format(ord.creationDate, 'yyyy-MM-dd HH:mm')}"></span></td>
 						<td style="text-align: center; vertical-align: middle;">
-							<span th:text="${#dates.format(ord.startDate, 'yyyy-MM-dd HH:mm')}"></span></td>
+							<span th:text="${#dates.format(ord.startDate, 'yyyy-MM-dd')}"></span></td>
 						<td>
 							<form action="GoToConfirmPage" method="POST">
 								<input type="hidden" id="orderId" name="orderId" th:value="${ord.idOrder}">

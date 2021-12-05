@@ -36,5 +36,7 @@ public class FixedPhone implements Serializable{
 		this.servicePackages = servicePackages;
 	}
 	
-	
+	public void addServicePackage(ServicePackage servicePackage) {
+		this.servicePackages.add(servicePackage);
+	}
 }

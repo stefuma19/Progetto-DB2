@@ -13,6 +13,7 @@
     <url-pattern>/CreateOP</url-pattern> 
     <url-pattern>/CreateSP</url-pattern> 
     <url-pattern>/GoToHomePage</url-pattern>
+    <url-pattern>/GoToSalesReportPage</url-pattern>
     <url-pattern>/Logout</url-pattern> 
  </filter-mapping>
  <welcome-file-list>

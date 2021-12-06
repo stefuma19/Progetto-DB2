@@ -41,17 +41,16 @@ public class OrderService {
 	public Order validateOrder(int idOrder, boolean valid) throws IdException {
 		
 		Order o = em.find(Order.class, idOrder);
+		if(o==null) throw new IdException("Could not find order");
 		o.setValid(valid);
 		//em.persist(o);    //TODO: crea duplicati nel db, anche con merge e senza questa riga
 		return o;
 	}
 	
 	public Order findOrderById(int idOrder) throws IdException {
-		try {
-			return em.find(Order.class , idOrder);
-		} catch (Exception e) {
-			throw new IdException("Could not find order");
-		}
+		Order o = em.find(Order.class , idOrder);
+		if(o==null) throw new IdException("Could not find order");
+		return o;
 	}
 	
 	public List<Order> getInvalidOrders(String username){
@@ -62,5 +61,11 @@ public class OrderService {
 			return em.createNamedQuery("Order.getInvalidOrders", Order.class).setParameter(1, c).getResultList();
 		}
 		else return null;
+	}
+	
+	public boolean mismatchConsumerOrder(String username, int id){
+		//return true if the order "id" for the user "username" doesn't exist
+		return em.createNamedQuery("Order.getConsumerOrder", Order.class).setParameter(1, em.find(Consumer.class, username))
+				.setParameter(2, id).getResultList().isEmpty();
 	}
 }

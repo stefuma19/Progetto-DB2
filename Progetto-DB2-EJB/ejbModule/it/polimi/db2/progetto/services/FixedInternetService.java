@@ -35,10 +35,8 @@ public class FixedInternetService {
 	}
 	
 	public FixedInternet findFixedInternetById(int id) throws IdException {
-		try {
-			return em.find(FixedInternet.class, id);
-		} catch (Exception e) {
-			throw new IdException("Could not find fixed internet service");
-		}
+		FixedInternet fi = em.find(FixedInternet.class, id);
+		if(fi==null) throw new IdException("Could not find service");
+		return fi;
 	}
 }

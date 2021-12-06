@@ -70,8 +70,8 @@ public class GoToConfirmPage extends HttpServlet{
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());	
 		request.getSession().removeAttribute("errorMsg");
 		request.getSession().removeAttribute("errorMsgID");
-		
-		ServicePackage sp;
+
+		ServicePackage sp = null;
 		ValidityPeriod vp;
 		float tp = 0;
 		List<OptionalProduct> ops = new ArrayList<>();
@@ -81,11 +81,33 @@ public class GoToConfirmPage extends HttpServlet{
 			
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			
+			int idOrder;
 			Order order;
 			try {
-				order = orderService.findOrderById(Integer.parseInt(request.getParameter("orderId")));
+				idOrder = Integer.parseInt(request.getParameter("orderId"));
+				order = orderService.findOrderById(idOrder);
+			} catch (NumberFormatException e) {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad parameters format");
+				return;
 			} catch (IdException e) {
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+				return;
+			}
+			if(orderService.mismatchConsumerOrder((String)request.getSession().getAttribute("consUsername"), idOrder)){
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Mismatch between user and its order");
+				return;
+			}
+			
+			List<Order> rejectedOrders = orderService.getInvalidOrders((String)request.getSession().getAttribute("consUsername"));
+			boolean rejected = false;
+			for(Order o : rejectedOrders) {
+				if(idOrder==o.getIdOrder()) {
+					rejected=true;
+					break;
+				}
+			}
+			if(!rejected){
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Order already confirmed");
 				return;
 			}
 			
@@ -104,7 +126,13 @@ public class GoToConfirmPage extends HttpServlet{
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Request parameter bad formed");
 				return;
 			}
-			int idSP = Integer.parseInt(request.getParameter("idSP"));
+			int idSP;
+			try {
+				idSP = Integer.parseInt(request.getParameter("idSP"));
+			} catch (NumberFormatException e) {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad parameters format");
+				return;
+			}
 			try {
 				sp = servicePackageService.findServicePackagesById(idSP);
 			} catch (IdException e) {
@@ -116,7 +144,13 @@ public class GoToConfirmPage extends HttpServlet{
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing validity period");
 				return;
 			}
-			int idVP = Integer.parseInt(request.getParameter(idSP + "_validityPeriod"));
+			int idVP;
+			try{
+				idVP = Integer.parseInt(request.getParameter(idSP + "_validityPeriod"));
+			} catch (NumberFormatException e) {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad parameters format");
+				return;
+			}
 			try {
 				vp = validityPeriodService.findValidityPeriodById(idVP);
 			} catch (IdException e) {
@@ -128,7 +162,13 @@ public class GoToConfirmPage extends HttpServlet{
 			String[] ids = request.getParameterValues(idSP + "_optionalProducts");
 			if(ids != null) {
 				for(int i = 0; i < ids.length; i++) {
-					int idOP = Integer.parseInt(ids[i]);
+					int idOP;
+					try{
+						idOP = Integer.parseInt(ids[i]);
+					} catch (NumberFormatException e) {
+						response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad parameters format");
+						return;
+					}
 					try {
 						OptionalProduct op = optionalProductService.findOptionalProductById(idOP);
 						//TODO: messo qua il controllo, non so se c'è un posto più appropriato

@@ -24,11 +24,9 @@ public class OptionalProductService {
 	}
 	
 	public OptionalProduct findOptionalProductById(int idOP) throws IdException {
-		try {
-			return em.find(OptionalProduct.class, idOP);
-		} catch (Exception e) {
-			throw new IdException("Could not find optional product");
-		}
+		OptionalProduct op = em.find(OptionalProduct.class, idOP);
+		if(op==null) throw new IdException("Could not find optional product");
+		return op;
 	}
 	
 	public boolean createOP(String name, float monthlyFee) {

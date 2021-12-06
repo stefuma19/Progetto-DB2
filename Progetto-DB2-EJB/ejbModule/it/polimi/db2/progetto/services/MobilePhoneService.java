@@ -37,10 +37,8 @@ public class MobilePhoneService {
 	}
 	
 	public MobilePhone findMobilePhoneById(int id) throws IdException {
-		try {
-			return em.find(MobilePhone.class, id);
-		} catch (Exception e) {
-			throw new IdException("Could not find mobile phone service");
-		}
+		MobilePhone mp = em.find(MobilePhone.class, id);
+		if(mp==null) throw new IdException("Could not find service");
+		return mp;
 	}
 }

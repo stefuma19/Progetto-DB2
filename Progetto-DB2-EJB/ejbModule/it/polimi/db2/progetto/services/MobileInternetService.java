@@ -35,10 +35,8 @@ public class MobileInternetService {
 	}
 	
 	public MobileInternet findMobileInternetById(int id) throws IdException {
-		try {
-			return em.find(MobileInternet.class, id);
-		} catch (Exception e) {
-			throw new IdException("Could not find mobile internet service");
-		}
+		MobileInternet mi = em.find(MobileInternet.class, id);
+		if(mi==null) throw new IdException("Could not find service");
+		return mi;
 	}
 }

@@ -6,6 +6,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.openjpa.jdbc.kernel.exps.Val;
+
 import it.polimi.db2.progetto.entities.ValidityPeriod;
 import it.polimi.db2.progetto.exceptions.IdException;
 
@@ -23,10 +25,8 @@ public class ValidityPeriodService {
 	}
 	
 	public ValidityPeriod findValidityPeriodById(int idVP) throws IdException {
-		try {
-			return em.find(ValidityPeriod.class, idVP);
-		} catch (Exception e) {
-			throw new IdException("Could not find validity period");
-		}
+		ValidityPeriod vp = em.find(ValidityPeriod.class, idVP);
+		if(vp==null) throw new IdException("Could not find validity period");
+		return vp;
 	}
 }

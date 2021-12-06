@@ -27,11 +27,9 @@ public class ServicePackageService {
 	}
 	
 	public ServicePackage findServicePackagesById(int idSP) throws IdException {
-		try {
-			return em.find(ServicePackage.class, idSP);
-		} catch (Exception e) {
-			throw new IdException("Could not find service package");
-		}
+		ServicePackage sp = em.find(ServicePackage.class, idSP);
+		if(sp==null) throw new IdException("Could not find service package");
+		return sp;
 	}
 	
 	public boolean existsServicePackageByName(String name) { //TODO: serve?
@@ -77,20 +75,7 @@ public class ServicePackageService {
 		sp.setMobileInternet(mobileInternet);
 		sp.setOptionalProducts(optionalProducts);
 		
-		/*if(fixedPhone != null) {
-			fixedPhone.addServicePackage(sp);
-		}
-		if(fixedInternet != null) {
-			fixedInternet.addServicePackage(sp);
-		}
-		if(mobilePhone != null) {
-			mobilePhone.addServicePackage(sp);
-		}
-		if(mobileInternet != null) {
-			mobileInternet.addServicePackage(sp);
-		}*/
-		
-		for(OptionalProduct op : optionalProducts) {
+		for(OptionalProduct op : optionalProducts) { //TODO: serve?
 			op.addServicePackage(sp);
 		}
 		

@@ -22,7 +22,8 @@ public class OrderService {
 	public OrderService() {
 	}
 	
-	public Order createOrder(String consUser, ServicePackage sp, ValidityPeriod vp, boolean valid, float tp, Date sd, List<OptionalProduct> ops) {
+	public Order createOrder(String consUser, ServicePackage sp, 
+			ValidityPeriod vp, boolean valid, float tp, Date sd, List<OptionalProduct> ops) {
 		
 		Order o = new Order();
 		o.setUserConsumer(em.find(Consumer.class, consUser));
@@ -65,7 +66,8 @@ public class OrderService {
 	
 	public boolean mismatchConsumerOrder(String username, int id){
 		//return true if the order "id" for the user "username" doesn't exist
-		return em.createNamedQuery("Order.getConsumerOrder", Order.class).setParameter(1, em.find(Consumer.class, username))
+		return em.createNamedQuery("Order.getConsumerOrder", Order.class)
+				.setParameter(1, em.find(Consumer.class, username))
 				.setParameter(2, id).getResultList().isEmpty();
 	}
 }

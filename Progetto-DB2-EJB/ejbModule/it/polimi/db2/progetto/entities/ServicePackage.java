@@ -116,9 +116,5 @@ public class ServicePackage implements Serializable{
 	public void setMobileInternet(MobileInternet mobileInternet) {
 		this.mobileInternet = mobileInternet;
 	}
-	
-	
-	
 	//TODO: potremmo aggiungere un addOptionalProduct
-	
 }

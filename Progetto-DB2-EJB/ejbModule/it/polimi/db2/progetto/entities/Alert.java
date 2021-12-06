@@ -52,5 +52,4 @@ public class Alert implements Serializable{
 	public void setUserConsumer(Consumer userConsumer) {
 		this.userConsumer = userConsumer;
 	}
-	
 }

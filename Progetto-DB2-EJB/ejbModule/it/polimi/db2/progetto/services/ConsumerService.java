@@ -21,7 +21,8 @@ public class ConsumerService {
 	public Consumer checkLogin(String username, String password) throws CredentialsException, NonUniqueResultException {
 		List<Consumer> cList = null;
 		try {
-			cList = em.createNamedQuery("Consumer.checkCredentials", Consumer.class).setParameter(1, username).setParameter(2, password)
+			cList = em.createNamedQuery("Consumer.checkCredentials", Consumer.class)
+					.setParameter(1, username).setParameter(2, password)
 					.getResultList();
 		} catch (PersistenceException e) {
 			throw new CredentialsException("Could not verify credentals");
@@ -76,11 +77,10 @@ public class ConsumerService {
 	public void checkIsInsolvent(String consUser) {
 		
 		Consumer c = em.find(Consumer.class , consUser);
-		if((long)em.createNamedQuery("Order.getNotPaidNumber").setParameter(1, c).getResultList().get(0) == 0) {
+		if((long)em.createNamedQuery("Order.getNotPaidNumber")
+				.setParameter(1, c).getResultList().get(0) == 0) {
 			c.setInsolvent(false);
 			c.setNumFailedPayments(0);
 		}
 	}
-	
-	
 }

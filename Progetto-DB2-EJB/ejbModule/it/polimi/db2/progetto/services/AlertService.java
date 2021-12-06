@@ -31,12 +31,11 @@ public class AlertService {
 		Consumer cons = em.find(Consumer.class, consUser);
 		alert.setUserConsumer(cons);
 		alert.setLastRejection(new Date());
-		alert.setAmount((float)((double)em.createNamedQuery("Order.getNotPaidAmount").setParameter(1, cons).getResultList().get(0)));  //TODO: da testare, non somma l'ultimo ordine? 
+		alert.setAmount((float)((double)em.createNamedQuery("Order.getNotPaidAmount")
+				.setParameter(1, cons).getResultList().get(0)));
 		
 		cons.setAlert(alert);
 		
 		em.persist(alert);
-		
 	}
-
 }

@@ -30,5 +30,4 @@ public class FixedPhoneService {
 		}
 		else return fis.get(0);
 	}
-
 }

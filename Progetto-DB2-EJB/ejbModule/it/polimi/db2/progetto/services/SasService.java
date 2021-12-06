@@ -27,8 +27,6 @@ public void createSas(Order o) {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
-		//TODO: non aggiunge i giorni in modo corretto
-		
 		Calendar cal = Calendar.getInstance();
         try {
 			cal.setTime(sdf.parse(sdf.format(o.getStartDate())));
@@ -40,8 +38,6 @@ public void createSas(Order o) {
 		
 		o.setServiceActivationSchedule(sas);
 		
-		em.persist(sas);  //
-		
-		
+		em.persist(sas);  
 	}
 }

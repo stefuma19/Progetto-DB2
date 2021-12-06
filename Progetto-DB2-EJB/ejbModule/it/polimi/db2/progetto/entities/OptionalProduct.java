@@ -12,7 +12,6 @@ import javax.persistence.*;
 			@NamedQuery(name="OptionalProduct.findOP", 
 						query="SELECT op FROM OptionalProduct op WHERE op.nameOP = ?1 and op.monthlyFeeOP = ?2")})
 
-
 public class OptionalProduct implements Serializable{
 	private static final long serialVersionUID = 1L;
 
@@ -71,6 +70,4 @@ public class OptionalProduct implements Serializable{
 	public void addServicePackage(ServicePackage servicePackage) {
 		this.servicePackages.add(servicePackage);
 	}
-	
-	
 }

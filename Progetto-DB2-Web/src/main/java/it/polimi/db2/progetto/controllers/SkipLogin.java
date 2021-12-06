@@ -14,7 +14,6 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
-
 @WebServlet("/SkipLogin")
 public class SkipLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -44,8 +43,4 @@ public class SkipLogin extends HttpServlet {
 		String path = getServletContext().getContextPath() + "/GoToHomePage";
 		response.sendRedirect(path);
 	}
-
-	public void destroy() {
-	}
-
 }

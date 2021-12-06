@@ -9,8 +9,6 @@ import javax.persistence.PersistenceContext;
 import it.polimi.db2.progetto.entities.OptionalProduct;
 import it.polimi.db2.progetto.exceptions.IdException;
 
-
-
 @Stateless
 public class OptionalProductService {
 	@PersistenceContext(unitName = "Progetto-DB2-EJB")

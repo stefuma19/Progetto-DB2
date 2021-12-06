@@ -10,7 +10,8 @@ import javax.persistence.*;
 
 @NamedQueries({@NamedQuery(name="MobilePhone.findAll", query="SELECT mp FROM MobilePhone mp"),
 			@NamedQuery(name="MobilePhone.findMP", 
-			query="SELECT mp FROM MobilePhone mp WHERE mp.numMin = ?1 and mp.numSms = ?2 and mp.minFee = ?3 and mp.smsFee = ?4")})
+			query="SELECT mp FROM MobilePhone mp WHERE mp.numMin = ?1 "
+					+ "and mp.numSms = ?2 and mp.minFee = ?3 and mp.smsFee = ?4")})
 
 public class MobilePhone implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -78,5 +79,4 @@ public class MobilePhone implements Serializable{
 	public void addServicePackage(ServicePackage servicePackage) {
 		this.servicePackages.add(servicePackage);
 	}
-	
 }

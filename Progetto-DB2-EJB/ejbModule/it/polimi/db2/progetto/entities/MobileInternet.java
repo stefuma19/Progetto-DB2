@@ -61,5 +61,4 @@ public class MobileInternet implements Serializable{
 	public void addServicePackage(ServicePackage servicePackage) {
 		this.servicePackages.add(servicePackage);
 	}
-	
 }

@@ -34,7 +34,4 @@ public class LoginChecker implements Filter {
 		}
 		chain.doFilter(request, response);
 	}
-	
-	public void destroy() {
-	}
 }

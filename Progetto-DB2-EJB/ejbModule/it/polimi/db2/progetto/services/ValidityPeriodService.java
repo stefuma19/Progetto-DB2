@@ -11,7 +11,6 @@ import org.apache.openjpa.jdbc.kernel.exps.Val;
 import it.polimi.db2.progetto.entities.ValidityPeriod;
 import it.polimi.db2.progetto.exceptions.IdException;
 
-
 @Stateless
 public class ValidityPeriodService {
 	@PersistenceContext(unitName = "Progetto-DB2-EJB")

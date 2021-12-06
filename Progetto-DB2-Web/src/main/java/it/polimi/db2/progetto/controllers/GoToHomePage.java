@@ -20,9 +20,6 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
-/**
- * Servlet implementation class GoToHomePage
- */
 @WebServlet("/GoToHomePage")
 public class GoToHomePage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -34,7 +31,6 @@ public class GoToHomePage extends HttpServlet {
 
 	public GoToHomePage() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public void init() throws ServletException {
@@ -52,20 +48,16 @@ public class GoToHomePage extends HttpServlet {
 		List<ServicePackage> servicePackages = spService.findAllServicePackages();
 		List<Order> invalidOrders = orderService.getInvalidOrders((String) request.getSession().getAttribute("consUsername"));
 
-		
-		
 		String path = "/WEB-INF/home.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());		
 		ctx.setVariable("servicePackages", servicePackages);
 		ctx.setVariable("invalidOrders", invalidOrders);
 		templateEngine.process(path, ctx, response.getWriter());
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }

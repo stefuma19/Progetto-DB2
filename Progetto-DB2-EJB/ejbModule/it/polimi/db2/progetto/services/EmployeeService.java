@@ -32,5 +32,4 @@ public class EmployeeService {
 			return eList.get(0);
 		throw new NonUniqueResultException("More than one employee registered with same credentials");
 	}
-
 }

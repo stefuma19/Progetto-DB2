@@ -89,7 +89,8 @@ public class CreateSP extends HttpServlet {
 		boolean valid=false;
 		if(services!=null) {
 			for(int i=0; i<services.length; i++) {
-				if(services[i].equals("fp") || services[i].equals("fi") || services[i].equals("mp") || services[i].equals("mi")) {
+				if(services[i].equals("fp") || services[i].equals("fi") || 
+						services[i].equals("mp") || services[i].equals("mi")) {
 					valid = true;
 					break;
 				}
@@ -145,7 +146,6 @@ public class CreateSP extends HttpServlet {
 					+ "and optional products already exist");
 		
 		response.sendRedirect(path);
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

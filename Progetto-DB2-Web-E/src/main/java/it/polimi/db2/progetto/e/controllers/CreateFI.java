@@ -15,7 +15,6 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import it.polimi.db2.progetto.services.FixedInternetService;
 
-
 @WebServlet("/CreateFI")
 public class CreateFI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -71,7 +70,6 @@ public class CreateFI extends HttpServlet {
 			request.getSession().setAttribute("errorMsgFI", "Already existent service");
 		
 		response.sendRedirect(path);
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

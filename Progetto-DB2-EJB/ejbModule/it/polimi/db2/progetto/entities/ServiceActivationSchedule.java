@@ -19,7 +19,7 @@ public class ServiceActivationSchedule implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date deactDate;
 	
-	@OneToOne(fetch =FetchType.LAZY/*, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE}*/)
+	@OneToOne(fetch =FetchType.LAZY/*TODO: , cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE}*/)
 	@JoinColumn(name = "IdOrder")
 	private Order order;
 	
@@ -54,7 +54,4 @@ public class ServiceActivationSchedule implements Serializable{
 	public void setOrder(Order order) {
 		this.order = order;
 	}
-	
-	
-
 }

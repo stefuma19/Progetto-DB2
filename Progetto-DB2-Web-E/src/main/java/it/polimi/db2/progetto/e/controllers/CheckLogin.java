@@ -55,22 +55,17 @@ public class CheckLogin extends HttpServlet{
 			}
 
 		} catch (Exception e) {
-			// for debugging only e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing credential value");
 			return;
 		}
 		Employee employee = null;
 		try {
-			// query db to authenticate for user
 			employee = employeeService.checkLogin(usrn, pwd);
 		} catch (CredentialsException | NonUniqueResultException e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not check credentials");
 			return;
 		}
-
-		// If the user exists, add info to the session and go to home page, otherwise
-		// show login page with error message
 
 		String path;
 		if (employee == null) {
@@ -84,9 +79,5 @@ public class CheckLogin extends HttpServlet{
 			path = getServletContext().getContextPath() + "/GoToHomePage";
 			response.sendRedirect(path);
 			}
-			
-	}
-	
-	public void destroy() {
 	}
 }

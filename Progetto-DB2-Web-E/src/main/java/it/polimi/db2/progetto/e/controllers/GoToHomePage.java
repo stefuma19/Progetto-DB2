@@ -20,9 +20,6 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
-/**
- * Servlet implementation class GoToHomePage
- */
 @WebServlet("/GoToHomePage")
 public class GoToHomePage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -69,12 +66,10 @@ public class GoToHomePage extends HttpServlet {
 		ctx.setVariable("mps", mps);
 		ctx.setVariable("ops", ops);
 		templateEngine.process(path, ctx, response.getWriter());
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }

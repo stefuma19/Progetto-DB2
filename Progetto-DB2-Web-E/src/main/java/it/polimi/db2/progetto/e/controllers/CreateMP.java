@@ -84,7 +84,6 @@ public class CreateMP extends HttpServlet {
 			request.getSession().setAttribute("errorMsgMP", "Already existent service");
 		
 		response.sendRedirect(path);
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -43,11 +43,9 @@ public class ConfirmOrder extends HttpServlet{
 	private SasService sasService;
 	@EJB(name = "it.polimi.db2.progetto.services/AlertService")
 	private AlertService alertService;
-	//dopo aver cliccato il pulsante per creare (pagare) ordine, invoca l'orderservice.createOrder
 	
 	public ConfirmOrder() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public void init() throws ServletException {
@@ -65,7 +63,7 @@ public class ConfirmOrder extends HttpServlet{
 		
 		boolean valid;
 		boolean createAlert = false;
-		if(request.getParameter("confirmOrder")!=null) {  //pulsante premuto da confirm
+		if(request.getParameter("confirmOrder")!=null) {  //button pressed from confirm page
 			if(StringEscapeUtils.escapeJava(request.getParameter("confirmOrder")).equals("Buy")) {
 				valid = true;
 			} else {
@@ -87,8 +85,6 @@ public class ConfirmOrder extends HttpServlet{
 		
 		Order order = null;
 		
-		
-		
 		if(null != request.getSession().getAttribute("orderId")){ //ordine già fatto, va solo pagato
 			//only validate order
 			
@@ -99,29 +95,20 @@ public class ConfirmOrder extends HttpServlet{
 				return;
 			}
 				
-		}else {
-			
+		}else {			
 			//it's a new order
 			
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
-			
-
 			Calendar cal = Calendar.getInstance();
 			
 			try {
 				cal.setTime(formatter.parse((String)request.getSession().getAttribute("sd")));
 			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			
 			cal.set(Calendar.HOUR_OF_DAY,0);
-			cal.set(Calendar.MINUTE,0);
-			
-			
-
-			System.out.print(cal.getTime().toString());
-			
+			cal.set(Calendar.MINUTE,0);			
 			
 			order = orderService.createOrder((String)request.getSession().getAttribute("consUsername"), 
 					(ServicePackage)request.getSession().getAttribute("sp"), 
@@ -130,8 +117,6 @@ public class ConfirmOrder extends HttpServlet{
 					(float)request.getSession().getAttribute("tp"), 
 					cal.getTime(), 
 					(List<OptionalProduct>)request.getSession().getAttribute("ops"));
-			
-			
 		}
 		
 		if(valid) {
@@ -147,7 +132,6 @@ public class ConfirmOrder extends HttpServlet{
 		
 		String path = getServletContext().getContextPath() + "/GoToHomePage";
 		response.sendRedirect(path);
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

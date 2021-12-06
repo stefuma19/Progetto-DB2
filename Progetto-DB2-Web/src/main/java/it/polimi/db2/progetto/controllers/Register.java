@@ -110,7 +110,4 @@ public class Register extends HttpServlet{
 		}
 		templateEngine.process(path, ctx, response.getWriter());
 	}
-
-	public void destroy() {
-	}
 }

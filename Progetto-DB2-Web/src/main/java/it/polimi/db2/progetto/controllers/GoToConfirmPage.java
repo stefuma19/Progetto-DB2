@@ -50,7 +50,6 @@ public class GoToConfirmPage extends HttpServlet{
 	
 	public GoToConfirmPage() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public void init() throws ServletException {
@@ -77,7 +76,7 @@ public class GoToConfirmPage extends HttpServlet{
 		List<OptionalProduct> ops = new ArrayList<>();
 		
 		if(StringEscapeUtils.escapeJava(request.getParameter("orderId")) != null){
-			//abbiamo l'ordine da pagare
+			//order to pay
 			
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			
@@ -120,7 +119,7 @@ public class GoToConfirmPage extends HttpServlet{
 			
 			
 		}else {
-			//dobbiamo mostrare i vari valori che prendiamo da request
+			//show values taken from the request
 			
 			if(request.getParameter("idSP")==null) {
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Request parameter bad formed");
@@ -171,7 +170,6 @@ public class GoToConfirmPage extends HttpServlet{
 					}
 					try {
 						OptionalProduct op = optionalProductService.findOptionalProductById(idOP);
-						//TODO: messo qua il controllo, non so se c'è un posto più appropriato
 						boolean contains = false;
 						for (OptionalProduct opInSp : sp.getOptionalProducts()) {
 							if(opInSp.getIdOP()==op.getIdOP()) {
@@ -228,5 +226,4 @@ public class GoToConfirmPage extends HttpServlet{
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }

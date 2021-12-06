@@ -69,7 +69,6 @@ public class CreateOP extends HttpServlet {
 			request.getSession().setAttribute("errorMsgOP", "Already existent optional product");
 		
 		response.sendRedirect(path);
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

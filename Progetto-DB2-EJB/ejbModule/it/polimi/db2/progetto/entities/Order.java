@@ -86,8 +86,6 @@ public class Order implements Serializable{
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
-		
-		
 	}
 
 	public Date getCreationDate() {
@@ -137,6 +135,4 @@ public class Order implements Serializable{
 	public void setValidityPeriod(ValidityPeriod validityPeriod) {
 		this.validityPeriod = validityPeriod;
 	}
-	
-	
 }

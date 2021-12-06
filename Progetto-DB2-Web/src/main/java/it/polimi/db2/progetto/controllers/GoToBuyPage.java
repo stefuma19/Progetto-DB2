@@ -20,9 +20,6 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import it.polimi.db2.progetto.services.*;
 import it.polimi.db2.progetto.entities.*;
 
-/**
- * Servlet implementation class GoToHomePage
- */
 @WebServlet("/GoToBuyPage")
 public class GoToBuyPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -35,7 +32,6 @@ public class GoToBuyPage extends HttpServlet {
 	
 	public GoToBuyPage() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void init() throws ServletException {
@@ -60,7 +56,6 @@ public class GoToBuyPage extends HttpServlet {
 		ctx.setVariable("validityPeriods", validityPeriods);
 		ctx.setVariable("todayDate", new Date());
 		templateEngine.process(path, ctx, response.getWriter());
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -61,9 +61,7 @@ public class GoToHomePage extends HttpServlet {
 		request.getSession().setAttribute("cartService", cs);
 		
 		List<ServicePackage> servicePackages = spService.findAllServicePackages();
-		List<Order> invalidOrders = new ArrayList<>();
-		if(request.getSession().getAttribute("consUsername")!=null)
-			invalidOrders = orderService.getInvalidOrders((String) request.getSession().getAttribute("consUsername"));
+		List<Order> invalidOrders = orderService.getInvalidOrders(cs.getUsername());
 
 		String path = "/WEB-INF/home.html";
 		ServletContext servletContext = getServletContext();

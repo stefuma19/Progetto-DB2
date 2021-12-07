@@ -58,7 +58,6 @@ public class ConfirmOrder extends HttpServlet{
 		templateResolver.setSuffix(".html");
 	}
 	
-	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -72,8 +71,9 @@ public class ConfirmOrder extends HttpServlet{
 			} else {
 				valid = false;
 				try {
-					consumerService.updateIsInsolvent((String)request.getSession().getAttribute("consUsername"), !valid);
-					createAlert = consumerService.addFailerPayments((String)request.getSession().getAttribute("consUsername"));
+					String username = cs.getUsername();
+					consumerService.updateIsInsolvent(username, !valid);
+					createAlert = consumerService.addFailerPayments(username);
 				} catch (CredentialsException e) {
 					e.printStackTrace();
 					response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not find consumer");
@@ -114,7 +114,7 @@ public class ConfirmOrder extends HttpServlet{
 			cal.set(Calendar.MINUTE,0);			
 
 			order = orderService.createOrder(
-						(String)request.getSession().getAttribute("consUsername"), 
+						cs.getUsername(),
 						cs.getSP(), 
 						cs.getVP(), 
 						valid,
@@ -126,11 +126,11 @@ public class ConfirmOrder extends HttpServlet{
 		
 		if(valid) {
 			sasService.createSas(order);
-			consumerService.checkIsInsolvent((String)request.getSession().getAttribute("consUsername"));
+			consumerService.checkIsInsolvent(cs.getUsername());
 		}
 		
 		if(createAlert) {
-			alertService.createAlert((String)request.getSession().getAttribute("consUsername"));
+			alertService.createAlert(cs.getUsername());
 		}
 		
 		request.getSession().setAttribute("orderId", null);

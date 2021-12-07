@@ -54,7 +54,6 @@ public class SkipLogin extends HttpServlet {
 		}
 		request.getSession().setAttribute("cartService", cartService);
 		
-		request.getSession().setAttribute("consUsername", "");
 		request.getSession().setAttribute("consIsInsolvent", false);
 		String path = getServletContext().getContextPath() + "/GoToHomePage";
 		response.sendRedirect(path);

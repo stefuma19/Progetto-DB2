@@ -102,7 +102,10 @@ public class Register extends HttpServlet{
 			if(request.getSession().getAttribute("cartService") != null &&
 					!(((CartService)request.getSession().getAttribute("cartService")).isEmpty()) && 
 					((CartService)request.getSession().getAttribute("cartService")).getUsername().equals("")){
-				request.getSession().setAttribute("consUsername", username);
+				CartService cs = (CartService)request.getSession().getAttribute("cartService");
+				cs.setUsername(username);
+				request.getSession().setAttribute("cartService", cs);
+				
 				path = "/WEB-INF/confirm.html";
 				templateEngine.process(path, ctx, response.getWriter());
 				return;

@@ -105,12 +105,12 @@ public class GoToConfirmPage extends HttpServlet{
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
 				return;
 			}
-			if(orderService.mismatchConsumerOrder((String)request.getSession().getAttribute("consUsername"), idOrder)){
+			if(orderService.mismatchConsumerOrder(cs.getUsername(), idOrder)){
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Mismatch between user and its order");
 				return;
 			}
 			
-			List<Order> rejectedOrders = orderService.getInvalidOrders((String)request.getSession().getAttribute("consUsername"));
+			List<Order> rejectedOrders = orderService.getInvalidOrders(cs.getUsername());
 			boolean rejected = false;
 			for(Order o : rejectedOrders) {
 				if(idOrder==o.getIdOrder()) {

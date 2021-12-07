@@ -85,7 +85,6 @@ public class CheckLogin extends HttpServlet {
 			cs.setUsername(consumer.getUsername());
 			request.getSession().setAttribute("cartService", cs);
 			
-			request.getSession().setAttribute("consUsername", consumer.getUsername());
 			ServletContext servletContext = getServletContext();
 			final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 			path = "/WEB-INF/confirm.html";
@@ -110,7 +109,6 @@ public class CheckLogin extends HttpServlet {
 			cs.setUsername(consumer.getUsername());
 			request.getSession().setAttribute("cartService", cs);
 			
-			request.getSession().setAttribute("consUsername", consumer.getUsername());
 			path = getServletContext().getContextPath() + "/GoToHomePage";
 			response.sendRedirect(path);
 		}

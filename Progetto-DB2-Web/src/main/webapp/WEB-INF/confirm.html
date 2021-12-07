@@ -5,9 +5,9 @@
 	<title>Confirm page</title>
 </head>
 <body>
-	<div th:if="${session.consUsername!=null && !session.consUsername.empty}">
+	<div th:if="${session.cartService.getUsername()!=null && session.cartService.getUsername()!=''}">
 		<table style="position:absolute; top:0; right:0; "><tr>
-			<td><span th:text="'Welcome ' + ${session.consUsername}"></span></td>
+			<td><span th:text="'Welcome ' + ${session.cartService.getUsername()}"></span></td>
 		</tr></table>
 	</div>
 	<table style="width:60%; border-collapse: collapse; margin-left: auto; margin-right: auto;"><tr>
@@ -112,18 +112,17 @@
 	</table>
 	<table style="width:100%;">
 		<tr>
-			<td th:if="${session.consUsername != null && session.consUsername != '' && session.cartService.getSP()!=null}" 
+			<td th:if="${session.cartService.getUsername() != null && session.cartService.getUsername() != '' && session.cartService.getSP()!=null}" 
 					style="text-align: center; vertical-align: middle;">
 				<form action="ConfirmOrder" method="POST">
 					<br><input type="submit" name="confirmOrder" value="Buy"/>
 					<input type="submit" name="confirmOrder" value="!Buy"/>
 				</form>
 			</td>
-			<td th:if="${session.consUsername == null || session.consUsername == ''}"
+			<td th:if="${session.cartService.getUsername() == null || session.cartService.getUsername() == ''}"
 					style="text-align: center; vertical-align: middle;">
 				<br>You're not logged!<br>
 				<form action="index.html" method="POST">
-					<input type="hidden" name="rememberOrder" value="yes"/>
 					<input type="submit" value="Login"/>
 				</form>
 			</td>

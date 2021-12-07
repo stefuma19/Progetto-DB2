@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.naming.InitialContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,6 +27,7 @@ import it.polimi.db2.progetto.entities.Order;
 import it.polimi.db2.progetto.entities.ServicePackage;
 import it.polimi.db2.progetto.entities.ValidityPeriod;
 import it.polimi.db2.progetto.exceptions.IdException;
+import it.polimi.db2.progetto.services.CartService;
 import it.polimi.db2.progetto.services.OptionalProductService;
 import it.polimi.db2.progetto.services.OrderService;
 import it.polimi.db2.progetto.services.ServicePackageService;
@@ -70,10 +72,21 @@ public class GoToConfirmPage extends HttpServlet{
 		request.getSession().removeAttribute("errorMsg");
 		request.getSession().removeAttribute("errorMsgID");
 
-		ServicePackage sp = null;
-		ValidityPeriod vp;
+		CartService cs = (CartService) request.getSession().getAttribute("cartService"); 
+		if(cs==null) {
+			try {
+				InitialContext ic = new InitialContext();
+				// Retrieve the EJB using JNDI lookup
+				cs = (CartService) ic.lookup("java:/openejb/local/CartServiceLocalBean");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		int idSP, idVP;
 		float tp = 0;
-		List<OptionalProduct> ops = new ArrayList<>();
+		List<Integer> idOPs = new ArrayList<>();
+		String sd;
 		
 		if(StringEscapeUtils.escapeJava(request.getParameter("orderId")) != null){
 			//order to pay
@@ -109,23 +122,27 @@ public class GoToConfirmPage extends HttpServlet{
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Order already confirmed");
 				return;
 			}
-			
-			sp = order.getServicePackage();
-			vp = order.getValidityPeriod();
+
+			idSP = order.getServicePackage().getIdServicePackage();
+			idVP = order.getValidityPeriod().getIdValidityPeriod();
 			tp = order.getTotValue();
-			ops = order.getOptionalProductsOrdered();
-			request.getSession().setAttribute("sd", format.format(order.getStartDate()));
+			for(OptionalProduct op : order.getOptionalProductsOrdered())
+				idOPs.add(op.getIdOP());
+			sd = format.format(order.getStartDate());
+			
 			request.getSession().setAttribute("orderId", order.getIdOrder());
 			
 			
 		}else {
 			//show values taken from the request
 			
+			ServicePackage sp;
+			ValidityPeriod vp;
+			
 			if(request.getParameter("idSP")==null) {
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Request parameter bad formed");
 				return;
 			}
-			int idSP;
 			try {
 				idSP = Integer.parseInt(request.getParameter("idSP"));
 			} catch (NumberFormatException e) {
@@ -143,7 +160,6 @@ public class GoToConfirmPage extends HttpServlet{
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing validity period");
 				return;
 			}
-			int idVP;
 			try{
 				idVP = Integer.parseInt(request.getParameter(idSP + "_validityPeriod"));
 			} catch (NumberFormatException e) {
@@ -181,12 +197,13 @@ public class GoToConfirmPage extends HttpServlet{
 							response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Mismatch between service package and optional products");
 							return;
 						}
-						ops.add(op);
+						//ops.add(op);
 						tp += vp.getNumMonth() * op.getMonthlyFeeOP();
 					} catch (IdException e) {
 						response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
 						return;
 					}
+					idOPs.add(idOP);
 				}
 			}
 			
@@ -211,13 +228,16 @@ public class GoToConfirmPage extends HttpServlet{
 				return;
 			} 
 
-			request.getSession().setAttribute("sd", request.getParameter("startDate"));
+			sd = request.getParameter("startDate"); 
 		}
 		
-		request.getSession().setAttribute("sp", sp);
-		request.getSession().setAttribute("vp", vp);
-		request.getSession().setAttribute("ops", ops);
-		request.getSession().setAttribute("tp", tp);
+		cs.setIdSP(idSP); 
+		cs.setIdVP(idVP);
+		cs.setTp(tp);
+		cs.setIdOPs(idOPs);
+		cs.setSd(sd);
+		cs.setEmpty(false);
+		request.getSession().setAttribute("cartService", cs);
 		
 		templateEngine.process(path, ctx, response.getWriter());
 	}

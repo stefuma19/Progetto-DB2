@@ -26,6 +26,7 @@ import it.polimi.db2.progetto.entities.ValidityPeriod;
 import it.polimi.db2.progetto.exceptions.CredentialsException;
 import it.polimi.db2.progetto.exceptions.IdException;
 import it.polimi.db2.progetto.services.AlertService;
+import it.polimi.db2.progetto.services.CartService;
 import it.polimi.db2.progetto.services.ConsumerService;
 import it.polimi.db2.progetto.services.OrderService;
 import it.polimi.db2.progetto.services.SasService;
@@ -60,7 +61,9 @@ public class ConfirmOrder extends HttpServlet{
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
+		CartService cs = (CartService) request.getSession().getAttribute("cartService");
+
 		boolean valid;
 		boolean createAlert = false;
 		if(request.getParameter("confirmOrder")!=null) {  //button pressed from confirm page
@@ -102,21 +105,23 @@ public class ConfirmOrder extends HttpServlet{
 			Calendar cal = Calendar.getInstance();
 			
 			try {
-				cal.setTime(formatter.parse((String)request.getSession().getAttribute("sd")));
+				cal.setTime(formatter.parse(cs.getSd()));
 			} catch (ParseException e1) {
 				e1.printStackTrace();
 			}
 			
 			cal.set(Calendar.HOUR_OF_DAY,0);
 			cal.set(Calendar.MINUTE,0);			
-			
-			order = orderService.createOrder((String)request.getSession().getAttribute("consUsername"), 
-					(ServicePackage)request.getSession().getAttribute("sp"), 
-					(ValidityPeriod)request.getSession().getAttribute("vp"), 
-					valid, 
-					(float)request.getSession().getAttribute("tp"), 
-					cal.getTime(), 
-					(List<OptionalProduct>)request.getSession().getAttribute("ops"));
+
+			order = orderService.createOrder(
+						(String)request.getSession().getAttribute("consUsername"), 
+						cs.getSP(), 
+						cs.getVP(), 
+						valid,
+						cs.getTp(), 
+						cal.getTime(), 
+						cs.getOPs()
+					);
 		}
 		
 		if(valid) {
@@ -129,6 +134,9 @@ public class ConfirmOrder extends HttpServlet{
 		}
 		
 		request.getSession().setAttribute("orderId", null);
+
+		cs.setEmpty(true);
+		request.getSession().setAttribute("cartService", cs);
 		
 		String path = getServletContext().getContextPath() + "/GoToHomePage";
 		response.sendRedirect(path);

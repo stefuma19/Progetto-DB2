@@ -17,6 +17,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import it.polimi.db2.progetto.exceptions.CredentialsException;
+import it.polimi.db2.progetto.services.CartService;
 import it.polimi.db2.progetto.services.ConsumerService;
 
 @WebServlet("/Register")
@@ -79,7 +80,6 @@ public class Register extends HttpServlet{
 			}
 
 		} catch (Exception e) {
-			// for debugging only e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
 			return;
 		}
@@ -99,8 +99,9 @@ public class Register extends HttpServlet{
 		if (!isRegistrated) {
 			ctx.setVariable("errorMsgReg", "Impossible to registrate with these credentials");
 		} else {
-			if(request.getSession().getAttribute("rememberOrder") != null &&
-					((String)request.getSession().getAttribute("rememberOrder")).equals("yes")) {
+			if(request.getSession().getAttribute("cartService") != null &&
+					!(((CartService)request.getSession().getAttribute("cartService")).isEmpty()) && 
+					((CartService)request.getSession().getAttribute("cartService")).getUsername().equals("")){
 				request.getSession().setAttribute("consUsername", username);
 				path = "/WEB-INF/confirm.html";
 				templateEngine.process(path, ctx, response.getWriter());

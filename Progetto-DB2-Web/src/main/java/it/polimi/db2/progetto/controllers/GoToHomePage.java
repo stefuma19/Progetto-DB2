@@ -3,6 +3,7 @@ package it.polimi.db2.progetto.controllers;
 import java.io.IOException;
 
 import javax.ejb.EJB;
+import javax.naming.InitialContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,7 @@ import org.thymeleaf.TemplateEngine;
 import it.polimi.db2.progetto.services.*;
 import it.polimi.db2.progetto.entities.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
@@ -45,8 +47,23 @@ public class GoToHomePage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		CartService cs = (CartService) request.getSession().getAttribute("cartService");
+		if(cs==null) {
+			try {
+				InitialContext ic = new InitialContext();
+				// Retrieve the EJB using JNDI lookup
+				cs = (CartService) ic.lookup("java:/openejb/local/CartServiceLocalBean");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		cs.setEmpty(true);
+		request.getSession().setAttribute("cartService", cs);
+		
 		List<ServicePackage> servicePackages = spService.findAllServicePackages();
-		List<Order> invalidOrders = orderService.getInvalidOrders((String) request.getSession().getAttribute("consUsername"));
+		List<Order> invalidOrders = new ArrayList<>();
+		if(request.getSession().getAttribute("consUsername")!=null)
+			invalidOrders = orderService.getInvalidOrders((String) request.getSession().getAttribute("consUsername"));
 
 		String path = "/WEB-INF/home.html";
 		ServletContext servletContext = getServletContext();

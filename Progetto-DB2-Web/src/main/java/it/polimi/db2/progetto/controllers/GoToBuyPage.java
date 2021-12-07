@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.naming.InitialContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,6 +46,19 @@ public class GoToBuyPage extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		CartService cs = (CartService) request.getSession().getAttribute("cartService");
+		if(cs==null) {
+			try {
+				InitialContext ic = new InitialContext();
+				// Retrieve the EJB using JNDI lookup
+				cs = (CartService) ic.lookup("java:/openejb/local/CartServiceLocalBean");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		cs.setEmpty(true);
+		request.getSession().setAttribute("cartService", cs);
 
 		List<ServicePackage> servicePackages = spService.findAllServicePackages();
 		List<ValidityPeriod> validityPeriods = vpService.findAllValidityPeriods();

@@ -3,6 +3,7 @@ package it.polimi.db2.progetto.controllers;
 import java.io.IOException;
 
 import javax.ejb.EJB;
+import javax.naming.InitialContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +19,7 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
+import it.polimi.db2.progetto.services.CartService;
 import it.polimi.db2.progetto.services.ConsumerService;
 import it.polimi.db2.progetto.entities.Consumer;
 import it.polimi.db2.progetto.exceptions.CredentialsException;
@@ -74,33 +76,40 @@ public class CheckLogin extends HttpServlet {
 			ctx.setVariable("errorMsg", "Incorrect username or password");
 			path = "/index.html";
 			templateEngine.process(path, ctx, response.getWriter());
-		} else if(request.getSession().getAttribute("rememberOrder") != null){
-			if(((String)request.getSession().getAttribute("rememberOrder")).equals("yes")) {
-				request.getSession().setAttribute("consUsername", consumer.getUsername());
-				ServletContext servletContext = getServletContext();
-				final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-				path = "/WEB-INF/confirm.html";
-				templateEngine.process(path, ctx, response.getWriter());
-			}
-			else if(((String)request.getSession().getAttribute("rememberOrder")).equals("no")) {
-				HttpSession session = request.getSession(false);
-				if (session != null) {
-					session.invalidate();
-				}
-				request.getSession().setAttribute("consUsername", consumer.getUsername());
-				path = getServletContext().getContextPath() + "/GoToHomePage";
-				response.sendRedirect(path);
-			}
-			else {
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Request parameter bad formed");
-				return;
-			}
+		} else if(request.getSession().getAttribute("cartService") != null &&
+				!(((CartService)request.getSession().getAttribute("cartService")).isEmpty()) && 
+				(((CartService)request.getSession().getAttribute("cartService")).getUsername().equals("") ||
+						((CartService)request.getSession().getAttribute("cartService"))
+							.getUsername().equals(consumer.getUsername()))) {
+			CartService cs = (CartService)request.getSession().getAttribute("cartService");
+			cs.setUsername(consumer.getUsername());
+			request.getSession().setAttribute("cartService", cs);
+			
+			request.getSession().setAttribute("consUsername", consumer.getUsername());
+			ServletContext servletContext = getServletContext();
+			final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
+			path = "/WEB-INF/confirm.html";
+			templateEngine.process(path, ctx, response.getWriter());
 		}
-		else {
+		else {			
 			HttpSession session = request.getSession(false);
 			if (session != null) {
+				CartService cs = (CartService) session.getAttribute("cartService");
+				if (cs != null) cs.remove();
 				session.invalidate();
 			}
+		
+			CartService cs = null;
+			try {
+				InitialContext ic = new InitialContext();
+				// Retrieve the EJB using JNDI lookup
+				cs = (CartService) ic.lookup("java:/openejb/local/CartServiceLocalBean");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			cs.setUsername(consumer.getUsername());
+			request.getSession().setAttribute("cartService", cs);
+			
 			request.getSession().setAttribute("consUsername", consumer.getUsername());
 			path = getServletContext().getContextPath() + "/GoToHomePage";
 			response.sendRedirect(path);

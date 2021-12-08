@@ -30,6 +30,7 @@ public class GoToBuyPage extends HttpServlet {
 	private ServicePackageService spService;
 	@EJB(name = "it.polimi.db2.progetto.services/ValidityPeriodService")
 	private ValidityPeriodService vpService;
+	@EJB CartService cs2;
 	
 	public GoToBuyPage() {
 		super();
@@ -48,7 +49,7 @@ public class GoToBuyPage extends HttpServlet {
 			throws ServletException, IOException {
 
 		CartService cs = (CartService) request.getSession().getAttribute("cartService");
-		if(cs==null) {
+		/*if(cs==null) {
 			try {
 				InitialContext ic = new InitialContext();
 				// Retrieve the EJB using JNDI lookup
@@ -56,7 +57,9 @@ public class GoToBuyPage extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
+		if(cs==null)
+			cs = cs2;
 		cs.setEmpty(true);
 		request.getSession().setAttribute("cartService", cs);
 

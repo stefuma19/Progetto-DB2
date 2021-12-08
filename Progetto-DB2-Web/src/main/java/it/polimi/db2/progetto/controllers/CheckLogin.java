@@ -31,6 +31,7 @@ public class CheckLogin extends HttpServlet {
 	private TemplateEngine templateEngine;
 	@EJB(name = "it.polimi.db2.progetto.services/ConsumerService")
 	private ConsumerService consumerService;
+	@EJB CartService cs2;
 
 	public CheckLogin() {
 		super();
@@ -98,7 +99,7 @@ public class CheckLogin extends HttpServlet {
 				session.invalidate();
 			}
 		
-			CartService cs = null;
+			/*CartService cs = null;
 			try {
 				InitialContext ic = new InitialContext();
 				// Retrieve the EJB using JNDI lookup
@@ -107,7 +108,9 @@ public class CheckLogin extends HttpServlet {
 				e.printStackTrace();
 			}
 			cs.setUsername(consumer.getUsername());
-			request.getSession().setAttribute("cartService", cs);
+			request.getSession().setAttribute("cartService", cs);*/
+			cs2.setUsername(consumer.getUsername());
+			request.getSession().setAttribute("cartService", cs2);
 			
 			path = getServletContext().getContextPath() + "/GoToHomePage";
 			response.sendRedirect(path);

@@ -50,6 +50,8 @@ public class GoToConfirmPage extends HttpServlet{
 	@EJB(name = "it.polimi.db2.progetto.services/OrderService")
 	private OrderService orderService;
 	
+	@EJB CartService cs2;
+	
 	public GoToConfirmPage() {
 		super();
 	}
@@ -73,7 +75,7 @@ public class GoToConfirmPage extends HttpServlet{
 		request.getSession().removeAttribute("errorMsgID");
 
 		CartService cs = (CartService) request.getSession().getAttribute("cartService"); 
-		if(cs==null) {
+		/*if(cs==null) {
 			try {
 				InitialContext ic = new InitialContext();
 				// Retrieve the EJB using JNDI lookup
@@ -81,7 +83,9 @@ public class GoToConfirmPage extends HttpServlet{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
+		if(cs==null)
+			cs = cs2;
 		
 		int idSP, idVP;
 		float tp = 0;

@@ -2,6 +2,7 @@ package it.polimi.db2.progetto.controllers;
 
 import java.io.IOException;
 
+import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -21,6 +22,7 @@ import it.polimi.db2.progetto.services.CartService;
 public class SkipLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
+	@EJB CartService cs2;
 	
 	public SkipLogin() {
 		super();
@@ -44,7 +46,7 @@ public class SkipLogin extends HttpServlet {
 			session.invalidate();
 		}
 		
-		CartService cartService = null;
+		/*CartService cartService = null;
 		try {
 			InitialContext ic = new InitialContext();
 			// Retrieve the EJB using JNDI lookup
@@ -52,7 +54,8 @@ public class SkipLogin extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		request.getSession().setAttribute("cartService", cartService);
+		request.getSession().setAttribute("cartService", cartService);*/
+		request.getSession().setAttribute("cartService", cs2);
 		
 		request.getSession().setAttribute("consIsInsolvent", false);
 		String path = getServletContext().getContextPath() + "/GoToHomePage";

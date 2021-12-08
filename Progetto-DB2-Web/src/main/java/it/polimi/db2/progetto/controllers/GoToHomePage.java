@@ -30,7 +30,8 @@ public class GoToHomePage extends HttpServlet {
 	private ServicePackageService spService;
 	@EJB(name = "it.polimi.db2.progetto.services/OrderService")
 	private OrderService orderService;
-
+	@EJB CartService cs2;
+	
 	public GoToHomePage() {
 		super();
 	}
@@ -48,7 +49,7 @@ public class GoToHomePage extends HttpServlet {
 			throws ServletException, IOException {
 		
 		CartService cs = (CartService) request.getSession().getAttribute("cartService");
-		if(cs==null) {
+		/*if(cs==null) {
 			try {
 				InitialContext ic = new InitialContext();
 				// Retrieve the EJB using JNDI lookup
@@ -56,7 +57,9 @@ public class GoToHomePage extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
+		if(cs==null)
+			cs = cs2;
 		cs.setEmpty(true);
 		request.getSession().setAttribute("cartService", cs);
 		

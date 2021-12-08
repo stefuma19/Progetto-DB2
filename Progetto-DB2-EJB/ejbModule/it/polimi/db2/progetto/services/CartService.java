@@ -24,7 +24,7 @@ public class CartService {
 	private int idSP = 0, idVP = 0;
 	private float tp = 0.0f;
 	private List<Integer> idOPs = new ArrayList<>();
-	private String sd;
+	private String sd = "";
 	private boolean isEmpty = true;
 
 	public CartService() {
@@ -88,6 +88,15 @@ public class CartService {
 
 	public void setEmpty(boolean isEmpty) {
 		this.isEmpty = isEmpty;
+	}
+	
+	public void reset() {
+		username = "";
+		idSP = 0; idVP = 0;
+		tp = 0.0f;
+		idOPs = new ArrayList<>();
+		sd = "";
+		isEmpty = true;
 	}
 	
 	@Remove

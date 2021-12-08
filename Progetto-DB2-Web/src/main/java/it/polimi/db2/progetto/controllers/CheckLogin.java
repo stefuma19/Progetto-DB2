@@ -95,7 +95,8 @@ public class CheckLogin extends HttpServlet {
 			HttpSession session = request.getSession(false);
 			if (session != null) {
 				CartService cs = (CartService) session.getAttribute("cartService");
-				if (cs != null) cs.remove();
+				//if (cs != null) cs.remove();
+				if (cs != null) cs.reset();
 				session.invalidate();
 			}
 		

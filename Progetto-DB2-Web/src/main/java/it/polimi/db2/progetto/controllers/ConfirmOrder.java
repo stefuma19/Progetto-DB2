@@ -64,21 +64,11 @@ public class ConfirmOrder extends HttpServlet{
 		CartService cs = (CartService) request.getSession().getAttribute("cartService");
 
 		boolean valid;
-		boolean createAlert = false;
 		if(request.getParameter("confirmOrder")!=null) {  //button pressed from confirm page
 			if(StringEscapeUtils.escapeJava(request.getParameter("confirmOrder")).equals("Buy")) {
 				valid = true;
 			} else {
 				valid = false;
-				try {
-					String username = cs.getUsername();
-					consumerService.updateIsInsolvent(username, !valid);
-					createAlert = consumerService.addFailerPayments(username);
-				} catch (CredentialsException e) {
-					e.printStackTrace();
-					response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not find consumer");
-					return;
-				}
 			}
 		}
 		else {
@@ -127,10 +117,6 @@ public class ConfirmOrder extends HttpServlet{
 		if(valid) {
 			sasService.createSas(order);
 			consumerService.checkIsInsolvent(cs.getUsername());
-		}
-		
-		if(createAlert) {
-			alertService.createAlert(cs.getUsername());
 		}
 		
 		request.getSession().setAttribute("orderId", null);

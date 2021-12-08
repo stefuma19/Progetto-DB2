@@ -51,28 +51,6 @@ public class ConsumerService {
 			return true;
 		}
 	}
-	
-	public void updateIsInsolvent(String username, boolean isInsolvent) throws CredentialsException {
-		try {
-			Consumer c = em.find(Consumer.class , username);
-			c.setInsolvent(isInsolvent);
-		} catch (Exception e) {
-			throw new CredentialsException("Could not find username");
-		}
-	}
-	
-	public boolean addFailerPayments(String username) throws CredentialsException {
-		try {
-			Consumer c = em.find(Consumer.class , username);
-			c.setNumFailedPayments(c.getNumFailedPayments() + 1);
-			if(c.getNumFailedPayments() == 3) {
-				return true;
-			}
-		} catch (Exception e) {
-			throw new CredentialsException("Could not find username");
-		}
-		return false;
-	}
 
 	public void checkIsInsolvent(String consUser) {
 		

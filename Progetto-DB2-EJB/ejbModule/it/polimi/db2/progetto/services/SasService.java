@@ -21,7 +21,7 @@ public class SasService {
 	
 public void createSas(Order o) {
 		
-		ServiceActivationSchedule sas = new ServiceActivationSchedule();
+		/*ServiceActivationSchedule sas = new ServiceActivationSchedule();
 		sas.setOrder(o);
 		sas.setActDate(o.getStartDate());
 		
@@ -38,6 +38,6 @@ public void createSas(Order o) {
 		
 		o.setServiceActivationSchedule(sas);
 		
-		em.persist(sas);  
+		em.persist(sas);  */
 	}
 }

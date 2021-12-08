@@ -25,17 +25,4 @@ public class AlertService {
 	public AlertService() {
 	}
 	
-	public void createAlert(String consUser) {
-		
-		Alert alert = new Alert();
-		Consumer cons = em.find(Consumer.class, consUser);
-		alert.setUserConsumer(cons);
-		alert.setLastRejection(new Date());
-		alert.setAmount((float)((double)em.createNamedQuery("Order.getNotPaidAmount")
-				.setParameter(1, cons).getResultList().get(0)));
-		
-		cons.setAlert(alert);
-		
-		em.persist(alert);
-	}
 }

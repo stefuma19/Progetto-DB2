@@ -14,5 +14,10 @@
 		<class>it.polimi.db2.progetto.entities.ValidityPeriod</class>
 		<class>it.polimi.db2.progetto.entities.ServiceActivationSchedule</class>
 		<class>it.polimi.db2.progetto.entities.Order</class>
+		<class>it.polimi.db2.progetto.views.AvgOpSpView</class>
+		<class>it.polimi.db2.progetto.views.BestSellerOpView</class>
+		<class>it.polimi.db2.progetto.views.TotPurSpView</class>
+		<class>it.polimi.db2.progetto.views.TotPurSpVpView</class>
+		<class>it.polimi.db2.progetto.views.TotSaleSpOpView</class>
 	</persistence-unit>
 </persistence>

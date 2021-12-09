@@ -35,7 +35,7 @@
 			<td style="height:40px; width:33%"><span th:text="${entry.idSP}"></span></td>
 			<td style="width:33%"><span th:text="${entry.name}"></span></td>
 			<td><span th:text="${#numbers.formatDecimal(
-				entry.totalPurchase, 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+				entry.totalPurchase, 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
 		</tr>
 	</table><br><hr><br>
@@ -58,10 +58,10 @@
 			<td><span th:text="${entry.idVP}"></span></td>
 			<td><span th:text="${entry.numMonth}"></span></td>
 			<td><span th:text="${#numbers.formatDecimal(
-				entry.monthlyFee, 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+				entry.monthlyFee, 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
 			<td><span th:text="${#numbers.formatDecimal(
-				entry.totalPurchase, 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+				entry.totalPurchase, 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
 		</tr>
 	</table><br><hr><br>
@@ -80,10 +80,10 @@
 			<td style="height:40px"><span th:text="${entry.idSP}"></span></td>
 			<td><span th:text="${entry.nameSP}"></span></td>
 			<td><span th:text="${#numbers.formatDecimal(
-				entry.totWithOP, 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+				entry.totWithOP, 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
 			<td><span th:text="${#numbers.formatDecimal(
-				entry.totWithoutOP, 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+				entry.totWithoutOP, 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
 		</tr>
 	</table><br><hr><br>
@@ -101,7 +101,7 @@
 			<td style="height:40px; width:33%"><span th:text="${entry.idSP}"></span></td>
 			<td style="width:33%"><span th:text="${entry.nameSP}"></span></td>
 			<td><span th:text="${#numbers.formatDecimal(
-				entry.numAvgOP, 0, 'COMMA', 2, 'POINT')}"></span>
+				entry.numAvgOP, 1, 'COMMA', 2, 'POINT')}"></span>
 			</td>
 		</tr>
 	</table><br><hr><br>
@@ -140,7 +140,7 @@
 			<td><span th:text="${entry.idSP}"></span></td>
 			<td><span th:text="${entry.idValidity}"></span></td>
 			<td><span th:text="${#numbers.formatDecimal(
-				entry.totValue, 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+				entry.totValue, 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
 			<td><span th:text="${#dates.format(entry.startDate, 'yyyy-MM-dd')}"></span></td>
 			<td><span th:text="${#dates.format(entry.creationDate, 'yyyy-MM-dd HH:mm')}"></span></td>
@@ -161,7 +161,7 @@
 			<td style="height:40px"><span th:text="${entry.userConsumer}"></span></td>
 			<td><span th:text="${entry.email}"></span></td>
 			<td><span th:text="${#numbers.formatDecimal(
-				entry.amount, 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+				entry.amount, 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
 			<td><span th:text="${#dates.format(entry.lastRejection, 'yyyy-MM-dd HH:mm')}"></span></td>
 		</tr>

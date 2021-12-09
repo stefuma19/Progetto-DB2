@@ -45,15 +45,16 @@ public class SkipLogin extends HttpServlet {
 			session.invalidate();
 		}
 		
-		CartService cartService = null;
+		CartService cs = null;
 		try {
 			InitialContext ic = new InitialContext();
 			// Retrieve the EJB using JNDI lookup
-			cartService = (CartService) ic.lookup("java:/openejb/local/Progetto-DB2-Web/Progetto-DB2-Web/CartServiceLocalBean");
+			//cs = (CartService) ic.lookup("java:/openejb/local/Progetto-DB2-Web/Progetto-DB2-Web/CartServiceLocalBean");
+			cs = (CartService) ic.lookup("java:/openejb/local/CartServiceLocalBean");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		request.getSession().setAttribute("cartService", cartService);
+		request.getSession().setAttribute("cartService", cs);
 		
 		request.getSession().setAttribute("consIsInsolvent", false);
 		String path = getServletContext().getContextPath() + "/GoToHomePage";

@@ -131,26 +131,34 @@
 					<tr>
 						<td style="width:33%; text-align: center;">
 							<form action="CreateFI" method="POST">
-								Number of included Gigabytes: <br><input type="number" name="numGigaFI" id="numGigaFI" min="1" required><br><br>
-								Fee for extra Gigabytes: <br><input type="number" name="extraGigaFeeFI" id="extraGigaFeeFI" step="0.01" min="0.01" required><br><br>
+								Number of included Gigabytes: <br><input type="number" name="numGigaFI" 
+														id="numGigaFI" min="1" required><br><br>
+								Fee for extra Gigabytes: <br><input type="number" name="extraGigaFeeFI" 
+														id="extraGigaFeeFI" step="0.01" min="0.01" required><br><br>
 								<input type="submit" value="Create"><br>
 								<p th:if="${session.errorMsgFI!=null}" th:text=" ${session.errorMsgFI}"></p>
 							</form>
 						</td>
 						<td style="width:33%; text-align: center;">
 							<form action="CreateMP" method="POST">
-								Number of minutes: <br><input type="number" name="numMin" id="numMin" min="1" required><br><br>
-								Number of SMSs: <br><input type="number" name="numSms" id="numSms" min="1" required><br><br>
-								Fee for extra minutes: <br><input type="number" name="minFee" id="minFee" step="0.01" min="0.01" required><br><br>
-								Fee for extra SMSs: <br><input type="number" name="smsFee" id="smsFee" step="0.01" min="0.01" required><br><br>
+								Number of minutes: <br><input type="number" name="numMin" 
+																	id="numMin" min="1" required><br><br>
+								Number of SMSs: <br><input type="number" name="numSms" 
+																	id="numSms" min="1" required><br><br>
+								Fee for extra minutes: <br><input type="number" name="minFee" id="minFee" 
+																	step="0.01" min="0.01" required><br><br>
+								Fee for extra SMSs: <br><input type="number" name="smsFee" id="smsFee" 
+																	step="0.01" min="0.01" required><br><br>
 								<input type="submit" value="Create"><br>
 								<p th:if="${session.errorMsgMP!=null}" th:text=" ${session.errorMsgMP}"></p>
 							</form>
 						</td>
 						<td style="width:33%; text-align: center;">
 							<form action="CreateMI" method="POST">
-								Number of included Gigabytes: <br><input type="number" name="numGigaMI" id="numGigaMI" min="1" required><br><br>
-								Fee for extra Gigabytes: <br><input type="number" name="extraGigaFeeMI" id="extraGigaFeeMI" step="0.01" min="0.01" required><br><br>
+								Number of included Gigabytes: <br><input type="number" name="numGigaMI" 
+														id="numGigaMI" min="1" required><br><br>
+								Fee for extra Gigabytes: <br><input type="number" name="extraGigaFeeMI" 
+														id="extraGigaFeeMI" step="0.01" min="0.01" required><br><br>
 								<input type="submit" value="Create"><br>
 								<p th:if="${session.errorMsgMI!=null}" th:text=" ${session.errorMsgMI}"></p>
 							</form>
@@ -160,13 +168,16 @@
 			</td>
 		</tr>	
 	</table><br>
-	<table style="width:60%; border: 1px solid black; border-collapse: collapse; margin-left: auto; margin-right: auto;">
+	<table style="width:60%; border: 1px solid black; border-collapse: 
+				collapse; margin-left: auto; margin-right: auto;">
 		<tr style="border: 1px solid black;">
 			<th style="vertical-align:center; height:50px">Optional product creation</th>
 		</tr><tr><td style="vertical-align:center; height:50px">
 			<form action="CreateOP" method="POST"><table style="width:100%;"><tr>
-				<td style="width:45%;">Name: <input type="text" name="opName" id="opName" maxlength="32" required></td>
-				<td style="width:45%;">Monthly fee: <input type="number" name="opMonthlyFee" id="opMonthlyFee" step="0.01" min="0.01" required></td>
+				<td style="text-align: center; width:45%;">Name: <input type="text" 
+					name="opName" id="opName" maxlength="32" required></td>
+				<td style="width:45%;">Monthly fee: <input type="number" 
+					name="opMonthlyFee" id="opMonthlyFee" step="0.01" min="0.01" required></td>
 				<td style="width:10%;"><input type="submit" value="Create"></td>
 			</tr></table></form>	
 		</tr>

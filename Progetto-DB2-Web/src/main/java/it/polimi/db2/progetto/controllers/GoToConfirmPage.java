@@ -133,7 +133,6 @@ public class GoToConfirmPage extends HttpServlet{
 			
 			request.getSession().setAttribute("orderId", order.getIdOrder());
 			
-			
 		}else {
 			//show values taken from the request
 			

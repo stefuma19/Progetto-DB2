@@ -44,6 +44,7 @@ public class GoToSalesReportPage extends HttpServlet {
 		String path = "/WEB-INF/salesReport.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
+		
 		ctx.setVariable("tpsv", srService.getTotPurSpViewList());
 		ctx.setVariable("tpsvv", srService.getTotPurSpVpViewList());
 		ctx.setVariable("tssov", srService.getTotSaleSpOpViewList());
@@ -52,6 +53,7 @@ public class GoToSalesReportPage extends HttpServlet {
 		ctx.setVariable("sov", srService.getSusOrderList());
 		ctx.setVariable("av", srService.getAlertViewList());
 		ctx.setVariable("bsov", srService.getBestSellerOpViewList());
+		
 		templateEngine.process(path, ctx, response.getWriter());
 	}
 

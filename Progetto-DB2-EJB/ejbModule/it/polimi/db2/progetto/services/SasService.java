@@ -1,15 +1,11 @@
 package it.polimi.db2.progetto.services;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import it.polimi.db2.progetto.entities.Order;
-import it.polimi.db2.progetto.entities.ServiceActivationSchedule;
 
 @Stateless
 public class SasService {
@@ -40,4 +36,6 @@ public void createSas(Order o) {
 		
 		em.persist(sas);  */
 	}
+
+	//TODO: eliminare?
 }

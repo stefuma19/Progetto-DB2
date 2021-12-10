@@ -2,7 +2,6 @@ package it.polimi.db2.progetto.controllers;
 
 import java.io.IOException;
 
-import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -41,7 +40,7 @@ public class SkipLogin extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 			CartService cs = (CartService) session.getAttribute("cartService");
-			if (cs != null) cs.reset();
+			if (cs != null) cs.remove();
 			session.invalidate();
 		}
 		
@@ -59,5 +58,10 @@ public class SkipLogin extends HttpServlet {
 		request.getSession().setAttribute("consIsInsolvent", false);
 		String path = getServletContext().getContextPath() + "/GoToHomePage";
 		response.sendRedirect(path);
+	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
 	}
 }

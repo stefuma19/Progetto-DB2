@@ -8,8 +8,8 @@
 	<div>
 		<table style="position:absolute; top:0; right:0; "><tr>
 			<td><span th:text="'Welcome ' + ${session.emplUsername}"></span></td>
-			<td><form action="GoToSalesReportPage" method="POST"><input type="submit" value="Sales Report"/></form></td>
-			<td><form action="Logout" method="POST"><input type="submit" value="Logout"/></form></td>
+			<td><a href="GoToSalesReportPage"><button type="button">Sales Report</button></a></td>
+			<td><a href="Logout"><button type="button">Logout</button></a></td>
 		</tr></table>
 	</div>
 	<table style="width:60%; border: 1px solid black; border-collapse: collapse; 

@@ -33,7 +33,7 @@ public class CreateOP extends HttpServlet {
 		templateResolver.setSuffix(".html");
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		request.getSession().removeAttribute("errorMsgOP");	
@@ -71,8 +71,8 @@ public class CreateOP extends HttpServlet {
 		response.sendRedirect(path);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		doPost(request, response);
 	}
 }

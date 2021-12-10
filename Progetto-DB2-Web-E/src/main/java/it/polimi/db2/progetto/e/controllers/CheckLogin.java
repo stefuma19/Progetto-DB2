@@ -80,4 +80,9 @@ public class CheckLogin extends HttpServlet{
 			response.sendRedirect(path);
 			}
 	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
+	}
 }

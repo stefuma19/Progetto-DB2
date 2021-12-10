@@ -19,21 +19,21 @@ public class Logout extends HttpServlet {
 		super();
 	}
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 			CartService cs = (CartService) session.getAttribute("cartService");
-			if (cs != null) cs.reset();
+			if (cs != null) cs.remove();
 			session.invalidate();
 		}
 		String path = getServletContext().getContextPath() + "/index.html";
 		response.sendRedirect(path);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		doPost(request, response);
 	}
 }

@@ -114,4 +114,9 @@ public class Register extends HttpServlet{
 		}
 		templateEngine.process(path, ctx, response.getWriter());
 	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
+	}
 }

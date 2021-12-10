@@ -11,8 +11,8 @@
 	<div>
 		<table style="position:absolute; top:0; right:0; "><tr>
 			<td><span th:text="'Welcome ' + ${session.emplUsername}"></span></td>
-			<td><form action="GoToHomePage" method="POST"><input type="submit" value="Home page"/></form></td>
-			<td><form action="Logout" method="POST"><input type="submit" value="Logout"/></form></td>
+			<td><a href="GoToHomePage"><button type="button">Home page</button></a></td>
+			<td><a href="Logout"><button type="button">Logout</button></a></td>
 		</tr></table>
 	</div>
 

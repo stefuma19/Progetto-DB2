@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletContext;
@@ -19,11 +18,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
-import it.polimi.db2.progetto.entities.OptionalProduct;
 import it.polimi.db2.progetto.entities.Order;
-import it.polimi.db2.progetto.entities.ServicePackage;
-import it.polimi.db2.progetto.entities.ValidityPeriod;
-import it.polimi.db2.progetto.exceptions.CredentialsException;
 import it.polimi.db2.progetto.exceptions.IdException;
 import it.polimi.db2.progetto.services.AlertService;
 import it.polimi.db2.progetto.services.CartService;
@@ -58,7 +53,7 @@ public class ConfirmOrder extends HttpServlet{
 		templateResolver.setSuffix(".html");
 	}
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		CartService cs = (CartService) request.getSession().getAttribute("cartService");
@@ -128,8 +123,8 @@ public class ConfirmOrder extends HttpServlet{
 		response.sendRedirect(path);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		doPost(request, response);
 	}
 }

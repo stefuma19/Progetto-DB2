@@ -1,7 +1,6 @@
 package it.polimi.db2.progetto.services;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Remove;
@@ -88,15 +87,6 @@ public class CartService {
 
 	public void setEmpty(boolean isEmpty) {
 		this.isEmpty = isEmpty;
-	}
-	
-	public void reset() {
-		username = "";
-		idSP = 0; idVP = 0;
-		tp = 0.0f;
-		idOPs = new ArrayList<>();
-		sd = "";
-		isEmpty = true;
 	}
 	
 	@Remove

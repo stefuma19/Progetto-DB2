@@ -11,15 +11,13 @@
 				<td colspan=2>
 					<h2>Welcome <span th:text="${session.cartService.getUsername()}"></span></h2></td></tr>
 				<tr><td style="width:700px">
-					<form action="GoToBuyPage" method="GET"><input type="submit" value="Buy a service package"/></form>
+					<a href="GoToBuyPage"><button type="button">Buy a service package</button></a>
 				</td>
 				<td th:if="${session.cartService.getUsername() != null && session.cartService.getUsername() != ''}" style="width:700px">
-					<form action="Logout" method="GET"><input type="submit" value="Logout"/></form>
+					<a href="Logout"><button type="button">Logout</button></a>
 				</td>
 				<td th:if="${session.cartService.getUsername() == null || session.cartService.getUsername() == ''}" style="width:700px">
-					<form action="index.html" method="GET">
-						<input type="submit" value="Login"/>
-					</form>
+					<a href="index.html"><button type="button">Login</button></a>
 				</td>
 			</tr></table>
 			<br>

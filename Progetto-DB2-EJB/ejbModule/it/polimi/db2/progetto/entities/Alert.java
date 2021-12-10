@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="alert", schema ="db2progetto")
 
-public class Alert implements Serializable{
+public class Alert implements Serializable{ //TODO: eliminare?
 	private static final long serialVersionUID = 1L;
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)

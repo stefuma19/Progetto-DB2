@@ -16,7 +16,6 @@ import org.thymeleaf.TemplateEngine;
 import it.polimi.db2.progetto.services.*;
 import it.polimi.db2.progetto.entities.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
@@ -44,7 +43,7 @@ public class GoToHomePage extends HttpServlet {
 		templateResolver.setSuffix(".html");
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
 		CartService cs = (CartService) request.getSession().getAttribute("cartService");
@@ -72,8 +71,8 @@ public class GoToHomePage extends HttpServlet {
 		templateEngine.process(path, ctx, response.getWriter());
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		doPost(request, response);
 	}
 }

@@ -49,7 +49,7 @@ public class GoToHomePage extends HttpServlet {
 		templateResolver.setSuffix(".html");
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<FixedInternet> fis = fiService.findAllFIServices();
 		List<FixedPhone> fps = fpService.findAllFPServices(); //TODO: serve?
@@ -68,8 +68,8 @@ public class GoToHomePage extends HttpServlet {
 		templateEngine.process(path, ctx, response.getWriter());
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		doPost(request, response);
 	}
 }

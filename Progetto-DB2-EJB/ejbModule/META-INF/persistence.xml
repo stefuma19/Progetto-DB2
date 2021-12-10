@@ -19,5 +19,6 @@
 		<class>it.polimi.db2.progetto.views.TotPurSpView</class>
 		<class>it.polimi.db2.progetto.views.TotPurSpVpView</class>
 		<class>it.polimi.db2.progetto.views.TotSaleSpOpView</class>
+		<class>it.polimi.db2.progetto.views.AlertView</class>
 	</persistence-unit>
 </persistence>

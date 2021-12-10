@@ -48,7 +48,7 @@
 			<th style="height:40px">Service package ID</th>
 			<th>Service package name</th>
 			<th>Validity period ID</th>
-			<th>Number of month</th>
+			<th>Number of months</th>
 			<th>Monthly fee</th>
 			<th>Total purchase</th>
 		</tr>
@@ -128,8 +128,8 @@
 		</td></tr>
 		<tr>
 			<th style="height:40px">Order ID</th>
-			<th>Service package ID</th>
-			<th>Validity period ID</th>
+			<th>Service package name</th>
+			<th>Number of months</th>
 			<th>Total amount</th>
 			<th>Start date</th>
 			<th>Creation date</th>
@@ -137,14 +137,14 @@
 		</tr>
 		<tr th:each="entry : ${sov}">
 			<td style="height:40px"><span th:text="${entry.idOrder}"></span></td>
-			<td><span th:text="${entry.idSP}"></span></td>
-			<td><span th:text="${entry.idValidity}"></span></td>
+			<td><span th:text="${entry.servicePackage.name}"></span></td>
+			<td><span th:text="${entry.validityPeriod.numMonth}"></span></td>
 			<td><span th:text="${#numbers.formatDecimal(
 				entry.totValue, 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
 			<td><span th:text="${#dates.format(entry.startDate, 'yyyy-MM-dd')}"></span></td>
 			<td><span th:text="${#dates.format(entry.creationDate, 'yyyy-MM-dd HH:mm')}"></span></td>
-			<td><span th:text="${entry.userConsumer}"></span></td>
+			<td><span th:text="${entry.userConsumer.username}"></span></td>
 	</table><br><hr><br>
 	<table style="width:60%; border: 1px solid black; border-collapse: collapse;
 	 	margin-left: auto; margin-right: auto;" rules=rows>
@@ -159,7 +159,7 @@
 		</tr>
 		<tr th:each="entry : ${av}">
 			<td style="height:40px"><span th:text="${entry.userConsumer}"></span></td>
-			<td><span th:text="${entry.email}"></span></td>
+			<td><!--  <span th:text="${entry.email}"></span> --></td>
 			<td><span th:text="${#numbers.formatDecimal(
 				entry.amount, 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
@@ -181,6 +181,6 @@
 			<td style="width:33%"><span th:text="${entry.nameOP}"></span></td>
 			<td><span th:text="${entry.numSell}"></span></td>
 		</tr>
-	</table>
+	</table><br><br>
 </body>
 </html>

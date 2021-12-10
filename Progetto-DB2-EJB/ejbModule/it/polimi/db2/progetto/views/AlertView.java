@@ -5,18 +5,25 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-/*
-@Entity
-@Table(name="v_alert", schema ="db2progetto")*/
 
-public class AlertView /*implements Serializable*/ {
+@Entity
+@Table(name="v_alert", schema ="db2progetto")
+
+@NamedQuery(name="AlertView.findAll", query="SELECT v FROM AlertView v")
+
+@IdClass(AlertViewId.class)
+public class AlertView implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private float amount;
+	@Id 
 	private Date lastRejection;
+	@Id 
 	private String userConsumer;
-	private String email;
+	/*private String email;*/ //TODO: aggiungere
 	
 	public AlertView() {
 		super();

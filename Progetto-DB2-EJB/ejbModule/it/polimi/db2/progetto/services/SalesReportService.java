@@ -24,8 +24,7 @@ public class SalesReportService {
 	}
 	
 	public List<AlertView> getAlertViewList() {
-		//TODO: fare
-		return null;
+		return em.createNamedQuery("AlertView.findAll", AlertView.class).getResultList();
 	}
 	
 	public List<AvgOpSpView> getAvgOpSpViewList() {
@@ -52,7 +51,7 @@ public class SalesReportService {
 		return em.createNamedQuery("Consumer.insCons", Consumer.class).getResultList();
 	}
 	
-	public List<Order> getSusOrderList() { //TODO: fare
+	public List<Order> getSusOrderList() {
 		return em.createNamedQuery("Order.susOrder", Order.class).getResultList();
 	}
 }

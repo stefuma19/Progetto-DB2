@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -12,13 +13,15 @@ import javax.persistence.Table;
 
 @NamedQuery(name="TotPurSpVpView.findAll", query="SELECT v FROM TotPurSpVpView v")
 
+@IdClass(TotPurSpVpViewId.class)
 public class TotPurSpVpView implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@Id //TODO: chiave composta
+	@Id 
 	private int idSP;
-	private String name;
+	@Id
 	private int idVP;
+	private String name;
 	private int numMonth;
 	private float monthlyFee, totalPurchase;
 	

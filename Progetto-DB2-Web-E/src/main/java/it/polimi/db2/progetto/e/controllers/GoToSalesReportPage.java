@@ -53,25 +53,17 @@ public class GoToSalesReportPage extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//////////////////////////		
-		AlertView av = new AlertView();
-		av.setAmount(476.85f); av.setLastRejection(new Date()); av.setUserConsumer("av_Username"); av.setEmail("av_Email");
-		AlertView av1 = new AlertView();
-		av1.setAmount(1476.85f); av1.setLastRejection(new Date()); av1.setUserConsumer("av1_Username");
-		List<AlertView> l7 = new ArrayList<>();
-		l7.add(av);l7.add(av);
-//////////////////////////
-		
+
 		String path = "/WEB-INF/salesReport.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		ctx.setVariable("tpsv", srService.getTotPurSpViewList());
-		ctx.setVariable("tpsvv", /*srService.getTotPurSpVpViewList()*/new ArrayList<Order>());
+		ctx.setVariable("tpsvv", srService.getTotPurSpVpViewList());
 		ctx.setVariable("tssov", srService.getTotSaleSpOpViewList());
 		ctx.setVariable("aosv", srService.getAvgOpSpViewList());
 		ctx.setVariable("icv", srService.getInsConsList());
-		ctx.setVariable("sov", /*srService.getSusOrderList()*/new ArrayList<Order>());
-		ctx.setVariable("av", l7);
+		ctx.setVariable("sov", srService.getSusOrderList());
+		ctx.setVariable("av", srService.getAlertViewList());
 		ctx.setVariable("bsov", srService.getBestSellerOpViewList());
 		templateEngine.process(path, ctx, response.getWriter());
 	}

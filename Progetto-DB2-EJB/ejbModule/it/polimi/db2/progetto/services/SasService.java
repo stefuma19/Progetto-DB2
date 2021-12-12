@@ -15,27 +15,5 @@ public class SasService {
 	public SasService() {
 	}
 	
-public void createSas(Order o) {
-		
-		/*ServiceActivationSchedule sas = new ServiceActivationSchedule();
-		sas.setOrder(o);
-		sas.setActDate(o.getStartDate());
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		
-		Calendar cal = Calendar.getInstance();
-        try {
-			cal.setTime(sdf.parse(sdf.format(o.getStartDate())));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}               
-        cal.add(Calendar.MONTH, o.getValidityPeriod().getNumMonth());
-		sas.setDeactDate(cal.getTime());
-		
-		o.setServiceActivationSchedule(sas);
-		
-		em.persist(sas);  */
-	}
-
 	//TODO: eliminare?
 }

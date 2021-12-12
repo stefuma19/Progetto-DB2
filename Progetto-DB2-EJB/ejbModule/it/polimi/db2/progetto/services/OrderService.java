@@ -44,7 +44,6 @@ public class OrderService {
 		Order o = em.find(Order.class, idOrder);
 		if(o==null) throw new IdException("Could not find order");
 		o.setValid(valid);
-		//em.persist(o);    //TODO: crea duplicati nel db, anche con merge e senza questa riga
 		return o;
 	}
 	

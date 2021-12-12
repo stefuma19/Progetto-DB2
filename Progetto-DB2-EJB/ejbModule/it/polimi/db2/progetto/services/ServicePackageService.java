@@ -32,7 +32,7 @@ public class ServicePackageService {
 		return sp;
 	}
 	
-	public boolean existsServicePackageByName(String name) { //TODO: serve?
+	public boolean existsServicePackageByName(String name) {
 		return !em.createNamedQuery("ServicePackage.findByName", ServicePackage.class).setParameter(1, name)
 				.getResultList().isEmpty();
 	}
@@ -75,7 +75,7 @@ public class ServicePackageService {
 		sp.setMobileInternet(mobileInternet);
 		sp.setOptionalProducts(optionalProducts);
 		
-		for(OptionalProduct op : optionalProducts) { //TODO: serve?
+		for(OptionalProduct op : optionalProducts) { 
 			op.addServicePackage(sp);
 		}
 		

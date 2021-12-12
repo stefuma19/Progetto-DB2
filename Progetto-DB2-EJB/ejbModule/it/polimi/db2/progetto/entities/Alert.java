@@ -8,7 +8,9 @@ import javax.persistence.*;
 @Entity
 @Table(name="alert", schema ="db2progetto")
 
-public class Alert implements Serializable{ //TODO: eliminare?
+@NamedQuery(name="Alert.findAll", query="SELECT a FROM Alert a ORDER BY a.lastRejection")
+
+public class Alert implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)

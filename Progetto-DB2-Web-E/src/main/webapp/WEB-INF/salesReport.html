@@ -16,12 +16,12 @@
 		</tr></table>
 	</div>
 
-	<table style="width:60%; border-collapse: collapse; margin-left: auto; margin-right: auto;">
+	<table style="width:75%; border-collapse: collapse; margin-left: auto; margin-right: auto;">
 		<tr>
 			<td colspan=2><h2>Sales report</h2></td>
 		</tr>
 	</table><hr><br>
-	<table style="width:60%; border: 1px solid black; border-collapse: collapse;
+	<table style="width:75%; border: 1px solid black; border-collapse: collapse;
 	 	margin-left: auto; margin-right: auto;" rules=rows>
 		<tr><td style="height:50px" colspan=3>
 			<h3>Number of total purchases per package</h3>
@@ -29,17 +29,16 @@
 		<tr>
 			<th style="height:40px; width:33%">Service package ID</th>
 			<th style="width:33%">Service package name</th>
-			<th>Total purchase</th>
+			<th>Number of total purchase</th>
 		</tr>
 		<tr th:each="entry : ${tpsv}">
 			<td style="height:40px; width:33%"><span th:text="${entry.idSP}"></span></td>
 			<td style="width:33%"><span th:text="${entry.name}"></span></td>
-			<td><span th:text="${#numbers.formatDecimal(
-				entry.totalPurchase, 1, 'COMMA', 2, 'POINT')}"></span>&euro;
+			<td><span th:text="${entry.totalPurchase}"></span>&euro;
 			</td>
 		</tr>
 	</table><br><hr><br>
-	<table style="width:60%; border: 1px solid black; border-collapse: collapse;
+	<table style="width:75%; border: 1px solid black; border-collapse: collapse;
 	 	margin-left: auto; margin-right: auto;" rules=rows>
 		<tr><td style="height:50px" colspan=6>
 			<h3>Number of total purchases per package and validity period</h3>
@@ -50,7 +49,7 @@
 			<th>Validity period ID</th>
 			<th>Number of months</th>
 			<th>Monthly fee</th>
-			<th>Total purchase</th>
+			<th>Number of total purchase</th>
 		</tr>
 		<tr th:each="entry : ${tpsvv}">
 			<td style="height:40px"><span th:text="${entry.idSP}"></span></td>
@@ -60,26 +59,25 @@
 			<td><span th:text="${#numbers.formatDecimal(
 				entry.monthlyFee, 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
-			<td><span th:text="${#numbers.formatDecimal(
-				entry.totalPurchase, 1, 'COMMA', 2, 'POINT')}"></span>&euro;
+			<td><span th:text="${entry.totalPurchase}"></span>&euro;
 			</td>
 		</tr>
 	</table><br><hr><br>
-	<table style="width:60%; border: 1px solid black; border-collapse: collapse;
+	<table style="width:75%; border: 1px solid black; border-collapse: collapse;
 	 	margin-left: auto; margin-right: auto;" rules=rows>
 		<tr><td style="height:50px" colspan=4>
 			<h3>Total value of sales per package with and without the optional products</h3>
 		</td></tr>
 		<tr>
-			<th style="height:40px">Service package ID</th>
-			<th>Service package name</th>
-			<th>Total purchase with optional products</th>
-			<th>Total purchase without optional products</th>
+			<th style="height:40px; width:20%">Service package ID</th>
+			<th style="width:20%">Service package name</th>
+			<th style="width:30%">Total purchase with optional products</th>
+			<th >Total purchase without optional products</th>
 		</tr>
 		<tr th:each="entry : ${tssov}">
-			<td style="height:40px"><span th:text="${entry.idSP}"></span></td>
-			<td><span th:text="${entry.nameSP}"></span></td>
-			<td><span th:text="${#numbers.formatDecimal(
+			<td style="height:40px; width:20%"><span th:text="${entry.idSP}"></span></td>
+			<td style="width:20%"><span th:text="${entry.nameSP}"></span></td>
+			<td style="width:30%"><span th:text="${#numbers.formatDecimal(
 				entry.totWithOP, 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
 			<td><span th:text="${#numbers.formatDecimal(
@@ -87,7 +85,7 @@
 			</td>
 		</tr>
 	</table><br><hr><br>
-	<table style="width:60%; border: 1px solid black; border-collapse: collapse;
+	<table style="width:75%; border: 1px solid black; border-collapse: collapse;
 	 	margin-left: auto; margin-right: auto;" rules=rows>
 		<tr><td style="height:50px" colspan=3>
 			<h3>Average number of optional products sold together with each service package</h3>
@@ -105,7 +103,7 @@
 			</td>
 		</tr>
 	</table><br><hr><br>
-	<table style="width:60%; border: 1px solid black; border-collapse: collapse;
+	<table style="width:75%; border: 1px solid black; border-collapse: collapse;
 	 	margin-left: auto; margin-right: auto;" rules=rows>
 		<tr><td style="height:50px" colspan=3>
 			<h3>List of insolvent users</h3>
@@ -121,14 +119,15 @@
 			<td><span th:text="${entry.numFailedPayments}"></span></td>
 		</tr>
 	</table><br><hr><br>
-	<table style="width:60%; border: 1px solid black; border-collapse: collapse;
+	<table style="width:75%; border: 1px solid black; border-collapse: collapse;
 	 	margin-left: auto; margin-right: auto;" rules=rows>
-		<tr><td style="height:50px" colspan=7>
+		<tr><td style="height:50px" colspan=8>
 			<h3>List of suspended orders</h3>
 		</td></tr>
 		<tr>
 			<th style="height:40px">Order ID</th>
 			<th>Service package name</th>
+			<th>Optional products</th>
 			<th>Number of months</th>
 			<th>Total amount</th>
 			<th>Start date</th>
@@ -138,6 +137,14 @@
 		<tr th:each="entry : ${sov}">
 			<td style="height:40px"><span th:text="${entry.idOrder}"></span></td>
 			<td><span th:text="${entry.servicePackage.name}"></span></td>
+			<td th:if="${entry.optionalProductsOrdered.empty}">
+				No purchase
+			</td>
+			<td th:if="${!entry.optionalProductsOrdered.empty}">
+				<ul th:each="op : ${entry.optionalProductsOrdered}">
+					<li><span th:text="${op.nameOP}"></span></li>
+				</ul>
+			</td>
 			<td><span th:text="${entry.validityPeriod.numMonth}"></span></td>
 			<td><span th:text="${#numbers.formatDecimal(
 				entry.totValue, 1, 'COMMA', 2, 'POINT')}"></span>&euro;
@@ -146,27 +153,27 @@
 			<td><span th:text="${#dates.format(entry.creationDate, 'yyyy-MM-dd HH:mm')}"></span></td>
 			<td><span th:text="${entry.userConsumer.username}"></span></td>
 	</table><br><hr><br>
-	<table style="width:60%; border: 1px solid black; border-collapse: collapse;
+	<table style="width:75%; border: 1px solid black; border-collapse: collapse;
 	 	margin-left: auto; margin-right: auto;" rules=rows>
 		<tr><td style="height:50px" colspan=4>
 			<h3>List of alerts</h3>
 		</td></tr>
 		<tr>
-			<th style="height:40px">Consumer username</th>
-			<th>E-mail</th>
-			<th>Total amount</th>
+			<th style="height:40px; width:25%">Consumer username</th>
+			<th style="width:25%">E-mail</th>
+			<th style="width:25%">Total amount</th>
 			<th>Last rejection</th>
 		</tr>
 		<tr th:each="entry : ${av}">
-			<td style="height:40px"><span th:text="${entry.userConsumer}"></span></td>
-			<td><!--  <span th:text="${entry.email}"></span> --></td>
-			<td><span th:text="${#numbers.formatDecimal(
+			<td style="height:40px; width:25%"><span th:text="${entry.userConsumer.username}"></span></td>
+			<td style="width:25%"><span th:text="${entry.userConsumer.email}"></span></td>
+			<td style="width:25%"><span th:text="${#numbers.formatDecimal(
 				entry.amount, 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
 			<td><span th:text="${#dates.format(entry.lastRejection, 'yyyy-MM-dd HH:mm')}"></span></td>
 		</tr>
 	</table><br><hr><br>
-	<table style="width:60%; border: 1px solid black; border-collapse: collapse;
+	<table style="width:75%; border: 1px solid black; border-collapse: collapse;
 	 	margin-left: auto; margin-right: auto;" rules=rows>
 		<tr><td style="height:50px" colspan=3>
 			<h3>Best seller optional product</h3>

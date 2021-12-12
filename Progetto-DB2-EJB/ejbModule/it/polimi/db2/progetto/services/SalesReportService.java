@@ -6,9 +6,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import it.polimi.db2.progetto.entities.Alert;
 import it.polimi.db2.progetto.entities.Consumer;
 import it.polimi.db2.progetto.entities.Order;
-import it.polimi.db2.progetto.views.AlertView;
 import it.polimi.db2.progetto.views.AvgOpSpView;
 import it.polimi.db2.progetto.views.BestSellerOpView;
 import it.polimi.db2.progetto.views.TotPurSpView;
@@ -23,8 +23,8 @@ public class SalesReportService {
 	public SalesReportService() {
 	}
 	
-	public List<AlertView> getAlertViewList() {
-		return em.createNamedQuery("AlertView.findAll", AlertView.class).getResultList();
+	public List<Alert> getAlertViewList() {
+		return em.createNamedQuery("Alert.findAll", Alert.class).getResultList();
 	}
 	
 	public List<AvgOpSpView> getAvgOpSpViewList() {

@@ -48,8 +48,8 @@ public class SkipLogin extends HttpServlet {
 		try {
 			InitialContext ic = new InitialContext();
 			// Retrieve the EJB using JNDI lookup
-			//cs = (CartService) ic.lookup("java:/openejb/local/Progetto-DB2-Web/Progetto-DB2-Web/CartServiceLocalBean");
-			cs = (CartService) ic.lookup("java:/openejb/local/CartServiceLocalBean");
+			cs = (CartService) ic.lookup("java:/openejb/local/Progetto-DB2-Web/Progetto-DB2-Web/CartServiceLocalBean");
+			//cs = (CartService) ic.lookup("java:/openejb/local/CartServiceLocalBean");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

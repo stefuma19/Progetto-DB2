@@ -20,11 +20,9 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import it.polimi.db2.progetto.entities.Order;
 import it.polimi.db2.progetto.exceptions.IdException;
-import it.polimi.db2.progetto.services.AlertService;
 import it.polimi.db2.progetto.services.CartService;
 import it.polimi.db2.progetto.services.ConsumerService;
 import it.polimi.db2.progetto.services.OrderService;
-import it.polimi.db2.progetto.services.SasService;
 
 @WebServlet("/ConfirmOrder")
 public class ConfirmOrder extends HttpServlet{
@@ -35,10 +33,6 @@ public class ConfirmOrder extends HttpServlet{
 	private OrderService orderService;
 	@EJB(name = "it.polimi.db2.progetto.services/ConsumerService")
 	private ConsumerService consumerService;
-	@EJB(name = "it.polimi.db2.progetto.services/SasService")
-	private SasService sasService;
-	@EJB(name = "it.polimi.db2.progetto.services/AlertService")
-	private AlertService alertService;
 	
 	public ConfirmOrder() {
 		super();
@@ -107,11 +101,6 @@ public class ConfirmOrder extends HttpServlet{
 						cal.getTime(), 
 						cs.getOPs()
 					);
-		}
-		
-		if(valid) {
-			sasService.createSas(order);
-			consumerService.checkIsInsolvent(cs.getUsername());
 		}
 		
 		request.getSession().setAttribute("orderId", null);

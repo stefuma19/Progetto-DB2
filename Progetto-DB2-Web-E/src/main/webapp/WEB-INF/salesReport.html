@@ -34,7 +34,7 @@
 		<tr th:each="entry : ${tpsv}">
 			<td style="height:40px; width:33%"><span th:text="${entry.idSP}"></span></td>
 			<td style="width:33%"><span th:text="${entry.name}"></span></td>
-			<td><span th:text="${entry.totalPurchase}"></span>&euro;
+			<td><span th:text="${entry.totalPurchase}"></span>
 			</td>
 		</tr>
 	</table><br><hr><br>
@@ -59,7 +59,7 @@
 			<td><span th:text="${#numbers.formatDecimal(
 				entry.monthlyFee, 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
-			<td><span th:text="${entry.totalPurchase}"></span>&euro;
+			<td><span th:text="${entry.totalPurchase}"></span>
 			</td>
 		</tr>
 	</table><br><hr><br>

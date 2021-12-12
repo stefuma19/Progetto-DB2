@@ -18,7 +18,7 @@ public class TotPurSpView implements Serializable {
 	@Id
 	private int idSP;
 	private String name;
-	private float totalPurchase;
+	private int totalPurchase;
 	
 	public TotPurSpView() {
 		super();
@@ -40,11 +40,11 @@ public class TotPurSpView implements Serializable {
 		this.name = name;
 	}
 
-	public float getTotalPurchase() {
+	public int getTotalPurchase() {
 		return totalPurchase;
 	}
 
-	public void setTotalPurchase(float totalPurchase) {
+	public void setTotalPurchase(int totalPurchase) {
 		this.totalPurchase = totalPurchase;
 	}
 }

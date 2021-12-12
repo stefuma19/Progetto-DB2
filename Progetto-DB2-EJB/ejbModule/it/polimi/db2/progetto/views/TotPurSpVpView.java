@@ -23,7 +23,8 @@ public class TotPurSpVpView implements Serializable {
 	private int idVP;
 	private String name;
 	private int numMonth;
-	private float monthlyFee, totalPurchase;
+	private float monthlyFee;
+	private int totalPurchase;
 	
 	public TotPurSpVpView() {
 		super();
@@ -69,11 +70,11 @@ public class TotPurSpVpView implements Serializable {
 		this.monthlyFee = monthlyFee;
 	}
 
-	public float getTotalPurchase() {
+	public int getTotalPurchase() {
 		return totalPurchase;
 	}
 
-	public void setTotalPurchase(float totalPurchase) {
+	public void setTotalPurchase(int totalPurchase) {
 		this.totalPurchase = totalPurchase;
 	}
 }

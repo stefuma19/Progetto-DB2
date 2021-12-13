@@ -10,7 +10,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="v_tot_pur_sp", schema ="db2progetto")
 
-@NamedQuery(name="TotPurSpView.findAll", query="SELECT v FROM TotPurSpView v")
+@NamedQuery(name="TotPurSpView.findAll", 
+			query="SELECT v FROM TotPurSpView v")
 
 public class TotPurSpView implements Serializable {
 	private static final long serialVersionUID = 1L;

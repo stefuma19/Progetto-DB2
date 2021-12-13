@@ -17,7 +17,8 @@ public class FixedPhoneService {
 	}
 	
 	public List<FixedPhone> findAllFPServices() {
-		return em.createNamedQuery("FixedPhone.findAll", FixedPhone.class).getResultList();
+		return em.createNamedQuery("FixedPhone.findAll", FixedPhone.class)
+				.getResultList();
 	}
 	
 	public FixedPhone checkFpExists() {

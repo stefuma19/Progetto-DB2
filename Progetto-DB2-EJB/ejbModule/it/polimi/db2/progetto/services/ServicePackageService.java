@@ -23,7 +23,8 @@ public class ServicePackageService {
 	}
 	
 	public List<ServicePackage> findAllServicePackages() {
-		return em.createNamedQuery("ServicePackage.findAll", ServicePackage.class).getResultList();
+		return em.createNamedQuery("ServicePackage.findAll", ServicePackage.class)
+				.getResultList();
 	}
 	
 	public ServicePackage findServicePackagesById(int idSP) throws IdException {
@@ -33,14 +34,17 @@ public class ServicePackageService {
 	}
 	
 	public boolean existsServicePackageByName(String name) {
-		return !em.createNamedQuery("ServicePackage.findByName", ServicePackage.class).setParameter(1, name)
-				.getResultList().isEmpty();
+		//returns true if already exists a SP with the name "name"
+		return !em.createNamedQuery("ServicePackage.findByName", ServicePackage.class)
+				.setParameter(1, name).getResultList().isEmpty();
 	}
 	
-	public boolean createServicePackage(String name, FixedPhone fixedPhone, FixedInternet fixedInternet, 
-			MobilePhone mobilePhone, MobileInternet mobileInternet, List<OptionalProduct> optionalProducts) {
+	public boolean createServicePackage(String name, FixedPhone fixedPhone, 
+			FixedInternet fixedInternet, MobilePhone mobilePhone, 
+			MobileInternet mobileInternet, List<OptionalProduct> optionalProducts) {
 		
-		List<ServicePackage> existentSPs = em.createNamedQuery("ServicePackage.findSP", ServicePackage.class)
+		List<ServicePackage> existentSPs = em.createNamedQuery(
+				"ServicePackage.findSP", ServicePackage.class)
 				.setParameter(1, fixedPhone).setParameter(2, fixedInternet)
 				.setParameter(3, mobilePhone).setParameter(4, mobileInternet).getResultList();
 		

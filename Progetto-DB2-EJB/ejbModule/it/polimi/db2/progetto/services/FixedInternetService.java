@@ -18,7 +18,8 @@ public class FixedInternetService {
 	}
 	
 	public List<FixedInternet> findAllFIServices() {
-		return em.createNamedQuery("FixedInternet.findAll", FixedInternet.class).getResultList();
+		return em.createNamedQuery("FixedInternet.findAll", FixedInternet.class)
+				.getResultList();
 	}
 	
 	public boolean createFI(int num, float fee) {

@@ -18,13 +18,18 @@ public class MobilePhoneService {
 	}
 	
 	public List<MobilePhone> findAllMPServices() {
-		return em.createNamedQuery("MobilePhone.findAll", MobilePhone.class).getResultList();
+		return em.createNamedQuery("MobilePhone.findAll", MobilePhone.class)
+				.getResultList();
 	}
 	
 	public boolean createMP(int numMin, int numSMS, float feeMin, float feeSMS) {
 		
-		if(!em.createNamedQuery("MobilePhone.findMP", MobilePhone.class).setParameter(1, numMin)
-				.setParameter(2, numSMS).setParameter(3, feeMin).setParameter(4, feeSMS).getResultList().isEmpty())
+		if(!em.createNamedQuery("MobilePhone.findMP", MobilePhone.class)
+				.setParameter(1, numMin)
+				.setParameter(2, numSMS)
+				.setParameter(3, feeMin)
+				.setParameter(4, feeSMS)
+				.getResultList().isEmpty())
 			return false;
 	
 		MobilePhone mp = new MobilePhone();

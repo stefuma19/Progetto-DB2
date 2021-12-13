@@ -18,7 +18,8 @@ public class ConsumerService {
 	public ConsumerService() {
 	}
 
-	public Consumer checkLogin(String username, String password) throws CredentialsException, NonUniqueResultException {
+	public Consumer checkLogin(String username, String password) 
+			throws CredentialsException, NonUniqueResultException {
 		List<Consumer> cList = null;
 		try {
 			cList = em.createNamedQuery("Consumer.checkCredentials", Consumer.class)
@@ -33,9 +34,9 @@ public class ConsumerService {
 			return cList.get(0);
 		throw new NonUniqueResultException("More than one user registered with same credentials");
 	}
-
 	
-	public boolean register(String email, String username, String password) throws CredentialsException{
+	public boolean register(String email, String username, String password) 
+			throws CredentialsException{
 	
 		if(em.find(Consumer.class, username) != null) {
 			return false;

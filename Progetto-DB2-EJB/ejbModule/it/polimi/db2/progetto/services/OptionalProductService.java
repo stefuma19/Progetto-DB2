@@ -18,7 +18,8 @@ public class OptionalProductService {
 	}
 	
 	public List<OptionalProduct> findAllOptionalProducts() {
-		return em.createNamedQuery("OptionalProduct.findAll", OptionalProduct.class).getResultList();
+		return em.createNamedQuery("OptionalProduct.findAll", OptionalProduct.class)
+				.getResultList();
 	}
 	
 	public OptionalProduct findOptionalProductById(int idOP) throws IdException {
@@ -27,8 +28,7 @@ public class OptionalProductService {
 		return op;
 	}
 	
-	public boolean createOP(String name, float monthlyFee) {
-		
+	public boolean createOP(String name, float monthlyFee) {		
 		if(!em.createNamedQuery("OptionalProduct.findOP", OptionalProduct.class)
 				.setParameter(1, name).setParameter(2, monthlyFee).getResultList().isEmpty())
 			return false;

@@ -18,7 +18,8 @@ public class MobileInternetService {
 	}
 	
 	public List<MobileInternet> findAllMIServices() {
-		return em.createNamedQuery("MobileInternet.findAll", MobileInternet.class).getResultList();
+		return em.createNamedQuery("MobileInternet.findAll", MobileInternet.class)
+				.getResultList();
 	}
 
 	public boolean createMI(int num, float fee) {

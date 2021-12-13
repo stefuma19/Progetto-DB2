@@ -11,7 +11,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="v_tot_pur_sp_vp", schema ="db2progetto")
 
-@NamedQuery(name="TotPurSpVpView.findAll", query="SELECT v FROM TotPurSpVpView v ORDER BY v.idSP")
+@NamedQuery(name="TotPurSpVpView.findAll", 
+			query="SELECT v FROM TotPurSpVpView v ORDER BY v.idSP")
 
 @IdClass(TotPurSpVpViewId.class)
 public class TotPurSpVpView implements Serializable {

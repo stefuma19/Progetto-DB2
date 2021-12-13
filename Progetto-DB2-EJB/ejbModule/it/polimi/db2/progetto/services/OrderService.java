@@ -39,8 +39,7 @@ public class OrderService {
 		return o;
 	}
 	
-	public Order validateOrder(int idOrder, boolean valid) throws IdException {
-		
+	public Order validateOrder(int idOrder, boolean valid) throws IdException {		
 		Order o = em.find(Order.class, idOrder);
 		if(o==null) throw new IdException("Could not find order");
 		o.setValid(valid);
@@ -54,9 +53,7 @@ public class OrderService {
 	}
 	
 	public List<Order> getInvalidOrders(String username){
-
 		Consumer c = em.find(Consumer.class, username);
-		
 		if(c != null) {
 			return em.createNamedQuery("Order.getInvalidOrders", Order.class).setParameter(1, c).getResultList();
 		}

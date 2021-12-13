@@ -42,9 +42,6 @@ public class Order implements Serializable{
 		}
 			)
 	private List<OptionalProduct> optionalProductsOrdered;
-	
-	@OneToOne(fetch =FetchType.LAZY, mappedBy = "order")
-	private ServiceActivationSchedule serviceActivationSchedule;
 
 	@ManyToOne(fetch =FetchType.LAZY)
 	@JoinColumn(name = "UserConsumer")
@@ -104,14 +101,6 @@ public class Order implements Serializable{
 
 	public void setOptionalProductsOrdered(List<OptionalProduct> optionalProducts) {
 		this.optionalProductsOrdered = optionalProducts;
-	}
-
-	public ServiceActivationSchedule getServiceActivationSchedule() {
-		return serviceActivationSchedule;
-	}
-
-	public void setServiceActivationSchedule(ServiceActivationSchedule serviceActivationSchedule) {
-		this.serviceActivationSchedule = serviceActivationSchedule;
 	}
 
 	public Consumer getUserConsumer() {

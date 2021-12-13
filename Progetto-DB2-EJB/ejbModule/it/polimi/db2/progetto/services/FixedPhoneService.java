@@ -8,7 +8,6 @@ import javax.persistence.PersistenceContext;
 
 import it.polimi.db2.progetto.entities.FixedPhone;
 
-//TODO: serve?
 @Stateless
 public class FixedPhoneService {
 	@PersistenceContext(unitName = "Progetto-DB2-EJB")

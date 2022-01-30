@@ -18,10 +18,12 @@ public class EmployeeService {
 	public EmployeeService() {
 	}
 	
-	public Employee checkLogin(String username, String password) throws CredentialsException, NonUniqueResultException {
+	public Employee checkLogin(String username, String password) 
+			throws CredentialsException, NonUniqueResultException {
 		List<Employee> eList = null;
 		try {
-			eList = em.createNamedQuery("Employee.checkCredentials", Employee.class).setParameter(1, username).setParameter(2, password)
+			eList = em.createNamedQuery("Employee.checkCredentials", Employee.class)
+					.setParameter(1, username).setParameter(2, password)
 					.getResultList();
 		} catch (PersistenceException e) {
 			throw new CredentialsException("Could not verify credentals");

@@ -18,7 +18,8 @@ public class ValidityPeriodService {
 	}
 	
 	public List<ValidityPeriod> findAllValidityPeriods() {
-		return em.createNamedQuery("ValidityPeriod.findAll", ValidityPeriod.class).getResultList();
+		return em.createNamedQuery("ValidityPeriod.findAll", ValidityPeriod.class)
+				.getResultList();
 	}
 	
 	public ValidityPeriod findValidityPeriodById(int idVP) throws IdException {

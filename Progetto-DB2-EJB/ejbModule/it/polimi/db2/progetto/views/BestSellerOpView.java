@@ -10,7 +10,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="v_best_seller_op", schema ="db2progetto")
 
-@NamedQuery(name="BestSellerOpView.findAll", query="SELECT v FROM BestSellerOpView v")
+@NamedQuery(name="BestSellerOpView.findAll", 
+			query="SELECT v FROM BestSellerOpView v")
 
 public class BestSellerOpView implements Serializable {
 	private static final long serialVersionUID = 1L;

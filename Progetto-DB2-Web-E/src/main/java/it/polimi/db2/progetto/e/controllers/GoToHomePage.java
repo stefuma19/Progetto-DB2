@@ -52,7 +52,6 @@ public class GoToHomePage extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<FixedInternet> fis = fiService.findAllFIServices();
-		List<FixedPhone> fps = fpService.findAllFPServices(); //TODO: serve?
 		List<MobileInternet> mis = miService.findAllMIServices();
 		List<MobilePhone> mps = mpService.findAllMPServices();
 		List<OptionalProduct> ops = opService.findAllOptionalProducts();
@@ -61,7 +60,6 @@ public class GoToHomePage extends HttpServlet {
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		ctx.setVariable("fis", fis);
-		ctx.setVariable("fps", fps); //TODO: serve? per ora nell'home.html non lo aggiungo
 		ctx.setVariable("mis", mis);
 		ctx.setVariable("mps", mps);
 		ctx.setVariable("ops", ops);

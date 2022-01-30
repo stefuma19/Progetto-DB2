@@ -12,10 +12,6 @@ import javax.persistence.*;
 							query = "SELECT o FROM Order o  WHERE o.userConsumer = ?1 and o.idOrder = ?2"),
 	@NamedQuery(name = "Order.getInvalidOrders", 
 				query = "SELECT o FROM Order o  WHERE o.userConsumer = ?1 and o.isValid = false"),
-	@NamedQuery(name = "Order.getNotPaidAmount", 
-				query = "SELECT SUM(o.totValue) FROM Order o  WHERE o.userConsumer = ?1 and o.isValid = false"),
-	@NamedQuery(name = "Order.getNotPaidNumber", 
-				query = "SELECT COUNT(o) FROM Order o  WHERE o.userConsumer = ?1 and o.isValid = false"),
 	@NamedQuery(name = "Order.susOrder", 
 				query = "SELECT o FROM Order o  WHERE o.isValid = false")})
 
@@ -42,9 +38,6 @@ public class Order implements Serializable{
 		}
 			)
 	private List<OptionalProduct> optionalProductsOrdered;
-	
-	@OneToOne(fetch =FetchType.LAZY, mappedBy = "order")
-	private ServiceActivationSchedule serviceActivationSchedule;
 
 	@ManyToOne(fetch =FetchType.LAZY)
 	@JoinColumn(name = "UserConsumer")
@@ -104,14 +97,6 @@ public class Order implements Serializable{
 
 	public void setOptionalProductsOrdered(List<OptionalProduct> optionalProducts) {
 		this.optionalProductsOrdered = optionalProducts;
-	}
-
-	public ServiceActivationSchedule getServiceActivationSchedule() {
-		return serviceActivationSchedule;
-	}
-
-	public void setServiceActivationSchedule(ServiceActivationSchedule serviceActivationSchedule) {
-		this.serviceActivationSchedule = serviceActivationSchedule;
 	}
 
 	public Consumer getUserConsumer() {

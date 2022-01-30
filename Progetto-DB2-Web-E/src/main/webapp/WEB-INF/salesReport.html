@@ -31,6 +31,9 @@
 			<th style="width:33%">Service package name</th>
 			<th>Number of total purchase</th>
 		</tr>
+		<tr th:if="${tpsv.empty}">
+			<td style="height:40px;" colspan=4>No service package purchased</td>	
+		</tr>
 		<tr th:each="entry : ${tpsv}">
 			<td style="height:40px; width:33%"><span th:text="${entry.idSP}"></span></td>
 			<td style="width:33%"><span th:text="${entry.name}"></span></td>
@@ -50,6 +53,9 @@
 			<th>Number of months</th>
 			<th>Monthly fee</th>
 			<th>Number of total purchase</th>
+		</tr>
+		<tr th:if="${tpsvv.empty}">
+			<td style="height:40px;" colspan=6>No service package purchased</td>	
 		</tr>
 		<tr th:each="entry : ${tpsvv}">
 			<td style="height:40px"><span th:text="${entry.idSP}"></span></td>
@@ -74,6 +80,9 @@
 			<th style="width:30%">Total purchase with optional products</th>
 			<th >Total purchase without optional products</th>
 		</tr>
+		<tr th:if="${tssov.empty}">
+			<td style="height:40px;" colspan=4>No service package purchased</td>	
+		</tr>
 		<tr th:each="entry : ${tssov}">
 			<td style="height:40px; width:20%"><span th:text="${entry.idSP}"></span></td>
 			<td style="width:20%"><span th:text="${entry.nameSP}"></span></td>
@@ -95,6 +104,9 @@
 			<th style="width:33%">Service package name</th>
 			<th>Average number of optional products</th>
 		</tr>
+		<tr th:if="${aosv.empty}">
+			<td style="height:40px;" colspan=3>No optional product purchased</td>	
+		</tr>
 		<tr th:each="entry : ${aosv}">
 			<td style="height:40px; width:33%"><span th:text="${entry.idSP}"></span></td>
 			<td style="width:33%"><span th:text="${entry.nameSP}"></span></td>
@@ -112,6 +124,9 @@
 			<th style="height:40px; width:33%">Consumer username</th>
 			<th style="width:33%">E-mail</th>
 			<th>Number of failed payments</th>
+		</tr>
+		<tr th:if="${icv.empty}">
+			<td style="height:40px;" colspan=3>No insolvent user</td>	
 		</tr>
 		<tr th:each="entry : ${icv}">
 			<td style="height:40px; width:33%"><span th:text="${entry.username}"></span></td>
@@ -133,6 +148,9 @@
 			<th>Start date</th>
 			<th>Creation date</th>
 			<th>Consumer username</th>
+		</tr>
+		<tr th:if="${sov.empty}">
+			<td style="height:40px;" colspan=8>No suspended order</td>	
 		</tr>
 		<tr th:each="entry : ${sov}">
 			<td style="height:40px"><span th:text="${entry.idOrder}"></span></td>
@@ -164,6 +182,9 @@
 			<th style="width:25%">Total amount</th>
 			<th>Last rejection</th>
 		</tr>
+		<tr th:if="${av.empty}">
+			<td style="height:40px;" colspan=4>No alert generated</td>	
+		</tr>
 		<tr th:each="entry : ${av}">
 			<td style="height:40px; width:25%"><span th:text="${entry.userConsumer.username}"></span></td>
 			<td style="width:25%"><span th:text="${entry.userConsumer.email}"></span></td>
@@ -182,6 +203,9 @@
 			<th style="height:40px; width:33%">Optional product ID</th>
 			<th style="width:33%">Optional product name</th>
 			<th>Number of sales</th>
+		</tr>
+		<tr th:if="${bsov.empty}">
+			<td style="height:40px;" colspan=3>No optional product purchased</td>	
 		</tr>
 		<tr th:each="entry : ${bsov}">
 			<td style="height:40px; width:33%"><span th:text="${entry.idOP}"></span></td>

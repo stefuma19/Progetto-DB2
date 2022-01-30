@@ -43,6 +43,7 @@ public class OrderService {
 		
 		Order o = em.find(Order.class, idOrder);
 		if(o==null) throw new IdException("Could not find order");
+		o.setCreationDate(new Date());
 		o.setValid(valid);
 		return o;
 	}

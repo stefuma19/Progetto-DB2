@@ -37,19 +37,19 @@ public class ServicePackage implements Serializable{
 	@OneToMany(fetch =FetchType.LAZY, mappedBy = "servicePackage")
 	private List<Order> orders;
 	
-	@ManyToOne(fetch =FetchType.EAGER/*, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE}*/)
+	@ManyToOne(fetch =FetchType.EAGER)
 	@JoinColumn(name = "IdFP")
 	private FixedPhone fixedPhone;
 	
-	@ManyToOne(fetch =FetchType.EAGER/*, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE}*/)
+	@ManyToOne(fetch =FetchType.EAGER)
 	@JoinColumn(name = "IdFI")
 	private FixedInternet fixedInternet;
 	
-	@ManyToOne(fetch =FetchType.EAGER/*, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE}*/)
+	@ManyToOne(fetch =FetchType.EAGER)
 	@JoinColumn(name = "IdMP")
 	private MobilePhone mobilePhone;
 	
-	@ManyToOne(fetch =FetchType.EAGER/*, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE}*/)
+	@ManyToOne(fetch =FetchType.EAGER)
 	@JoinColumn(name = "IdMI")
 	private MobileInternet mobileInternet;
 

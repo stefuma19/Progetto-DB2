@@ -27,7 +27,7 @@ public class Order implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
 	
-	@ManyToMany(fetch=FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 		name="op_in_order"
 		, joinColumns= {

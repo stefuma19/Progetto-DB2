@@ -19,7 +19,7 @@ public class Alert implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastRejection;
 	
-	@OneToOne(fetch =FetchType.LAZY)
+	@ManyToOne(fetch =FetchType.LAZY)
 	@JoinColumn(name = "UserConsumer")
 	private Consumer userConsumer;
 	

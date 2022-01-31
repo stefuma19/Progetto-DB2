@@ -23,8 +23,8 @@ public class Consumer implements Serializable {
 	private boolean isInsolvent;
 	private int numFailedPayments;
 	
-	@OneToOne(fetch =FetchType.LAZY, mappedBy = "userConsumer")
-	private Alert alert;
+	@OneToMany(fetch =FetchType.LAZY, mappedBy = "userConsumer")
+	private List<Alert> alerts;
 	
 	@OneToMany(fetch =FetchType.EAGER, mappedBy = "userConsumer")
 	private List<Order> orders;
@@ -72,12 +72,12 @@ public class Consumer implements Serializable {
 		this.numFailedPayments = numFailedPayments;
 	}
 
-	public Alert getAlert() {
-		return alert;
+	public List<Alert> getAlerts() {
+		return alerts;
 	}
 
-	public void setAlert(Alert alert) {
-		this.alert = alert;
+	public void setAlerts(List<Alert> alerts) {
+		this.alerts = alerts;
 	}
 
 	public List<Order> getOrders() {

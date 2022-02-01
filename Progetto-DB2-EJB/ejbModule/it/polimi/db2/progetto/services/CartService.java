@@ -20,9 +20,10 @@ public class CartService {
 	private EntityManager em;
 	
 	private String username = "";
-	private int idSP = 0, idVP = 0;
+	private ServicePackage sp;
+	private ValidityPeriod vp;
 	private float tp = 0.0f;
-	private List<Integer> idOPs = new ArrayList<>();
+	private List<OptionalProduct> ops = new ArrayList<>();
 	private String sd = "";
 	private boolean isEmpty = true;
 
@@ -38,19 +39,19 @@ public class CartService {
 	}
 	
 	public ServicePackage getSP() {
-		return em.find(ServicePackage.class, idSP);
+		return sp;
 	}
 
-	public void setIdSP(int idSP) {
-		this.idSP = idSP;
+	public void setSP(int idSP) {
+		this.sp = em.find(ServicePackage.class, idSP);
 	}
 
 	public ValidityPeriod getVP() {
-		return em.find(ValidityPeriod.class, idVP);
+		return vp;
 	}
 
-	public void setIdVP(int idVP) {
-		this.idVP = idVP;
+	public void setVP(int idVP) {
+		this.vp = em.find(ValidityPeriod.class, idVP);
 	}
 
 	public float getTp() {
@@ -62,15 +63,13 @@ public class CartService {
 	}
 
 	public List<OptionalProduct> getOPs() {
-		List<OptionalProduct> ops = new ArrayList<>();
-		for(Integer idOP : idOPs) {
-			ops.add(em.find(OptionalProduct.class, idOP));
-		}
 		return ops;
 	}
 
-	public void setIdOPs(List<Integer> idOPs) {
-		this.idOPs = idOPs;
+	public void setOPs(List<Integer> idOPs) {
+		for(Integer idOP : idOPs) {
+			ops.add(em.find(OptionalProduct.class, idOP));
+		}
 	}
 
 	public String getSd() {

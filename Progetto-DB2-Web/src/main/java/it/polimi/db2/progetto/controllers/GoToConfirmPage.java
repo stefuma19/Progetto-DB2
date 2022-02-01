@@ -231,10 +231,10 @@ public class GoToConfirmPage extends HttpServlet{
 			sd = request.getParameter("startDate"); 
 		}
 		
-		cs.setIdSP(idSP); 
-		cs.setIdVP(idVP);
+		cs.setSP(idSP); 
+		cs.setVP(idVP);
 		cs.setTp(tp);
-		cs.setIdOPs(idOPs);
+		cs.setOPs(idOPs);
 		cs.setSd(sd);
 		cs.setEmpty(false);
 		request.getSession().setAttribute("cartService", cs);

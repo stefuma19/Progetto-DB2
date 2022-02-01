@@ -66,6 +66,7 @@ public class CreateMI extends HttpServlet {
 			return;
 		}
 
+		//dopo i controlli sull'input, viene creato il servizio
 		if(!miService.createMI(numGigaMI, extraGigaFeeMI))
 			request.getSession().setAttribute("errorMsgMI", "Already existent service");
 		

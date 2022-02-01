@@ -14,7 +14,7 @@ import it.polimi.db2.progetto.entities.ServicePackage;
 import it.polimi.db2.progetto.entities.ValidityPeriod;
 
 @Stateful
-public class CartService {
+public class CartService { //per memorizzare l'ordine dell'utente 
 
 	@PersistenceContext(unitName = "Progetto-DB2-EJB", type = PersistenceContextType.EXTENDED)
 	private EntityManager em;
@@ -89,5 +89,5 @@ public class CartService {
 	}
 	
 	@Remove
-	public void remove() {}
+	public void remove() {}  //l'oggetto viene rimosso al termine della sessione (logout)
 }

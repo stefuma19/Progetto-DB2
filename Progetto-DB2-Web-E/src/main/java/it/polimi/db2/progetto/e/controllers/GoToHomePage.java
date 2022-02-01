@@ -51,6 +51,7 @@ public class GoToHomePage extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//recupera tutti i servizi e op, setta le variabili per la visualizzazione
 		List<FixedInternet> fis = fiService.findAllFIServices();
 		List<MobileInternet> mis = miService.findAllMIServices();
 		List<MobilePhone> mps = mpService.findAllMPServices();

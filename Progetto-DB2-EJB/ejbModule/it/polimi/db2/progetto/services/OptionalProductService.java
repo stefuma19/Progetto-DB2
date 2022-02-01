@@ -17,17 +17,20 @@ public class OptionalProductService {
 	public OptionalProductService() {
 	}
 	
+	//ritorna tutti gli optional products
 	public List<OptionalProduct> findAllOptionalProducts() {
 		return em.createNamedQuery("OptionalProduct.findAll", OptionalProduct.class)
 				.getResultList();
 	}
 	
+	//ritorna un optional product dato il suo id (eccezione se non esiste)
 	public OptionalProduct findOptionalProductById(int idOP) throws IdException {
 		OptionalProduct op = em.find(OptionalProduct.class, idOP);
 		if(op==null) throw new IdException("Could not find optional product");
 		return op;
 	}
 	
+	//crea un optional product (false se esiste già)
 	public boolean createOP(String name, float monthlyFee) {		
 		if(!em.createNamedQuery("OptionalProduct.findOP", OptionalProduct.class)
 				.setParameter(1, name).setParameter(2, monthlyFee).getResultList().isEmpty())

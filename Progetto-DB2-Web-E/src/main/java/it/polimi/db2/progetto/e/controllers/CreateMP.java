@@ -80,6 +80,7 @@ public class CreateMP extends HttpServlet {
 			return;
 		}
 
+		//dopo i controlli sull'input, viene creato il servizio
 		if(!mpService.createMP(numMin, numSms, minFee, smsFee))
 			request.getSession().setAttribute("errorMsgMP", "Already existent service");
 		

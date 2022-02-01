@@ -65,7 +65,8 @@ public class CreateFI extends HttpServlet {
 			response.sendRedirect(path);
 			return;
 		}
-
+		
+		//dopo i controlli sull'input, viene creato il servizio
 		if(!fiService.createFI(numGigaFI, extraGigaFeeFI))
 			request.getSession().setAttribute("errorMsgFI", "Already existent service");
 		

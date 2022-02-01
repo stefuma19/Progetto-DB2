@@ -22,6 +22,7 @@ public class OrderService {
 	public OrderService() {
 	}
 	
+	//crea un nuovo ordine e lo ritorna
 	public Order createOrder(String consUser, ServicePackage sp, 
 			ValidityPeriod vp, boolean valid, float tp, Date sd, List<OptionalProduct> ops) {
 		
@@ -39,6 +40,7 @@ public class OrderService {
 		return o;
 	}
 	
+	//setter per il campo isValid dell'ordine (eccezione se l'ordine passato non esiste)
 	public Order validateOrder(int idOrder, boolean valid) throws IdException {		
 		Order o = em.find(Order.class, idOrder);
 		if(o==null) throw new IdException("Could not find order");
@@ -47,12 +49,14 @@ public class OrderService {
 		return o;
 	}
 	
+	//ritorna ordine dato il suo id (eccezione se non esiste)
 	public Order findOrderById(int idOrder) throws IdException {
 		Order o = em.find(Order.class , idOrder);
 		if(o==null) throw new IdException("Could not find order");
 		return o;
 	}
 	
+	//ritorna lista di ordini non validi di un dato consumer
 	public List<Order> getInvalidOrders(String username){
 		Consumer c = em.find(Consumer.class, username);
 		if(c != null) {
@@ -61,8 +65,8 @@ public class OrderService {
 		else return null;
 	}
 	
+	//ritorna true se l'id dell'ordine per il dato consumer non esiste
 	public boolean mismatchConsumerOrder(String username, int id){
-		//return true if the order "id" for the user "username" doesn't exist
 		return em.createNamedQuery("Order.getConsumerOrder", Order.class)
 				.setParameter(1, em.find(Consumer.class, username))
 				.setParameter(2, id).getResultList().isEmpty();

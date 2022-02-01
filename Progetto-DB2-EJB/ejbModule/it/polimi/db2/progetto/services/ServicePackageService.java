@@ -22,23 +22,26 @@ public class ServicePackageService {
 	public ServicePackageService() {
 	}
 	
+	//ritorna tutti i service packages
 	public List<ServicePackage> findAllServicePackages() {
 		return em.createNamedQuery("ServicePackage.findAll", ServicePackage.class)
 				.getResultList();
 	}
 	
+	//ritorna il service package dato l'id (eccezione se non esiste)
 	public ServicePackage findServicePackagesById(int idSP) throws IdException {
 		ServicePackage sp = em.find(ServicePackage.class, idSP);
 		if(sp==null) throw new IdException("Could not find service package");
 		return sp;
 	}
-	
+
+	//ritorna true se esiste già un service package con il nome "name"
 	public boolean existsServicePackageByName(String name) {
-		//returns true if already exists a SP with the name "name"
 		return !em.createNamedQuery("ServicePackage.findByName", ServicePackage.class)
 				.setParameter(1, name).getResultList().isEmpty();
 	}
 	
+	//crea un service package 
 	public boolean createServicePackage(String name, FixedPhone fixedPhone, 
 			FixedInternet fixedInternet, MobilePhone mobilePhone, 
 			MobileInternet mobileInternet, List<OptionalProduct> optionalProducts) {
@@ -56,7 +59,9 @@ public class ServicePackageService {
 					break;
 				}
 				
-				int numEquals = 0;				
+				int numEquals = 0;	
+				
+				//count the number of op in common between the 2 sp
 				for(OptionalProduct opInSP : sp.getOptionalProducts()) { 
 					for(OptionalProduct opToAdd : optionalProducts) {
 						if(opInSP.getIdOP()==opToAdd.getIdOP()) {

@@ -17,13 +17,14 @@ public class MobilePhoneService {
 	public MobilePhoneService() {
 	}
 	
+	//recupera tutti i servizi mobile phone 
 	public List<MobilePhone> findAllMPServices() {
 		return em.createNamedQuery("MobilePhone.findAll", MobilePhone.class)
 				.getResultList();
 	}
 	
+	//crea un nuovo servizio mobile phone (false se esiste già)
 	public boolean createMP(int numMin, int numSMS, float feeMin, float feeSMS) {
-		
 		if(!em.createNamedQuery("MobilePhone.findMP", MobilePhone.class)
 				.setParameter(1, numMin)
 				.setParameter(2, numSMS)
@@ -41,6 +42,7 @@ public class MobilePhoneService {
 		return true;
 	}
 	
+	//ritorna un servizio mobile phone dato l'id (eccezione se non esiste)
 	public MobilePhone findMobilePhoneById(int id) throws IdException {
 		MobilePhone mp = em.find(MobilePhone.class, id);
 		if(mp==null) throw new IdException("Could not find service");

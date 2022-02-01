@@ -86,6 +86,8 @@ public class CreateSP extends HttpServlet {
 			response.sendRedirect(path);
 			return;
 		}
+		
+		//controllo se il nome dei servizi selezionati sono corretti
 		boolean valid=false;
 		if(services!=null) {
 			for(int i=0; i<services.length; i++) {
@@ -101,6 +103,7 @@ public class CreateSP extends HttpServlet {
 			return;
 		}
 		
+		//controlla che i servizi selezionati esistano
 		try {
 			for(int i=0; i<services.length; i++) {
 				if(services[i].equals("fp")) {
@@ -124,6 +127,7 @@ public class CreateSP extends HttpServlet {
 			return;
 		}
 		
+		//recupera optional products 
 		if(ops!=null) {
 			try {
 				for(int i=0; i<ops.length; i++) {
@@ -138,6 +142,7 @@ public class CreateSP extends HttpServlet {
 			}
 		}
 
+		//dopo aver superato i controlli, viene creato il service package (se non esiste già)
 		if(spService.existsServicePackageByName(spName)) {
 			request.getSession().setAttribute("errorMsgSP", "Already existent service package name");
 		}

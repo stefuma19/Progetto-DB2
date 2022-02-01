@@ -16,7 +16,7 @@ import it.polimi.db2.progetto.views.TotPurSpVpView;
 import it.polimi.db2.progetto.views.TotSaleSpOpView;
 
 @Stateless
-public class SalesReportService {
+public class SalesReportService { //per recuperare liste per il report dell'employee
 	@PersistenceContext(unitName = "Progetto-DB2-EJB")
 	private EntityManager em;
 

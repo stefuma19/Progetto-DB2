@@ -17,13 +17,14 @@ public class FixedInternetService {
 	public FixedInternetService() {
 	}
 	
+	//recupera tutti i servizi fixed internet 
 	public List<FixedInternet> findAllFIServices() {
 		return em.createNamedQuery("FixedInternet.findAll", FixedInternet.class)
 				.getResultList();
 	}
 	
+	//crea un nuovo servizio fixed internet (false se esiste già)
 	public boolean createFI(int num, float fee) {
-		
 		if(!em.createNamedQuery("FixedInternet.findFI", FixedInternet.class)
 				.setParameter(1, num).setParameter(2, fee).getResultList().isEmpty())
 			return false;
@@ -35,6 +36,7 @@ public class FixedInternetService {
 		return true;
 	}
 	
+	//ritorna un servizio fixed internet dato l'id (eccezione se non esiste)
 	public FixedInternet findFixedInternetById(int id) throws IdException {
 		FixedInternet fi = em.find(FixedInternet.class, id);
 		if(fi==null) throw new IdException("Could not find service");

@@ -65,6 +65,7 @@ public class CreateOP extends HttpServlet {
 			return;
 		}
 
+		//dopo i controlli sull'input, viene creato il prodotto opzionale
 		if(!opService.createOP(opName, opMonthlyFee))
 			request.getSession().setAttribute("errorMsgOP", "Already existent optional product");
 		

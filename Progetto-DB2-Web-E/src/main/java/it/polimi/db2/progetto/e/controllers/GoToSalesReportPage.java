@@ -45,6 +45,8 @@ public class GoToSalesReportPage extends HttpServlet {
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		
+		//setta variabili per la visualizzazione dei report
+		
 		ctx.setVariable("tpsv", srService.getTotPurSpViewList());
 		ctx.setVariable("tpsvv", srService.getTotPurSpVpViewList());
 		ctx.setVariable("tssov", srService.getTotSaleSpOpViewList());

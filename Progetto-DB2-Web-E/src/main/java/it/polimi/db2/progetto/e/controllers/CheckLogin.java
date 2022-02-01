@@ -47,6 +47,8 @@ public class CheckLogin extends HttpServlet{
 			throws ServletException, IOException {
 		String usrn = null;
 		String pwd = null;
+		
+		//recupero parametri dal form
 		try {
 			usrn = StringEscapeUtils.escapeJava(request.getParameter("username"));
 			pwd = StringEscapeUtils.escapeJava(request.getParameter("pwd"));
@@ -58,6 +60,8 @@ public class CheckLogin extends HttpServlet{
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing credential value");
 			return;
 		}
+		
+		//eseguo controllo delle credenziali
 		Employee employee = null;
 		try {
 			employee = employeeService.checkLogin(usrn, pwd);
@@ -67,14 +71,15 @@ public class CheckLogin extends HttpServlet{
 			return;
 		}
 
+		//reindirizzamento alla pagina successiva
 		String path;
-		if (employee == null) {
+		if (employee == null) { //errore di login
 			ServletContext servletContext = getServletContext();
 			final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 			ctx.setVariable("errorMsg", "Incorrect username or password");
 			path = "/index.html";
 			templateEngine.process(path, ctx, response.getWriter());
-		} else {
+		} else { //login corretto
 			request.getSession().setAttribute("emplUsername", employee.getUsername());
 			path = getServletContext().getContextPath() + "/GoToHomePage";
 			response.sendRedirect(path);

@@ -18,8 +18,10 @@ public class ConsumerService {
 	public ConsumerService() {
 	}
 
+	
+	//controlla credenziali e ritorna utente loggato (o null)
 	public Consumer checkLogin(String username, String password) 
-			throws CredentialsException, NonUniqueResultException {
+			throws CredentialsException, NonUniqueResultException {  
 		List<Consumer> cList = null;
 		try {
 			cList = em.createNamedQuery("Consumer.checkCredentials", Consumer.class)
@@ -35,6 +37,7 @@ public class ConsumerService {
 		throw new NonUniqueResultException("More than one user registered with same credentials");
 	}
 	
+	//registra un nuovo utente (return false se l'utente esiste già)
 	public boolean register(String email, String username, String password) 
 			throws CredentialsException{
 	

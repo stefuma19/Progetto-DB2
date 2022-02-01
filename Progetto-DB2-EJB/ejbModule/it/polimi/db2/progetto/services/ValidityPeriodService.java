@@ -17,11 +17,13 @@ public class ValidityPeriodService {
 	public ValidityPeriodService() {
 	}
 	
+	//ritorna tutti i  validity periods
 	public List<ValidityPeriod> findAllValidityPeriods() {
 		return em.createNamedQuery("ValidityPeriod.findAll", ValidityPeriod.class)
 				.getResultList();
 	}
 	
+	//ritorna un validity period dato il suo ID (eccezione se non esiste)
 	public ValidityPeriod findValidityPeriodById(int idVP) throws IdException {
 		ValidityPeriod vp = em.find(ValidityPeriod.class, idVP);
 		if(vp==null) throw new IdException("Could not find validity period");

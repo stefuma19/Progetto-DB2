@@ -21,7 +21,7 @@ public class Logout extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession(false);
-		if (session != null) {
+		if (session != null) { //invalida la sessione per effettuare il logout
 			session.invalidate();
 		}
 		String path = getServletContext().getContextPath() + "/index.html";

@@ -17,13 +17,14 @@ public class MobileInternetService {
 	public MobileInternetService() {
 	}
 	
+	//recupera tutti i servizi mobile internet 
 	public List<MobileInternet> findAllMIServices() {
 		return em.createNamedQuery("MobileInternet.findAll", MobileInternet.class)
 				.getResultList();
 	}
 
+	//crea un nuovo servizio mobile internet (false se esiste già)
 	public boolean createMI(int num, float fee) {
-		
 		if(!em.createNamedQuery("MobileInternet.findMI", MobileInternet.class)
 				.setParameter(1, num).setParameter(2, fee).getResultList().isEmpty())
 			return false;
@@ -35,6 +36,7 @@ public class MobileInternetService {
 		return true;
 	}
 	
+	//ritorna un servizio mobile internet dato l'id (eccezione se non esiste)
 	public MobileInternet findMobileInternetById(int id) throws IdException {
 		MobileInternet mi = em.find(MobileInternet.class, id);
 		if(mi==null) throw new IdException("Could not find service");

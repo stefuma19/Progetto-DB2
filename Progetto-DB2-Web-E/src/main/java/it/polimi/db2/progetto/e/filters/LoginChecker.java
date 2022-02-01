@@ -20,6 +20,7 @@ public class LoginChecker implements Filter {
 	public void init(FilterConfig fConfig) throws ServletException {
 	}
 	
+	//filtro per controllare se l'employee è loggato 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 

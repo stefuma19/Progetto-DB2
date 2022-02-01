@@ -16,11 +16,13 @@ public class FixedPhoneService {
 	public FixedPhoneService() {
 	}
 	
+	//recupera tutti i servizi fixed phone 
 	public List<FixedPhone> findAllFPServices() {
 		return em.createNamedQuery("FixedPhone.findAll", FixedPhone.class)
 				.getResultList();
 	}
 	
+	//controlla se esiste un fixed phone (in caso contrario lo crea)
 	public FixedPhone checkFpExists() {
 		List<FixedPhone> fis = findAllFPServices();
 		if(fis.isEmpty()) {

@@ -18,6 +18,7 @@ public class EmployeeService {
 	public EmployeeService() {
 	}
 	
+	// controlla credenziali e ritorna employee loggato (o null)
 	public Employee checkLogin(String username, String password) 
 			throws CredentialsException, NonUniqueResultException {
 		List<Employee> eList = null;

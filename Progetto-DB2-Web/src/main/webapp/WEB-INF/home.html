@@ -25,7 +25,7 @@
 			<table><tr><td>
 				<table style="width:100%; border: 1px solid black; border-collapse: collapse;">
 					<tr th:each="sp : ${servicePackages}" style="border: 1px solid black;">
-						<td th:if="${sp.idServicePackage % 2 == 1}" style="border: 1px solid black; height:320px; width:700px">
+						<td th:if="${sp.getIdServicePackage() % 2 == 1}" style="border: 1px solid black; height:320px; width:700px">
 							<div th:insert="@{WEB-INF/fragmentHome.html} :: sp"></div>
 						</td>			
 					</tr>
@@ -33,7 +33,7 @@
 			</td><td>
 				<table style="width:100%; border: 1px solid black; border-collapse: collapse;">
 					<tr th:each="sp : ${servicePackages}" style="border: 1px solid black;">
-						<td th:if="${sp.idServicePackage % 2 == 0}" style="border: 1px solid black; height:320px; width:700px">
+						<td th:if="${sp.getIdServicePackage() % 2 == 0}" style="border: 1px solid black; height:320px; width:700px">
 							<div th:insert="@{WEB-INF/fragmentHome.html} :: sp"></div>
 						</td>			
 					</tr>
@@ -52,16 +52,16 @@
 					</tr>
 					<tr th:each="ord : ${invalidOrders}" >
 						<td style="text-align: center; vertical-align: middle; height:50px;">
-							<span th:text="${ord.servicePackage.name}"></span></td>
+							<span th:text="${ord.getServicePackage().getName()}"></span></td>
 						<td style="text-align: center; vertical-align: middle;">
-							<span th:text="${#numbers.formatDecimal(ord.totValue, 0, 'COMMA', 2, 'POINT')}"></span>&euro;</td>
+							<span th:text="${#numbers.formatDecimal(ord.getTotValue(), 0, 'COMMA', 2, 'POINT')}"></span>&euro;</td>
 						<td style="text-align: center; vertical-align: middle;">
-							<span th:text="${#dates.format(ord.creationDate, 'yyyy-MM-dd HH:mm')}"></span></td>
+							<span th:text="${#dates.format(ord.getCreationDate(), 'yyyy-MM-dd HH:mm')}"></span></td>
 						<td style="text-align: center; vertical-align: middle;">
-							<span th:text="${#dates.format(ord.startDate, 'yyyy-MM-dd')}"></span></td>
+							<span th:text="${#dates.format(ord.getStartDate(), 'yyyy-MM-dd')}"></span></td>
 						<td>
 							<form action="GoToConfirmPage" method="POST">
-								<input type="hidden" id="orderId" name="orderId" th:value="${ord.idOrder}">
+								<input type="hidden" id="orderId" name="orderId" th:value="${ord.getIdOrder()}">
 							    <input type="submit" value="Confirm" />
 							</form>
 						</td>

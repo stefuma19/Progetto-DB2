@@ -40,12 +40,12 @@
 							<tr th:each="fi : ${fis}">
 								<td>
 									<table><tr><td style="vertical-align: top;">
-										<input type="radio" th:value="${fi.idService}" th:id="${fi.idService}" 
+										<input type="radio" th:value="${fi.getIdService()}" th:id="${fi.getIdService()}" 
 															name="fixedInternet" checked>
 									</td><td>
-										Number of included Gigabytes: <span th:text="${fi.numGigaFI}"></span><br>
+										Number of included Gigabytes: <span th:text="${fi.getNumGigaFI()}"></span><br>
 										Fee for extra Gigabytes: <span th:text="${#numbers.formatDecimal(
-												fi.extraGigaFeeFI, 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+												fi.getExtraGigaFeeFI(), 0, 'COMMA', 2, 'POINT')}"></span>&euro;
 									</td></tr></table>
 								</td>
 							</tr>
@@ -57,15 +57,15 @@
 							<tr th:each="mp : ${mps}">
 								<td>
 									<table><tr><td style="vertical-align: top;">
-										<input type="radio" th:value="${mp.idService}" th:id="${mp.idService}" 
+										<input type="radio" th:value="${mp.getIdService()}" th:id="${mp.getIdService()}" 
 															name="mobilePhone" checked>
 									</td><td>
-										Number of minutes: <span th:text="${mp.numMin}"></span><br>
-										Number of SMSs: <span th:text="${mp.numSMS}"></span><br>
+										Number of minutes: <span th:text="${mp.getNumMin()}"></span><br>
+										Number of SMSs: <span th:text="${mp.getNumSms()}"></span><br>
 										Fee for extra minutes: <span th:text="${#numbers.formatDecimal(
-											mp.minFee, 0, 'COMMA', 2, 'POINT')}"></span>&euro;<br>
+											mp.getMinFee(), 0, 'COMMA', 2, 'POINT')}"></span>&euro;<br>
 										Fee for extra SMSs: <span th:text="${#numbers.formatDecimal(
-											mp.smsFee, 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+											mp.getSmsFee(), 0, 'COMMA', 2, 'POINT')}"></span>&euro;
 									</td></tr></table>
 								</td>
 							</tr>
@@ -77,12 +77,12 @@
 							<tr th:each="mi : ${mis}">
 								<td>
 									<table><tr><td style="vertical-align: top;">
-										<input type="radio" th:value="${mi.idService}" th:id="${mi.idService}" 
+										<input type="radio" th:value="${mi.getIdService()}" th:id="${mi.getIdService()}" 
 															name="mobileInternet" checked>
 									</td><td>
-										Number of included Gigabytes: <span th:text="${mi.numGigaMI}"></span><br>
+										Number of included Gigabytes: <span th:text="${mi.getNumGigaMI()}"></span><br>
 										Fee for extra Gigabytes: <span th:text="${#numbers.formatDecimal(
-												mi.extraGigaFeeMI, 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+												mi.getExtraGigaFeeMI(), 0, 'COMMA', 2, 'POINT')}"></span>&euro;
 									</td></tr></table>
 								</td>
 							</tr>
@@ -93,11 +93,11 @@
 							<tr th:each="op : ${ops}">
 									<td>
 										<table><tr><td style="vertical-align: top;">
-											<input type="checkbox" th:value="${op.idOP}" name="optionalProducts">
+											<input type="checkbox" th:value="${op.getIdOP()}" name="optionalProducts">
 										</td><td>
-											<span th:text="${op.nameOP}"></span><br>
+											<span th:text="${op.getNameOP()}"></span><br>
 											Monthly fee: <span th:text="${#numbers.formatDecimal(
-												op.monthlyFeeOP, 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+												op.getMonthlyFeeOP(), 0, 'COMMA', 2, 'POINT')}"></span>&euro;
 										</td></tr></table>
 									</td>
 								</tr>

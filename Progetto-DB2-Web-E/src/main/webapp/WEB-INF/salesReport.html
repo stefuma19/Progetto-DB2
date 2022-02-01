@@ -35,9 +35,9 @@
 			<td style="height:40px;" colspan=4>No service package purchased</td>	
 		</tr>
 		<tr th:each="entry : ${tpsv}">
-			<td style="height:40px; width:33%"><span th:text="${entry.idSP}"></span></td>
-			<td style="width:33%"><span th:text="${entry.name}"></span></td>
-			<td><span th:text="${entry.totalPurchase}"></span>
+			<td style="height:40px; width:33%"><span th:text="${entry.getIdSP()}"></span></td>
+			<td style="width:33%"><span th:text="${entry.getName()}"></span></td>
+			<td><span th:text="${entry.getTotalPurchase()}"></span>
 			</td>
 		</tr>
 	</table><br><hr><br>
@@ -58,14 +58,14 @@
 			<td style="height:40px;" colspan=6>No service package purchased</td>	
 		</tr>
 		<tr th:each="entry : ${tpsvv}">
-			<td style="height:40px"><span th:text="${entry.idSP}"></span></td>
-			<td><span th:text="${entry.name}"></span></td>
-			<td><span th:text="${entry.idVP}"></span></td>
-			<td><span th:text="${entry.numMonth}"></span></td>
+			<td style="height:40px"><span th:text="${entry.getIdSP()}"></span></td>
+			<td><span th:text="${entry.getName()}"></span></td>
+			<td><span th:text="${entry.getIdVP()}"></span></td>
+			<td><span th:text="${entry.getNumMonth()}"></span></td>
 			<td><span th:text="${#numbers.formatDecimal(
-				entry.monthlyFee, 1, 'COMMA', 2, 'POINT')}"></span>&euro;
+				entry.getMonthlyFee(), 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
-			<td><span th:text="${entry.totalPurchase}"></span>
+			<td><span th:text="${entry.getTotalPurchase()}"></span>
 			</td>
 		</tr>
 	</table><br><hr><br>
@@ -84,13 +84,13 @@
 			<td style="height:40px;" colspan=4>No service package purchased</td>	
 		</tr>
 		<tr th:each="entry : ${tssov}">
-			<td style="height:40px; width:20%"><span th:text="${entry.idSP}"></span></td>
-			<td style="width:20%"><span th:text="${entry.nameSP}"></span></td>
+			<td style="height:40px; width:20%"><span th:text="${entry.getIdSP()}"></span></td>
+			<td style="width:20%"><span th:text="${entry.getNameSP()}"></span></td>
 			<td style="width:30%"><span th:text="${#numbers.formatDecimal(
-				entry.totWithOP, 1, 'COMMA', 2, 'POINT')}"></span>&euro;
+				entry.getTotWithOP(), 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
 			<td><span th:text="${#numbers.formatDecimal(
-				entry.totWithoutOP, 1, 'COMMA', 2, 'POINT')}"></span>&euro;
+				entry.getTotWithoutOP(), 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
 		</tr>
 	</table><br><hr><br>
@@ -108,10 +108,10 @@
 			<td style="height:40px;" colspan=3>No optional product purchased</td>	
 		</tr>
 		<tr th:each="entry : ${aosv}">
-			<td style="height:40px; width:33%"><span th:text="${entry.idSP}"></span></td>
-			<td style="width:33%"><span th:text="${entry.nameSP}"></span></td>
+			<td style="height:40px; width:33%"><span th:text="${entry.getIdSP()}"></span></td>
+			<td style="width:33%"><span th:text="${entry.getNameSP()}"></span></td>
 			<td><span th:text="${#numbers.formatDecimal(
-				entry.numAvgOP, 1, 'COMMA', 2, 'POINT')}"></span>
+				entry.getNumAvgOP(), 1, 'COMMA', 2, 'POINT')}"></span>
 			</td>
 		</tr>
 	</table><br><hr><br>
@@ -129,9 +129,9 @@
 			<td style="height:40px;" colspan=3>No insolvent user</td>	
 		</tr>
 		<tr th:each="entry : ${icv}">
-			<td style="height:40px; width:33%"><span th:text="${entry.username}"></span></td>
-			<td style="width:33%"><span th:text="${entry.email}"></span></td>
-			<td><span th:text="${entry.numFailedPayments}"></span></td>
+			<td style="height:40px; width:33%"><span th:text="${entry.getUsername()}"></span></td>
+			<td style="width:33%"><span th:text="${entry.getEmail()}"></span></td>
+			<td><span th:text="${entry.getNumFailedPayments()}"></span></td>
 		</tr>
 	</table><br><hr><br>
 	<table style="width:75%; border: 1px solid black; border-collapse: collapse;
@@ -153,23 +153,23 @@
 			<td style="height:40px;" colspan=8>No suspended order</td>	
 		</tr>
 		<tr th:each="entry : ${sov}">
-			<td style="height:40px"><span th:text="${entry.idOrder}"></span></td>
-			<td><span th:text="${entry.servicePackage.name}"></span></td>
-			<td th:if="${entry.optionalProductsOrdered.empty}">
+			<td style="height:40px"><span th:text="${entry.getIdOrder()}"></span></td>
+			<td><span th:text="${entry.getServicePackage().getName()}"></span></td>
+			<td th:if="${entry.getOptionalProductsOrdered().empty}">
 				No purchase
 			</td>
-			<td th:if="${!entry.optionalProductsOrdered.empty}">
-				<ul th:each="op : ${entry.optionalProductsOrdered}">
-					<li><span th:text="${op.nameOP}"></span></li>
+			<td th:if="${!entry.getOptionalProductsOrdered().empty}">
+				<ul th:each="op : ${entry.getOptionalProductsOrdered()}">
+					<li><span th:text="${op.getNameOP()}"></span></li>
 				</ul>
 			</td>
-			<td><span th:text="${entry.validityPeriod.numMonth}"></span></td>
+			<td><span th:text="${entry.getValidityPeriod().getNumMonth()}"></span></td>
 			<td><span th:text="${#numbers.formatDecimal(
-				entry.totValue, 1, 'COMMA', 2, 'POINT')}"></span>&euro;
+				entry.getTotValue(), 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
-			<td><span th:text="${#dates.format(entry.startDate, 'yyyy-MM-dd')}"></span></td>
-			<td><span th:text="${#dates.format(entry.creationDate, 'yyyy-MM-dd HH:mm')}"></span></td>
-			<td><span th:text="${entry.userConsumer.username}"></span></td>
+			<td><span th:text="${#dates.format(entry.getStartDate(), 'yyyy-MM-dd')}"></span></td>
+			<td><span th:text="${#dates.format(entry.getCreationDate(), 'yyyy-MM-dd HH:mm')}"></span></td>
+			<td><span th:text="${entry.getUserConsumer().getUsername()}"></span></td>
 	</table><br><hr><br>
 	<table style="width:75%; border: 1px solid black; border-collapse: collapse;
 	 	margin-left: auto; margin-right: auto;" rules=rows>
@@ -186,12 +186,12 @@
 			<td style="height:40px;" colspan=4>No alert generated</td>	
 		</tr>
 		<tr th:each="entry : ${av}">
-			<td style="height:40px; width:25%"><span th:text="${entry.userConsumer.username}"></span></td>
-			<td style="width:25%"><span th:text="${entry.userConsumer.email}"></span></td>
+			<td style="height:40px; width:25%"><span th:text="${entry.getUserConsumer().getUsername()}"></span></td>
+			<td style="width:25%"><span th:text="${entry.getUserConsumer().getEmail()}"></span></td>
 			<td style="width:25%"><span th:text="${#numbers.formatDecimal(
-				entry.amount, 1, 'COMMA', 2, 'POINT')}"></span>&euro;
+				entry.getAmount(), 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
-			<td><span th:text="${#dates.format(entry.lastRejection, 'yyyy-MM-dd HH:mm')}"></span></td>
+			<td><span th:text="${#dates.format(entry.getLastRejection(), 'yyyy-MM-dd HH:mm')}"></span></td>
 		</tr>
 	</table><br><hr><br>
 	<table style="width:75%; border: 1px solid black; border-collapse: collapse;
@@ -208,9 +208,9 @@
 			<td style="height:40px;" colspan=3>No optional product purchased</td>	
 		</tr>
 		<tr th:each="entry : ${bsov}">
-			<td style="height:40px; width:33%"><span th:text="${entry.idOP}"></span></td>
-			<td style="width:33%"><span th:text="${entry.nameOP}"></span></td>
-			<td><span th:text="${entry.numSell}"></span></td>
+			<td style="height:40px; width:33%"><span th:text="${entry.getIdOP()}"></span></td>
+			<td style="width:33%"><span th:text="${entry.getNameOP()}"></span></td>
+			<td><span th:text="${entry.getNumSell()}"></span></td>
 		</tr>
 	</table><br><br>
 </body>

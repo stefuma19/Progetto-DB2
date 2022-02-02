@@ -38,6 +38,8 @@ public class SkipLogin extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
+		
+		//invalida la sessione
 		if (session != null) {
 			CartService cs = (CartService) session.getAttribute("cartService");
 			if (cs != null) cs.remove();
@@ -55,7 +57,6 @@ public class SkipLogin extends HttpServlet {
 		}
 		request.getSession().setAttribute("cartService", cs);
 		
-		request.getSession().setAttribute("consIsInsolvent", false);
 		String path = getServletContext().getContextPath() + "/GoToHomePage";
 		response.sendRedirect(path);
 	}

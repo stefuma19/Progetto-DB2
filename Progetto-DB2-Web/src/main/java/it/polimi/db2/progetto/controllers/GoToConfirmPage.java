@@ -90,7 +90,7 @@ public class GoToConfirmPage extends HttpServlet{
 		String sd;
 		
 		if(StringEscapeUtils.escapeJava(request.getParameter("orderId")) != null){
-			//order to pay
+			//ordine già esistente, solo da pagare (arriviamo da home page)
 			
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			
@@ -106,11 +106,12 @@ public class GoToConfirmPage extends HttpServlet{
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
 				return;
 			}
-			if(orderService.mismatchConsumerOrder(cs.getUsername(), idOrder)){
+			if(orderService.mismatchConsumerOrder(cs.getUsername(), idOrder)){ //ordine è davvero dell'utente?
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Mismatch between user and its order");
 				return;
 			}
 			
+			// ordine è davvero non pagato?
 			List<Order> rejectedOrders = orderService.getInvalidOrders(cs.getUsername());
 			boolean rejected = false;
 			for(Order o : rejectedOrders) {
@@ -134,11 +135,12 @@ public class GoToConfirmPage extends HttpServlet{
 			request.getSession().setAttribute("orderId", order.getIdOrder());
 			
 		}else {
-			//show values taken from the request
+			//nuovo ordine
 			
 			ServicePackage sp;
 			ValidityPeriod vp;
 			
+			//controllo di tutti i parametri in input
 			if(request.getParameter("idSP")==null) {
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Request parameter bad formed");
 				return;
@@ -174,6 +176,7 @@ public class GoToConfirmPage extends HttpServlet{
 			}
 			tp += vp.getNumMonth() * vp.getMonthlyFee();
 			
+			//controllo che gli optional product selezionati siano contenuti davvero nel service packaage selezionato
 			String[] ids = request.getParameterValues(idSP + "_optionalProducts");
 			if(ids != null) {
 				for(int i = 0; i < ids.length; i++) {
@@ -197,7 +200,6 @@ public class GoToConfirmPage extends HttpServlet{
 							response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Mismatch between service package and optional products");
 							return;
 						}
-						//ops.add(op);
 						tp += vp.getNumMonth() * op.getMonthlyFeeOP();
 					} catch (IdException e) {
 						response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
@@ -211,6 +213,8 @@ public class GoToConfirmPage extends HttpServlet{
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing start date");
 				return;
 			}
+			
+			//controllo sulla data di inizio servizio
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			try {
 				

@@ -18,7 +18,6 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
-import it.polimi.db2.progetto.entities.Order;
 import it.polimi.db2.progetto.exceptions.IdException;
 import it.polimi.db2.progetto.services.CartService;
 import it.polimi.db2.progetto.services.ConsumerService;
@@ -65,13 +64,12 @@ public class ConfirmOrder extends HttpServlet{
 			return;
 		}
 		
-		Order order = null;
 		
 		if(null != request.getSession().getAttribute("orderId")){ //ordine già fatto, va solo pagato
 			//only validate order
 			
 			try {
-				order = orderService.validateOrder((int)request.getSession().getAttribute("orderId"), valid);
+				orderService.validateOrder((int)request.getSession().getAttribute("orderId"), valid);
 			} catch (IdException e) {
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
 				return;
@@ -92,13 +90,13 @@ public class ConfirmOrder extends HttpServlet{
 			cal.set(Calendar.HOUR_OF_DAY,0);
 			cal.set(Calendar.MINUTE,0);			
 
-			order = orderService.createOrder(
+			orderService.createOrder(
 						cs.getUsername(),
-						cs.getSP(), 
-						cs.getVP(), 
+						cs.getSP(),
+						cs.getVP(),
 						valid,
-						cs.getTp(), 
-						cal.getTime(), 
+						cs.getTp(),
+						cal.getTime(),
 						cs.getOPs()
 					);
 		}

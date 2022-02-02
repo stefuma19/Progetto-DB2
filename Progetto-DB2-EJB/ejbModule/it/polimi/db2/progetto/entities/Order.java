@@ -39,7 +39,7 @@ public class Order implements Serializable{
 			)
 	private List<OptionalProduct> optionalProductsOrdered;
 
-	@ManyToOne(fetch =FetchType.LAZY)
+	@ManyToOne(fetch =FetchType.EAGER)
 	@JoinColumn(name = "UserConsumer")
 	private Consumer userConsumer;
 	

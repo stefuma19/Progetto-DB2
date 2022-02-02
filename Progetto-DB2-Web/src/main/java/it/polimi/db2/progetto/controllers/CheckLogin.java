@@ -49,6 +49,7 @@ public class CheckLogin extends HttpServlet {
 			throws ServletException, IOException {
 		String usrn = null;
 		String pwd = null;
+		//recupero dei parametri  dal form
 		try {
 			usrn = StringEscapeUtils.escapeJava(request.getParameter("username"));
 			pwd = StringEscapeUtils.escapeJava(request.getParameter("pwd"));
@@ -60,6 +61,8 @@ public class CheckLogin extends HttpServlet {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing credential value");
 			return;
 		}
+		
+		//controllo delle credenziali e recupero dell'utente
 		Consumer consumer = null;
 		try {
 			consumer = consumerService.checkLogin(usrn, pwd);
@@ -69,8 +72,9 @@ public class CheckLogin extends HttpServlet {
 			return;
 		}
 
+		//reindirizzamento alla pagina successiva
 		String path;
-		if (consumer == null) {
+		if (consumer == null) {  //se il login è errato
 			ServletContext servletContext = getServletContext();
 			final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 			ctx.setVariable("errorMsg", "Incorrect username or password");
@@ -80,7 +84,7 @@ public class CheckLogin extends HttpServlet {
 				!(((CartService)request.getSession().getAttribute("cartService")).isEmpty()) && 
 				(((CartService)request.getSession().getAttribute("cartService")).getUsername().equals("") ||
 						((CartService)request.getSession().getAttribute("cartService"))
-							.getUsername().equals(consumer.getUsername()))) {
+							.getUsername().equals(consumer.getUsername()))) { //se l'utente stava già navigando nel sito
 			CartService cs = (CartService)request.getSession().getAttribute("cartService");
 			cs.setUsername(consumer.getUsername());
 			request.getSession().setAttribute("cartService", cs);
@@ -90,7 +94,7 @@ public class CheckLogin extends HttpServlet {
 			path = "/WEB-INF/confirm.html";
 			templateEngine.process(path, ctx, response.getWriter());
 		}
-		else {			
+		else { //login iniziale
 			HttpSession session = request.getSession(false);
 			if (session != null) {
 				CartService cs = (CartService) session.getAttribute("cartService");

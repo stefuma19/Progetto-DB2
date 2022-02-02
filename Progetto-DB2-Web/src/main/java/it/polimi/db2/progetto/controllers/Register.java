@@ -50,6 +50,7 @@ public class Register extends HttpServlet{
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		
+		//recupera parametri e controlla che siano formattati correttamente
 		try {
 			username = StringEscapeUtils.escapeJava(request.getParameter("username"));
 			password = StringEscapeUtils.escapeJava(request.getParameter("pwd"));
@@ -63,7 +64,7 @@ public class Register extends HttpServlet{
 				templateEngine.process(path, ctx, response.getWriter());
 				return;
 			}
-			if(!email.contains("@") || email.indexOf('@')==email.length()-1) {
+			if(!email.contains("@") || email.indexOf('@')==email.length()-1 || email.indexOf('@')==0) {
 				ctx.setVariable("errorMsgReg", "Email has wrong format");
 				templateEngine.process(path, ctx, response.getWriter());
 				return;
@@ -102,6 +103,7 @@ public class Register extends HttpServlet{
 			if(request.getSession().getAttribute("cartService") != null &&
 					!(((CartService)request.getSession().getAttribute("cartService")).isEmpty()) && 
 					((CartService)request.getSession().getAttribute("cartService")).getUsername().equals("")){
+				//se ci registriamo da pagina di acquisto ordine
 				CartService cs = (CartService)request.getSession().getAttribute("cartService");
 				cs.setUsername(username);
 				request.getSession().setAttribute("cartService", cs);

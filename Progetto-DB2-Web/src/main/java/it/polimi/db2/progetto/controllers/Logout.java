@@ -23,7 +23,7 @@ public class Logout extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession(false);
-		if (session != null) {
+		if (session != null) {  //invalida la sessione
 			CartService cs = (CartService) session.getAttribute("cartService");
 			if (cs != null) cs.remove();
 			session.invalidate();

@@ -45,7 +45,7 @@
 									</td><td>
 										Number of included Gigabytes: <span th:text="${fi.getNumGigaFI()}"></span><br>
 										Fee for extra Gigabytes: <span th:text="${#numbers.formatDecimal(
-												fi.getExtraGigaFeeFI(), 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+												fi.getExtraGigaFeeFI(), 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 									</td></tr></table>
 								</td>
 							</tr>
@@ -63,9 +63,9 @@
 										Number of minutes: <span th:text="${mp.getNumMin()}"></span><br>
 										Number of SMSs: <span th:text="${mp.getNumSms()}"></span><br>
 										Fee for extra minutes: <span th:text="${#numbers.formatDecimal(
-											mp.getMinFee(), 0, 'COMMA', 2, 'POINT')}"></span>&euro;<br>
+											mp.getMinFee(), 1, 'COMMA', 2, 'POINT')}"></span>&euro;<br>
 										Fee for extra SMSs: <span th:text="${#numbers.formatDecimal(
-											mp.getSmsFee(), 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+											mp.getSmsFee(), 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 									</td></tr></table>
 								</td>
 							</tr>
@@ -82,7 +82,7 @@
 									</td><td>
 										Number of included Gigabytes: <span th:text="${mi.getNumGigaMI()}"></span><br>
 										Fee for extra Gigabytes: <span th:text="${#numbers.formatDecimal(
-												mi.getExtraGigaFeeMI(), 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+												mi.getExtraGigaFeeMI(), 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 									</td></tr></table>
 								</td>
 							</tr>
@@ -97,7 +97,7 @@
 										</td><td>
 											<span th:text="${op.getNameOP()}"></span><br>
 											Monthly fee: <span th:text="${#numbers.formatDecimal(
-												op.getMonthlyFeeOP(), 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+												op.getMonthlyFeeOP(), 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 										</td></tr></table>
 									</td>
 								</tr>

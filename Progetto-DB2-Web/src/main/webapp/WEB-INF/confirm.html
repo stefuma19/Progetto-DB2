@@ -55,7 +55,7 @@
 							<ul>
 								<li>Number of included Gigabytes: <span th:text="${session.cartService.getSP().getFixedInternet().getNumGigaFI()}"></span></li>
 								<li>Fee for extra Gigabytes: <span th:text="${#numbers.formatDecimal(
-												session.cartService.getSP().getFixedInternet().getExtraGigaFeeFI(), 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+												session.cartService.getSP().getFixedInternet().getExtraGigaFeeFI(), 1, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
 							</ul>
 						</li></ul>
 					</div>
@@ -65,9 +65,9 @@
 								<li>Number of minutes: <span th:text="${session.cartService.getSP().getMobilePhone().getNumMin()}"></span></li>
 								<li>Number of SMSs: <span th:text="${session.cartService.getSP().getMobilePhone().getNumSms()}"></span></li>
 								<li>Fee for extra minutes: <span th:text="${#numbers.formatDecimal(
-												session.cartService.getSP().getMobilePhone().getMinFee(), 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+												session.cartService.getSP().getMobilePhone().getMinFee(), 1, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
 								<li>Fee for extra SMSs: <span th:text="${#numbers.formatDecimal(
-												session.cartService.getSP().getMobilePhone().getSmsFee(), 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+												session.cartService.getSP().getMobilePhone().getSmsFee(), 1, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
 							</ul>
 						</li></ul>
 					</div>
@@ -76,7 +76,7 @@
 							<ul>
 								<li>Number of included Gigabytes: <span th:text="${session.cartService.getSP().getMobileInternet().getExtraGigaFeeMI()}"></span></li>
 								<li>Fee for extra Gigabytes: <span th:text="${#numbers.formatDecimal(
-												session.cartService.getSP().getMobileInternet().getExtraGigaFeeMI(), 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+												session.cartService.getSP().getMobileInternet().getExtraGigaFeeMI(), 1, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
 							</ul></li>
 						</ul>
 					</div>
@@ -91,7 +91,7 @@
 							<li><span th:text="${op.getNameOP()}"></span>
 							<ul>
 								<li>Monthly fee: <span th:text="${#numbers.formatDecimal(
-											op.getMonthlyFeeOP(), 0, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
+											op.getMonthlyFeeOP(), 1, 'COMMA', 2, 'POINT')}"></span>&euro;</li>
 							</ul></li>
 						</ul>
 				</div>
@@ -99,11 +99,11 @@
 			<td style="text-align: center; vertical-align: middle; width: 20%">
 				Number of months: <span th:text="${session.cartService.getVP().getNumMonth()}"></span><br>
 				Monthly fee: <span th:text="${#numbers.formatDecimal(
-								session.cartService.getVP().getMonthlyFee(), 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+								session.cartService.getVP().getMonthlyFee(), 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
 			<td style="text-align: center; vertical-align: middle; width: 10%">
 				<span th:text="${#numbers.formatDecimal(
-					session.cartService.getTp(), 0, 'COMMA', 2, 'POINT')}"></span>&euro;
+					session.cartService.getTp(), 1, 'COMMA', 2, 'POINT')}"></span>&euro;
 			</td>
 			<td style="text-align: center; vertical-align: middle; width: 10%">
 				<span th:text="${session.cartService.getSd()}"></span>

@@ -54,7 +54,7 @@
 						<td style="text-align: center; vertical-align: middle; height:50px;">
 							<span th:text="${ord.getServicePackage().getName()}"></span></td>
 						<td style="text-align: center; vertical-align: middle;">
-							<span th:text="${#numbers.formatDecimal(ord.getTotValue(), 0, 'COMMA', 2, 'POINT')}"></span>&euro;</td>
+							<span th:text="${#numbers.formatDecimal(ord.getTotValue(), 1, 'COMMA', 2, 'POINT')}"></span>&euro;</td>
 						<td style="text-align: center; vertical-align: middle;">
 							<span th:text="${#dates.format(ord.getCreationDate(), 'yyyy-MM-dd HH:mm')}"></span></td>
 						<td style="text-align: center; vertical-align: middle;">

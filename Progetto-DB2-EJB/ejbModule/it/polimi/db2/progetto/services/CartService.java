@@ -20,10 +20,10 @@ public class CartService { //per memorizzare l'ordine dell'utente
 	private EntityManager em;
 	
 	private String username = "";
-	private ServicePackage sp;
-	private ValidityPeriod vp;
+	private int idSP;
+	private int idVP;
 	private float tp = 0.0f;
-	private List<OptionalProduct> ops = new ArrayList<>();
+	private List<Integer> idOPs = new ArrayList<>();
 	private String sd = "";
 	private boolean isEmpty = true;
 
@@ -39,19 +39,19 @@ public class CartService { //per memorizzare l'ordine dell'utente
 	}
 	
 	public ServicePackage getSP() {
-		return sp;
+		return em.find(ServicePackage.class, idSP);
 	}
 
 	public void setSP(int idSP) {
-		this.sp = em.find(ServicePackage.class, idSP);
+		this.idSP = idSP;
 	}
 
 	public ValidityPeriod getVP() {
-		return vp;
+		return em.find(ValidityPeriod.class, idVP);
 	}
 
 	public void setVP(int idVP) {
-		this.vp = em.find(ValidityPeriod.class, idVP);
+		this.idVP = idVP;
 	}
 
 	public float getTp() {
@@ -63,13 +63,15 @@ public class CartService { //per memorizzare l'ordine dell'utente
 	}
 
 	public List<OptionalProduct> getOPs() {
+		List<OptionalProduct> ops = new ArrayList<>();
+		for(Integer idOP : idOPs) {
+			ops.add(em.find(OptionalProduct.class, idOP));
+		}
 		return ops;
 	}
 
 	public void setOPs(List<Integer> idOPs) {
-		for(Integer idOP : idOPs) {
-			ops.add(em.find(OptionalProduct.class, idOP));
-		}
+		this.idOPs = idOPs;
 	}
 
 	public String getSd() {

@@ -59,6 +59,7 @@ public class GoToHomePage extends HttpServlet {
 		}
 		cs.setEmpty(true);
 		request.getSession().setAttribute("cartService", cs);
+		request.getSession().setAttribute("orderId", null);
 		
 		List<ServicePackage> servicePackages = spService.findAllServicePackages();
 		List<Order> invalidOrders = orderService.getInvalidOrders(cs.getUsername());

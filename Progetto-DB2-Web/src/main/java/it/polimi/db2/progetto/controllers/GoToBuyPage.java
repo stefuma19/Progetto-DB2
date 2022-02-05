@@ -60,6 +60,7 @@ public class GoToBuyPage extends HttpServlet {
 		}
 		cs.setEmpty(true);
 		request.getSession().setAttribute("cartService", cs);
+		request.getSession().setAttribute("orderId", null);
 
 		List<ServicePackage> servicePackages = spService.findAllServicePackages();
 		List<ValidityPeriod> validityPeriods = vpService.findAllValidityPeriods();
